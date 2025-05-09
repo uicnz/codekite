@@ -9,17 +9,17 @@ This directory contains example scripts that demonstrate the capabilities of the
 - **example_kit_capabilities.py**: Demonstrates the five core capabilities of Kit: code structure analysis, intelligent search, context extraction, LLM integration, and dependency analysis.
 
   ```sh
-  python examples/example_kit_capabilities.py
+  uv run examples/example_kit_capabilities.py
   ```
 
 - **example_repo_mapping.py**: Generates a complete JSON map of a repository's structure and symbols, useful for further analysis or visualization.
 
   ```sh
   # For local repository
-  python examples/example_repo_mapping.py .
+  uv run examples/example_repo_mapping.py .
 
   # For remote GitHub repository
-  python examples/example_repo_mapping.py https://github.com/username/repo
+  uv run examples/example_repo_mapping.py https://github.com/username/repo
   ```
 
 ### Search Examples
@@ -27,7 +27,7 @@ This directory contains example scripts that demonstrate the capabilities of the
 - **example_semantic_search.py**: Demonstrates semantic code search using embeddings to find code based on natural language queries.
 
   ```sh
-  python examples/example_semantic_search.py "your search query"
+  uv run  examples/example_semantic_search.py --repo . --query "extract\_symbols"
   ```
 
 ### LLM Integration Examples
@@ -37,7 +37,7 @@ This directory contains example scripts that demonstrate the capabilities of the
   ```sh
   # Requires an OpenAI API key
   export OPENAI_API_KEY='your-api-key'
-  python examples/example_llm_summarization.py
+  uv run examples/example_llm_summarization.py
   ```
 
 ### Remote Repository Examples
@@ -45,7 +45,8 @@ This directory contains example scripts that demonstrate the capabilities of the
 - **example_remote_repo.py**: Tests Kit's ability to clone and analyze remote GitHub repositories, demonstrating its remote capabilities.
 
   ```sh
-  python examples/example_remote_repo.py https://github.com/username/repo
+  uv run examples/example_remote_repo.py https://github.com/shanholloman/codemapper
+  uv run examples/example_remote_repo.py .
   ```
 
 ## Usage Notes

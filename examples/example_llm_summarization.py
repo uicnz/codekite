@@ -110,5 +110,7 @@ def test_summarization(repo_path):
         traceback.print_exc()
 
 if __name__ == "__main__":
-    repo_path = os.path.dirname(os.path.abspath(__file__))
+    # Use the parent directory of examples as the repository path
+    # since that's where the actual project files are located
+    repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     test_summarization(repo_path)

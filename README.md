@@ -10,16 +10,15 @@ Use `kit` to build things like code reviewers, code generators, even IDEs, all e
 
 ```bash
 # Installation (includes all features)
-pip install cased-kit
+pip install codekit
 ```
 
 ### Install from Source
 
 ```bash
-git clone https://github.com/cased/kit.git
+git clone https://github.com/shaneholloman/codekit.git
 cd kit
-uv venv .venv
-source .venv/bin/activate
+uv sync
 uv pip install -e .
 ```
 

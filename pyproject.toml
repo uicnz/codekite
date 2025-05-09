@@ -1,5 +1,5 @@
 [project]
-name = "cased-kit"
+name = "codekit"
 version = "0.1.2"
 description = "A modular toolkit for LLM-powered codebase understanding."
 authors = [

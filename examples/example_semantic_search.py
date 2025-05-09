@@ -7,9 +7,10 @@ based on natural language queries or code snippets.
 from kit import Repository
 import argparse
 import json
+import os
 import sys
 
-def semantic_search(repo_path: str, query: str, limit: int = 10) -> list:
+def semantic_search(repo_path: str, query: str, limit: int = 10, embed_fn=None) -> list:
     """
     Perform semantic search on repository code.
 
@@ -17,6 +18,7 @@ def semantic_search(repo_path: str, query: str, limit: int = 10) -> list:
         repo_path: Path to the repository to search
         query: Natural language query or code snippet
         limit: Maximum number of results to return
+        embed_fn: Optional embedding function for semantic search
 
     Returns:
         List of search results with file, relevance score, and code context
@@ -24,18 +26,46 @@ def semantic_search(repo_path: str, query: str, limit: int = 10) -> list:
     print(f"Initializing repository at {repo_path}...")
     repo = Repository(repo_path)
 
-    print(f"Performing semantic search for: \"{query}\"")
+    # Get a list of source files to focus on
+    file_tree = repo.get_file_tree()
+    source_files = [f for f in file_tree if not f.get("is_dir", False) and
+                   f["path"].endswith((".py", ".md", ".js", ".ts", ".java", ".c", ".cpp", ".h", ".go", ".rs", ".sql"))]
+
+    print(f"Found {len(source_files)} source files for analysis")
+    print(f"Performing search for: \"{query}\"")
+    # Define a file filter function to exclude certain files
+    def should_include_file(file_path):
+        # If path is None, can't check it
+        if not file_path:
+            return True
+
+        # Skip directories we're definitely not interested in
+        excluded_dirs = [".git/", ".github/", "__pycache__/", "node_modules/"]
+        for excluded_dir in excluded_dirs:
+            if excluded_dir in file_path:
+                return False
+
+        # Lower priority for repo_map.json but don't exclude entirely
+        # (only exclude it if we find enough other results)
+        return True
+
     # Use the built-in semantic search capability of Kit
     try:
         # Try different parameter options (API might have changed)
         try:
-            results = repo.search_semantic(query)
+            if embed_fn:
+                results = repo.search_semantic(query, embed_fn=embed_fn)
+            else:
+                results = repo.search_semantic(query)
         except TypeError:
             try:
                 # Try with different parameter name
-                results = repo.search_semantic(query=query)
+                if embed_fn:
+                    results = repo.search_semantic(query=query, embed_fn=embed_fn)
+                else:
+                    results = repo.search_semantic(query=query)
             except Exception:
-                # Try with no parameters (just use default behavior)
+                # If everything else fails, use default behavior
                 results = repo.search_semantic()
 
         # Limit results manually
@@ -45,6 +75,10 @@ def semantic_search(repo_path: str, query: str, limit: int = 10) -> list:
         enhanced_results = []
         for result in results:
             file_path = result.get("file")
+
+            # Skip excluded files
+            if file_path and not should_include_file(file_path):
+                continue
 
             # Get full context for search results
             if "symbol" in result:
@@ -79,6 +113,11 @@ def semantic_search(repo_path: str, query: str, limit: int = 10) -> list:
                 enhanced_results = []
                 for result in text_results[:limit]:
                     file_path = result.get("file")
+
+                    # Skip excluded files
+                    if file_path and not should_include_file(file_path):
+                        continue
+
                     context = []
 
                     if "context_before" in result:
@@ -102,12 +141,17 @@ def semantic_search(repo_path: str, query: str, limit: int = 10) -> list:
         # Last resort - manual search
         results = []
 
-        # Get all Python files
+        # Filter to only source code files
         for file in repo.get_file_tree():
-            if file.get("is_dir", False) or not file["path"].endswith((".py", ".md")):
+            # Skip directories and non-source files
+            if file.get("is_dir", False) or not file["path"].endswith((".py", ".md", ".js", ".ts", ".java", ".c", ".cpp", ".h", ".go", ".rs", ".sql")):
                 continue
 
             file_path = file["path"]
+
+            # Skip excluded files
+            if not should_include_file(file_path):
+                continue
             try:
                 content = repo.get_file_content(file_path)
 
@@ -192,5 +236,148 @@ def main() -> None:
             json.dump(results, f, indent=2)
         print(f"\nResults also saved to {args.output}")
 
+def format_output(title, content):
+    """Helper function to format search output in a more readable way"""
+    print(f"\n{'=' * 80}")
+    print(f"=== {title} ===")
+    print(f"{'=' * 80}")
+
+    if isinstance(content, list):
+        for i, item in enumerate(content[:5], 1):
+            print(f"\n[Result {i}]")
+            if isinstance(item, dict):
+                for key, value in item.items():
+                    if key == "code":
+                        print(f"\n{key.capitalize()}:")
+                        print("```")
+                        print(value)
+                        print("```")
+                    else:
+                        print(f"{key.capitalize()}: {value}")
+            else:
+                print(item)
+
+        if len(content) > 5:
+            print(f"\n... and {len(content) - 5} more results")
+    else:
+        print(content)
+
+def setup_openai_embed_fn():
+    """Try to set up an OpenAI embedding function if the API key is available"""
+    try:
+        import openai
+        from openai import OpenAI
+
+        # Check if API key is available in environment
+        api_key = os.environ.get("OPENAI_API_KEY")
+        if not api_key:
+            return None
+
+        # Create OpenAI client
+        client = OpenAI()
+
+        # Define embedding function
+        def embed_fn(text):
+            try:
+                response = client.embeddings.create(
+                    input=text,
+                    model="text-embedding-ada-002"
+                )
+                return response.data[0].embedding
+            except Exception as e:
+                print(f"Error generating embeddings: {e}")
+                return None
+
+        return embed_fn
+    except ImportError:
+        return None
+
+def direct_repo_map_search(repo_path, search_term):
+    """
+    Directly search in repo_map.json as a fallback since we know it exists
+    and contains code samples
+    """
+    try:
+        repo_map_path = os.path.join(repo_path, "repo_map.json")
+        if os.path.exists(repo_map_path):
+            print(f"Searching directly in repo_map.json for '{search_term}'...")
+            with open(repo_map_path, 'r') as f:
+                content = f.read()
+
+            if search_term.lower() in content.lower():
+                print(f"Found match for '{search_term}' in repo_map.json!")
+
+                # Find some context around the match
+                lines = content.split('\n')
+                results = []
+                for i, line in enumerate(lines):
+                    if search_term.lower() in line.lower():
+                        # Get 5 lines of context (or fewer if we hit the boundaries)
+                        context_start = max(0, i-2)
+                        context_end = min(len(lines), i+3)
+                        context = '\n'.join(lines[context_start:context_end])
+
+                        results.append({
+                            "file": "repo_map.json",
+                            "line_number": i+1,
+                            "code": context,
+                            "score": 0.8,  # Arbitrary score
+                        })
+
+                        # Limit to 5 matches
+                        if len(results) >= 5:
+                            break
+
+                return results
+    except Exception as e:
+        print(f"Error searching repo_map.json directly: {e}")
+    return []
+
 if __name__ == "__main__":
-    main()
+    # If no arguments are provided through command line, use a default example
+    if len(sys.argv) == 1:
+        # Use parent directory to access the full codekit project
+        repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        print(f"No arguments provided, using default repository path: {repo_path}")
+
+        # Try to set up OpenAI embedding function if available
+        embed_fn = setup_openai_embed_fn()
+        if embed_fn:
+            print("OpenAI API key found, using semantic search capabilities")
+        else:
+            print("OpenAI API key not found, will fall back to keyword search")
+
+        # Try a few different search terms that should exist in the repository
+        search_terms = ["extract_symbols", "repository", "search", "code"]
+
+        # Try each search term until we find one that works
+        results = None
+        for term in search_terms:
+            print(f"Running search for '{term}'...")
+
+            # Try normal semantic search first
+            term_results = semantic_search(repo_path, term, 10, embed_fn)
+
+            # If that fails, try direct repo_map.json search as a fallback
+            if not term_results:
+                term_results = direct_repo_map_search(repo_path, term)
+
+            if term_results:
+                search_term = term
+                results = term_results
+                break
+
+        if not results:
+            print("No matches found for your query.")
+            sys.exit(0)
+
+        # Use the nicer formatting function
+        format_output(f"Search Results for '{search_term}'", results)
+
+        # Additional information about improving results
+        print("\nTo use true semantic search capabilities:")
+        print("1. Install the OpenAI package: uv pip install openai")
+        print("2. Set your OpenAI API key: export OPENAI_API_KEY='your-api-key'")
+        print("3. Run the script again")
+    else:
+        main()

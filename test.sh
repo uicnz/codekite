@@ -2,8 +2,8 @@
 # test.sh: Run all tests in the correct environment
 set -e
 
-# Ensure environment is set up
-source "$HOME"/.venv/bin/activate 2>/dev/null || true
+# Set Python path to the local src directory
+export PYTHONPATH=src
 export KIT_TREE_SITTER_LIB="build/my-languages.so"
 
 # Run tests with uv if available, else fallback to python

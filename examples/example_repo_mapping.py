@@ -84,7 +84,8 @@ if __name__ == "__main__":
         repo_path_or_url = sys.argv[1]
     else:
         # Use the kit repo itself as default
-        repo_path_or_url = os.path.dirname(os.path.abspath(__file__))
+        # Use parent directory to access the full codekit project
+        repo_path_or_url = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     # Map the repository
     repo_map = map_repository(repo_path_or_url)
