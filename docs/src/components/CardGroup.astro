@@ -1,5 +1,5 @@
 ---
-// CardGroup.astro – grid container for Card components.
+// CardGroup.astro - grid container for Card components.
 export interface Props { cols?: number }
 const { cols = 2 } = Astro.props;
 const grid = `repeat(${cols}, minmax(0, 1fr))`;

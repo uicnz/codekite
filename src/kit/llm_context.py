@@ -1,6 +1,6 @@
 """Utilities to assemble rich prompts for LLMs.
 
-This is intentionally lightweight – it glues together repository data
+This is intentionally lightweight - it glues together repository data
 (diff, file bodies, search hits, etc.) into a single string that can be
 fed straight into a chat completion.
 """
@@ -42,7 +42,7 @@ class ContextAssembler:
     def add_file(self, file_path: str, *, highlight_changes: bool = False) -> None:
         """Embed full file content.
 
-        If *highlight_changes* is true we still just inline raw content –
+        If *highlight_changes* is true we still just inline raw content -
         markup is left to the caller/LLM.
         """
         try:

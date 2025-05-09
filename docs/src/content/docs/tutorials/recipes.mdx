@@ -26,11 +26,11 @@ for u in usages:
     lines[line] = lines[line].replace("old_name", "new_name")
     edits[path] = "\n".join(lines) + "\n"
 
-# Apply edits – prompt the user first!
+# Apply edits - prompt the user first!
 for rel_path, new_src in edits.items():
     Path(repo.repo_path, rel_path).write_text(new_src)
 
-repo.mapper.scan_repo()  # refresh symbols if you’ll run more queries
+repo.mapper.scan_repo()  # refresh symbols if you'll run more queries
 ```
 
 ---

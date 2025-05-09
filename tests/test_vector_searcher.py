@@ -190,7 +190,7 @@ def is_sentence_transformer_unavailable() -> bool:  # helper for skipif
     except ImportError as err:
         print(f"DEBUG: SentenceTransformer ImportError → skipping test: {err}")
         return True
-    except Exception as err:  # pragma: no cover – other unexpected issues
+    except Exception as err:  # pragma: no cover - other unexpected issues
         print(f"DEBUG: Unexpected error during SentenceTransformer check → skipping: {err}")
         return True
 

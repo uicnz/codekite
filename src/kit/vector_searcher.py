@@ -24,7 +24,7 @@ class VectorDBBackend:
     def persist(self):
         pass
 
-    def delete(self, ids: List[str]):  # noqa: D401 – simple interface, no return
+    def delete(self, ids: List[str]):  # noqa: D401 - simple interface, no return
         """Remove vectors by their IDs. Backends that don't support fine-grained deletes may no-op."""
         raise NotImplementedError
 

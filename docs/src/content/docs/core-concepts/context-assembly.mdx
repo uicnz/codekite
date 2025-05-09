@@ -2,15 +2,15 @@
 title: Assembling Context
 ---
 
-When you send code to an LLM you usually **don’t** want the entire repository –
+When you send code to an LLM you usually **don't** want the entire repository -
 just the *most relevant* bits.  `ContextAssembler` helps you stitch those bits
 together into a single prompt-sized string.
 
 ## Why you need it
 
-* **Token limits** – GPT-4o tops out at ~128k tokens; some models less.
-* **Signal-to-noise** – Cut boilerplate, focus the model on what matters.
-* **Automatic truncation** – Keeps prompts within your chosen character budget.
+* **Token limits** - GPT-4o tops out at ~128k tokens; some models less.
+* **Signal-to-noise** - Cut boilerplate, focus the model on what matters.
+* **Automatic truncation** - Keeps prompts within your chosen character budget.
 
 ## Quick start
 
@@ -28,7 +28,7 @@ context = assembler.from_chunks(chunks)
 print(context)  # → Ready to drop into your chat prompt
 ```
 
-`chunks` can be any list of dicts that include a `code` key – the helper trims
+`chunks` can be any list of dicts that include a `code` key - the helper trims
 and orders them by length until the budget is filled.
 
 ### Fine-tuning
@@ -55,9 +55,9 @@ assembler = ContextAssembler(
    prompt = assembler.from_chunks(chunks)
    response = my_llm.chat(prompt + "\n\nQ: …")
    ```
-2. **Docstring search first** – Use `SummarySearcher` for high-level matches,
+2. **Docstring search first** - Use `SummarySearcher` for high-level matches,
    then pull full code for those files via `repo.context`.
-3. **Diff review bots** – Feed only the changed lines + surrounding context.
+3. **Diff review bots** - Feed only the changed lines + surrounding context.
 
 ## API reference
 
