@@ -1,0 +1,121 @@
+# CodeKit Operational Standards
+
+## Code Style Requirements
+
+### Status Indicators
+
+- **REQUIRED**: Use text-based status indicators instead of emojis
+- Use `[PASS]` and `[FAIL]` instead of checkmarks/X marks
+- Status indicators should be accompanied by appropriate color coding when possible
+- Example: `console.log(chalk.green('[PASS] Test completed successfully'));`
+
+### Emoji Usage Policy
+
+- **STRICT PROHIBITION**: No emojis are allowed anywhere in the project
+- This includes:
+  - Source code (Python, JavaScript, etc.)
+  - Documentation (Markdown, comments)
+  - Test output/reporting
+  - GitHub workflows
+  - Log messages
+  - READMEs or any other project files
+
+### Python Coding Standards
+
+- All code must have type annotations
+- Follow PEP 8 style guidelines
+- Use uv native ONLY for Python package management
+- Use descriptive variable and function names
+- Docstrings required for all public functions, classes, and methods
+- Maximum line length of 100 characters
+
+## Documentation Standards
+
+### Markdown Formatting
+
+- Follow strict markdown linting rules
+- **REQUIRED**: Single blank line between sections
+- **REQUIRED**: Blank line after every heading
+- Proper spacing around headings and lists
+- No multiple consecutive blank lines
+- No trailing spaces
+- Language specifications for code blocks
+- Consistent header hierarchy (# → ## → ### → ####)
+
+### File Naming Conventions
+
+- Use descriptive, hyphenated names for documentation files
+- Follow established patterns for consistency
+- Use lowercase for all filenames
+- Examples: `code-summarization.md`, `repository-api.md`
+
+### Documentation Organization
+
+- Maintain clear separation between:
+  - API documentation
+  - Tutorials
+  - Core concepts
+  - Development guidelines
+
+## Shell Script Requirements
+
+- **STRICT REQUIREMENT**: All shell scripts must pass shellcheck validation with no errors or warnings
+- Validation command: `shellcheck -x script.sh`
+- No exceptions or disabled shellcheck rules without explicit justification
+- Always use proper quoting, variable handling, and error checking
+- Scripts should include proper shebang lines and file permissions
+- Use modern shell scripting practices as recommended by shellcheck
+
+## Schema Implementation Standards
+
+### Unified Schema Architecture
+
+- Combine validation-first approach with relationship-focused documentation
+- Maintain clear separation between metadata, content, and relationships
+- Support evolution through planned stages:
+  1. File-based validation
+  2. Database mapping
+  3. Agent framework integration
+
+### Memory Bank Management
+
+- Memory Bank files are considered global resources spanning across all branches
+- Updates to Memory Bank files must follow specific procedures
+- Follow the documented Memory Bank update workflow
+
+## Repository Management
+
+### Branching Strategy
+
+- Feature branches for all new development
+- Pull requests required for merging into main
+- Memory Bank files must be consistent across all branches
+
+### Commit Messages
+
+- Use conventional commit format: `type(scope): message`
+- Types: feat, fix, docs, style, refactor, test, chore
+- Use `docs:` prefix for Memory Bank updates
+- Be descriptive and concise
+
+## Testing Standards
+
+- Unit tests required for all functionality
+- Integration tests for component interactions
+- Golden file tests for complex outputs
+- Test coverage should be maintained or improved
+- All tests must pass before merging
+
+## Performance Requirements
+
+- Optimize for large repository processing
+- Consider memory usage in implementation decisions
+- Document performance characteristics for components
+- Include benchmarks for critical operations
+
+## Error Handling
+
+- Use specific exception types for different failure modes
+- Provide clear error messages
+- Log appropriate diagnostic information
+- Graceful degradation when specific features fail
