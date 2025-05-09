@@ -1,5 +1,7 @@
 # CodeKite Code Intelligence Toolkit
 
+[![CI](https://github.com/shaneholloman/codekite/actions/workflows/ci.yml/badge.svg)](https://github.com/shaneholloman/codekite/actions/workflows/ci.yml)
+
 `codekite` is a modular, production-grade Python toolkit for codebase mapping, symbol extraction, code search, and building LLM-powered developer tools, agents, and workflows.
 
 Use `codekite` to build things like code reviewers, code generators, even IDEs, all enriched with the right code context.
