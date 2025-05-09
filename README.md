@@ -1,18 +1,39 @@
-# CodeKite Code Intelligence Toolkit
+# CodeKite Code Intelligence Tools
 
 [![CI](https://github.com/shaneholloman/codekite/actions/workflows/ci.yml/badge.svg)](https://github.com/shaneholloman/codekite/actions/workflows/ci.yml)
 
-`codekite` is a modular, production-grade Python toolkit for codebase mapping, symbol extraction, code search, and building LLM-powered developer tools, agents, and workflows.
+`codekite` is a Python toolset for codebase mapping, symbol extraction, code search, and context generation for LLMs. It provides a structured API for analyzing codebases and generating appropriate context for various development tasks.
 
-Use `codekite` to build things like code reviewers, code generators, even IDEs, all enriched with the right code context.
+## Architecture
 
-## Quick Installation
+```mermaid
+graph TD
+    A[Repository] --> B[RepoMapper]
+    A --> C[CodeSearcher]
+    A --> D[ContextExtractor]
+    A --> E[VectorSearcher]
+    A --> F[Summarizer]
+    B --> G[TreeSitterSymbolExtractor]
+    F --> H[OpenAI/Anthropic/Google APIs]
+    A --> I[DependencyAnalyzer]
+    A --> J[DocstringIndexer]
+    J --> K[SummarySearcher]
+    A --> L[ContextAssembler]
+```
+
+## Installation
 
 ### Install from PyPI
 
 ```sh
-# Installation (includes all features)
+# Basic installation
 uv tool install codekite
+
+# With OpenAI support
+uv tool install codekite[openai]
+
+# With all features
+uv tool install codekite[all]
 ```
 
 ### Install from Source
@@ -32,42 +53,134 @@ from codekite import Repository
 # Load a local repository
 repo = Repository("/path/to/your/local/codebase")
 
-# Load a remote public GitHub repo
+# Or load a remote GitHub repo
 # repo = Repository("https://github.com/owner/repo")
 
-# Explore the repo
-print(repo.get_file_tree())
+# Get file structure
+file_tree = repo.get_file_tree()
 # Output: [{"path": "src/main.py", "is_dir": False, ...}, ...]
 
-print(repo.extract_symbols('src/main.py'))
+# Extract symbols from a file
+symbols = repo.extract_symbols('src/main.py')
 # Output: [{"name": "main", "type": "function", "file": "src/main.py", ...}, ...]
 ```
 
-## Key Features & Capabilities
+## Core Components
 
-`codekite` helps your apps and agents deeply understand and interact with codebases, providing the core components to build your own AI-powered developer tools. Here are just a few of the things you can do:
+CodeKite consists of several modular components:
 
-- **Explore Code Structure:**
+1. **Repository** - Main interface for accessing codebases
+2. **RepoMapper** - Maps repository structure and extracts symbols
+3. **TreeSitterSymbolExtractor** - Language-aware symbol extraction using tree-sitter
+4. **CodeSearcher** - Text and regex search across files
+5. **ContextExtractor** - Extracts context around specific lines or symbols
+6. **VectorSearcher** - Semantic search capabilities using vector embeddings
+7. **DocstringIndexer** - Builds a searchable index of code summaries
+8. **Summarizer** - Generates natural language summaries using LLMs
+9. **DependencyAnalyzer** - Analyzes module dependencies and relationships
+10. **ContextAssembler** - Formats code context for LLM prompts
 
-  - Get a bird's-eye view with `repo.get_file_tree()` to list all files and directories.
-  - Dive into specifics with `repo.extract_symbols()` to identify all functions, classes, and other code constructs, either across the entire repository or within a single file.
+## Features
 
-- **Pinpoint Information:**
+### Code Structure Analysis
 
-  - Perform precise textual or regular expression searches across your codebase using `repo.search_text()`.
-  - Track down every definition and reference of a specific symbol (like a function or class) with `repo.find_symbol_usages()`.
+```python
+# Get file tree
+files = repo.get_file_tree()
 
-- **Prepare Code for LLMs & Analysis:**
+# Extract symbols from all Python files
+python_files = [f["path"] for f in files if f["path"].endswith(".py")]
+for file in python_files:
+    symbols = repo.extract_symbols(file)
+```
 
-  - Break down large files into manageable pieces for LLM context windows using `repo.chunk_file_by_lines()` or `repo.chunk_file_by_symbols()`.
-  - Instantly grab the full definition of a function or class just by knowing a line number within it using `repo.extract_context_around_line()`.
+### Code Search
 
-- **Generate Code Summaries (Alpha):**
+```python
+# Text search
+results = repo.search_text("function_name", file_pattern="*.py")
 
-  - Leverage LLMs to create natural language summaries for files, functions, or classes using the `Summarizer` (e.g., `summarizer.summarize_file()`, `summarizer.summarize_function()`).
-  - Build a searchable semantic index of these AI-generated docstrings with `DocstringIndexer` and query it with `SummarySearcher` to find code based on intent and meaning.
+# Semantic search (requires embedding function)
+from sentence_transformers import SentenceTransformer
+model = SentenceTransformer("all-MiniLM-L6-v2")
+embed_fn = lambda text: model.encode(text).tolist()
 
-- **And much more...** `codekite` also offers capabilities for semantic search on raw code, building custom context for LLMs, and more.
+vector_searcher = repo.get_vector_searcher(embed_fn=embed_fn)
+results = repo.search_semantic("function that handles user authentication", top_k=5)
+```
+
+### Context Extraction
+
+```python
+# Chunk file by lines
+chunks = repo.chunk_file_by_lines("src/main.py", max_lines=50)
+
+# Chunk file by symbols (functions, classes)
+symbol_chunks = repo.chunk_file_by_symbols("src/main.py")
+
+# Extract context around line
+context = repo.extract_context_around_line("src/main.py", line=42)
+```
+
+### LLM-Powered Summarization
+
+```python
+# Configure OpenAI for summarization
+from codekite.summaries import OpenAIConfig
+openai_config = OpenAIConfig(api_key="YOUR_API_KEY", model="gpt-4o")
+
+# Initialize summarizer
+summarizer = repo.get_summarizer(config=openai_config)
+
+# Summarize file
+file_summary = summarizer.summarize_file("src/main.py")
+
+# Summarize specific function
+function_summary = summarizer.summarize_function("src/main.py", "process_data")
+```
+
+### Dependency Analysis
+
+```python
+# Get dependency analyzer
+analyzer = repo.get_dependency_analyzer()
+
+# Build dependency graph
+graph = analyzer.build_dependency_graph()
+
+# Find cycles
+cycles = analyzer.find_cycles()
+
+# Visualize dependencies
+analyzer.visualize_dependencies("dependencies.png", format="png")
+```
+
+### CLI Usage
+
+CodeKite includes a command-line interface:
+
+```sh
+# Show version
+codekite version
+
+# Perform text search
+codekite search /path/to/repo "search_query" --pattern "*.py"
+
+# Start API server
+codekite serve --port 8000
+```
+
+## Supported Languages
+
+- Python
+- JavaScript
+- TypeScript
+- Go
+- Rust
+- HCL/Terraform
+- C
+- Ruby
+- Java
 
 ## License
 
