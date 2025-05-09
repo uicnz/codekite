@@ -7,10 +7,17 @@ bodyClass: kit-homepage
 
 import Card from "../../components/Card.astro";
 import CardGroup from "../../components/CardGroup.astro";
+import { Image } from "astro:assets";
 
 <div class="hero-container">
-  <div class="hero-image">
-    <img src="/kit.png" alt="Kit Toolkit Logo" />
+<div class="hero-image">
+    <Image
+      src="/kit.png"
+      alt="Kit Toolkit Logo"
+      width={600}
+      height={600}
+      loading="eager"
+    />
   </div>
   <div class="hero-text">
     Welcome to **kit** – the Python toolkit from [Shane Holloman](https://shaneholloman.dev) for building LLM-powered developer tools and workflows.
