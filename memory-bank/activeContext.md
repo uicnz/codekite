@@ -9,6 +9,8 @@ The current development focus is on establishing the core functionality of CodeK
 3. Docstring indexing capabilities
 4. Semantic search implementation
 5. Context assembly mechanism
+6. FastMCP integration and protocol support
+7. Unified API access via REST and MCP
 
 ## Recent Changes
 
@@ -33,11 +35,24 @@ The current development focus is on establishing the core functionality of CodeK
 - Added summarization capabilities for code understanding
 - Created utilities for assembling context suitable for LLMs
 
+### MCP Integration
+
+- Implemented standalone FastMCP server for CodeKit capabilities
+- Created MCP tools for repository operations, code search, and context building
+- Added MCP resources for accessing repository structure and metadata
+- Created testing utilities for validating MCP functionality
+- Fixed circular import issues by implementing lazy loading in module initialization
+- Validated complete MCP workflow from repository opening to context generation
+- Implemented proper function namespacing with `codekite_` prefix for all MCP tools
+- Updated resource URIs to use `codekite://` protocol scheme for proper namespacing
+- Added robust test client to verify all MCP functionality
+
 ## Active Decisions
 
 ### Performance vs. Accuracy Trade-offs
 
 Currently evaluating the balance between:
+
 - Detailed code analysis (higher accuracy, slower performance)
 - Simplified analysis (faster performance, potential accuracy loss)
 
@@ -46,6 +61,7 @@ Decision pending based on benchmarking results with various repository sizes.
 ### API Design Considerations
 
 Finalizing the public API design with considerations for:
+
 - Ease of use for common scenarios
 - Flexibility for advanced use cases
 - Consistency across different components
@@ -54,19 +70,31 @@ Finalizing the public API design with considerations for:
 ### Vector Database Selection
 
 Evaluating options for the vector database backend:
+
 - In-memory solutions for smaller repositories
 - Disk-based solutions for larger repositories
 - Potential for pluggable backends based on user needs
+
+### MCP Protocol Design (New)
+
+Determining optimal approach for FastMCP protocol implementation:
+
+- Tool vs. resource boundaries for different capabilities
+- Input parameter design for optimal client experience
+- Response format standards for consistent client handling
+- Error handling and reporting standards
 
 ## Next Steps
 
 ### Immediate Priorities
 
-1. Complete multilingual symbol extraction for all supported languages
-2. Optimize semantic search for improved relevance
-3. Enhance context assembly for more coherent results
-4. Increase test coverage, especially for edge cases
-5. Improve documentation with more examples
+1. ~~Fix FastMCP integration - current implementation has import issues despite dependency installed~~ (COMPLETED)
+2. Complete multilingual symbol extraction for all supported languages
+3. Optimize semantic search for improved relevance
+4. Enhance context assembly for more coherent results
+5. Increase test coverage, especially for edge cases
+6. Improve documentation with more examples
+7. Update client examples for FastMCP usage
 
 ### Short-term Goals
 
@@ -75,6 +103,7 @@ Evaluating options for the vector database backend:
 3. Improved summarization quality
 4. Documentation enhancements
 5. CLI improvements
+6. Extend FastMCP capabilities with additional tools and resources
 
 ### Longer-term Considerations
 
@@ -83,6 +112,7 @@ Evaluating options for the vector database backend:
 3. Developing visualization tools for code relationships
 4. Building integrations with popular development environments
 5. Creating higher-level abstractions for common use cases
+6. Building an ecosystem of MCP-based tools for code understanding
 
 ## Open Questions
 
@@ -91,6 +121,7 @@ Evaluating options for the vector database backend:
 3. How to best represent complex code relationships for AI consumption?
 4. Which additional languages should be prioritized for support?
 5. How to optimize memory usage for very large repositories?
+6. What additional MCP tools would be most valuable to clients?
 
 ## Current Blockers
 

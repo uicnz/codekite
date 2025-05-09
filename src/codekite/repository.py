@@ -371,3 +371,106 @@ class Repository:
             The absolute path as a string.
         """
         return str(self.local_path / relative_path)
+
+    def get_files(self) -> List[str]:
+        """
+        Get a list of all file paths in the repository.
+
+        Returns:
+            List[str]: List of file paths relative to the repository root.
+        """
+        files = []
+        for item in self.get_file_tree():
+            if item.get("type") == "file":
+                files.append(item.get("path", ""))
+        return files
+
+    def get_structure(self) -> Dict[str, Any]:
+        """
+        Get the repository structure including files, directories, and symbols.
+
+        Returns:
+            Dict[str, Any]: Repository structure information.
+        """
+        structure = self.index()
+        structure["path"] = self.repo_path
+        return structure
+
+    def get_language_stats(self) -> Dict[str, int]:
+        """
+        Get statistics about programming languages used in the repository.
+
+        Returns:
+            Dict[str, int]: A dictionary mapping language names to file counts.
+        """
+        extensions = {
+            ".py": "Python",
+            ".js": "JavaScript",
+            ".ts": "TypeScript",
+            ".tsx": "TypeScript React",
+            ".jsx": "JavaScript React",
+            ".java": "Java",
+            ".go": "Go",
+            ".rs": "Rust",
+            ".c": "C",
+            ".cpp": "C++",
+            ".h": "C/C++ Header",
+            ".rb": "Ruby",
+            ".tf": "Terraform",
+            ".md": "Markdown",
+            ".html": "HTML",
+            ".css": "CSS",
+            ".scss": "SCSS",
+            ".json": "JSON",
+            ".yml": "YAML",
+            ".yaml": "YAML",
+        }
+
+        stats = {}
+
+        for file_path in self.get_files():
+            _, ext = os.path.splitext(file_path)
+            lang = extensions.get(ext, "Other")
+            stats[lang] = stats.get(lang, 0) + 1
+
+        return stats
+
+    def get_last_updated_time(self) -> str:
+        """
+        Get the timestamp of the last update to the repository.
+
+        For git repositories, this is the timestamp of the most recent commit.
+        For non-git repositories, this is the most recent file modification time.
+
+        Returns:
+            str: Formatted timestamp of the last update.
+        """
+        # First try to get the timestamp from git if available
+        git_dir = self.local_path / ".git"
+        if git_dir.exists() and git_dir.is_dir():
+            try:
+                # Get the timestamp of the most recent commit
+                cmd = ["git", "log", "-1", "--format=%cd", "--date=iso"]
+                result = subprocess.run(
+                    cmd, cwd=self.repo_path, capture_output=True, text=True, check=False
+                )
+                if result.returncode == 0 and result.stdout.strip():
+                    return result.stdout.strip()
+            except Exception:
+                pass  # Fall back to file modification time
+
+        # Fall back to most recent file modification if git fails or not available
+        most_recent = 0
+        for file_path in self.get_files():
+            full_path = self.local_path / file_path
+            if full_path.exists():
+                mtime = os.path.getmtime(full_path)
+                most_recent = max(most_recent, mtime)
+
+        if most_recent > 0:
+            from datetime import datetime
+            return datetime.fromtimestamp(most_recent).isoformat()
+
+        # If all else fails, return current time
+        from datetime import datetime
+        return datetime.now().isoformat()

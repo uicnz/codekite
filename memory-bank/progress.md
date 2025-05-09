@@ -10,6 +10,14 @@
 - [PASS] Repository mapping for structure understanding
 - [PASS] Multiple language support via Tree-sitter
 
+### API and Integration
+
+- [PASS] REST API via FastAPI
+- [PASS] MCP server integration via FastMCP
+- [PASS] Multiple transport protocols (Streamable HTTP, SSE, STDIO)
+- [PASS] Common interface for both API types
+- [PASS] Standalone MCP server implementation
+
 ### Symbol Extraction
 
 - [PASS] Python symbol extraction
@@ -41,12 +49,20 @@
 - [PASS] Integration tests for key components
 - [PASS] Test fixtures for realistic repository testing
 - [PASS] Golden file tests for symbol extraction
+- [PASS] MCP server automated testing
 
 ### Documentation
 
 - [PASS] Core API documentation
 - [PASS] Tutorial examples
 - [PASS] Documentation website structure
+
+### MCP Tools and Resources
+
+- [PASS] Repository opening via MCP
+- [PASS] Code search via MCP
+- [PASS] Repository structure access via MCP
+- [PASS] Repository summary via MCP
 
 ## What's Left to Build
 
@@ -61,6 +77,7 @@
 - [FAIL] Advanced context assembly optimization
 - [FAIL] Customizable context templates
 - [FAIL] Token usage optimization for LLM context
+- [FAIL] Context assembly via MCP
 
 ### Performance Improvements
 
@@ -73,6 +90,7 @@
 - [FAIL] Streaming API for large results
 - [FAIL] Advanced filtering options
 - [FAIL] Enhanced error handling and reporting
+- [FAIL] Additional MCP tools for advanced operations
 
 ### Additional Language Support
 
@@ -85,6 +103,7 @@
 - [FAIL] Advanced usage documentation
 - [FAIL] Complete examples for all major use cases
 - [FAIL] Performance optimization guidelines
+- [FAIL] Comprehensive MCP integration guide
 
 ### Visualization
 
@@ -99,6 +118,16 @@
 - Core repository functionality is stable and well-tested
 - Symbol extraction works reliably for all supported languages
 - Repository mapping provides good structure understanding
+
+### MCP Integration
+
+- MCP server implemented with both Streamable HTTP and SSE protocol support
+- Core API client wrapper created for MCP tools
+- Repository structure and summary resources available via MCP with proper `codekite://` protocol prefixing
+- Multiple MCP tools implemented with proper `codekite_` function namespacing
+- Standalone MCP server implementation with lazy loading to resolve circular import issues
+- Automated testing for MCP functionality completed with client tests validating all functionality
+- Proper namespacing ensures compatibility when used alongside other MCP servers
 
 ### Search and Indexing
 
@@ -117,6 +146,7 @@
 - Documentation covers core concepts and API
 - Test coverage is good but needs expansion
 - More examples needed for advanced use cases
+- Example MCP client implementation provided
 
 ## Known Issues
 
@@ -137,11 +167,13 @@
 - [ISSUE-007] API complexity for advanced use cases
 - [ISSUE-008] Limited error feedback for failed operations
 - [ISSUE-009] Documentation gaps for edge cases
+- [ISSUE-012] MCP response format requires careful client implementation
 
 ### Integration
 
 - [ISSUE-010] No official IDE integrations yet
 - [ISSUE-011] Limited interoperability with other code analysis tools
+- [ISSUE-013] FastMCP client requires context manager for proper operation
 
 ## Next Milestones
 
@@ -152,6 +184,8 @@
 3. Enhance context assembly for better LLM results
 4. Add additional test cases for edge conditions
 5. Complete documentation for all public APIs
+6. Extend MCP client examples with additional usage patterns
+7. Add context assembly tools to MCP server
 
 ### Medium-term (Next Month)
 
@@ -160,6 +194,8 @@
 3. Create visualization tools for code relationships
 4. Optimize memory usage for large repositories
 5. Add support for at least one additional language
+6. Create comprehensive MCP integration guide
+7. Implement advanced MCP tools for complex operations
 
 ### Long-term (Next Quarter)
 
@@ -168,3 +204,4 @@
 3. Implement deep code understanding features
 4. Develop specialized context assemblers for different LLMs
 5. Optimize for deployment in resource-constrained environments
+6. Develop an ecosystem of MCP tools for code analysis

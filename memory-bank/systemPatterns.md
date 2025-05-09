@@ -54,6 +54,17 @@ Intelligently assembles relevant code context based on specific queries or needs
 - **Dependencies**: Search Components, Summarization Engine, Dependency Analyzer
 - **Consumers**: Client API
 
+### MCP Server
+
+Model Context Protocol server that provides AI assistants with standardized access to CodeKit's capabilities.
+
+- **Responsibilities**: Exposing tools and resources, handling client requests
+- **Dependencies**: Repository Interface, Search Components, Context Assembly
+- **Consumers**: AI assistants and other MCP clients
+- **Components**:
+  - **Tools**: Repository operations, code search, context building
+  - **Resources**: Repository structure, summary information, documentation
+
 ## Design Patterns Used
 
 ### Factory Pattern
@@ -109,9 +120,23 @@ Core pattern for abstracting data access and manipulation.
 
 Used to provide consistent interfaces across different version control systems.
 
+### Facade Pattern
+
+Used in the MCP server to simplify access to the complex underlying system:
+
+```python
+# Conceptual example
+@mcp.tool()
+async def search_code(repo_id: str, query: str, file_pattern: str = "*.py"):
+    """Search for code matching a pattern."""
+    # This provides a simple interface to the complex search subsystem
+    repo = repository_store.get(repo_id)
+    return repo.search_text(query, file_pattern=file_pattern)
+```
+
 ## Component Relationships
 
-```
+```sh
 Repository Interface
      ↑  ↑  ↑
      |  |  |
@@ -139,7 +164,11 @@ Indexing  Search  Summary  Dependency
             ↑
             |
             ↓
-        Client API
+     +------+------+
+     |             |
+     ↓             ↓
+ REST API      MCP Server
+ (FastAPI)     (FastMCP)
 ```
 
 ## Data Flow
@@ -149,6 +178,37 @@ Indexing  Search  Summary  Dependency
 3. **Query Processing**: Client queries are translated to appropriate search strategies
 4. **Context Assembly**: Relevant code, summaries, and relationship data are assembled
 5. **Response Delivery**: Formatted context is returned to the client
+
+## MCP Integration Architecture
+
+MCP Server provides two main types of interactions:
+
+### Tools
+
+Executable capabilities exposed to AI assistants:
+
+- `codekite_open_repository`: Open and initialize a repository
+- `codekite_search_code`: Find code matching a pattern or query
+- `codekite_build_context`: Generate LLM-ready context for code understanding
+
+### Resources
+
+Data sources that provide information to AI assistants:
+
+- `codekite://repository/{id}/structure`: Hierarchical repository structure
+- `codekite://repository/{id}/summary`: Repository statistics and metadata
+- `codekite://repository/{id}/docstrings`: Documentation from the codebase
+
+### MCP Protocol Handling
+
+1. **Client Connection**: Client connects to MCP server using a supported transport
+2. **Authentication**: (When configured) Client authenticates via OAuth
+3. **Tool Discovery**: Client lists available tools and resources
+4. **Tool Invocation**: Client sends a request to execute a tool
+5. **Parameter Validation**: Server validates parameters against schema
+6. **Tool Execution**: Server executes the tool with validated parameters
+7. **Response Serialization**: Result is serialized to appropriate MCP format
+8. **Response Delivery**: Result is sent back to client
 
 ## Technical Decisions
 
@@ -163,16 +223,27 @@ Using vector embeddings for semantic code search enables understanding of code i
 ### Modular Design Philosophy
 
 Designing components with clear boundaries and interfaces allows for:
+
 - Replacing implementation details without affecting the whole system
 - Using components independently or in combination
 - Adding support for new languages incrementally
 - Extending search or summarization capabilities without refactoring
+
+### FastMCP for MCP Server
+
+Using FastMCP provides:
+
+- Support for multiple transport protocols (Streamable HTTP, SSE, STDIO)
+- Automatic schema generation from Python type annotations
+- Built-in parameter validation
+- Context injection for progress reporting and logging
 
 ## Cross-Cutting Concerns
 
 ### Error Handling
 
 Consistent error handling approach across components:
+
 - Specific exception types for different failure modes
 - Graceful degradation when specific features fail
 - Clear error messages for debugging
@@ -190,3 +261,10 @@ Consistent error handling approach across components:
 - Custom search strategy implementation
 - Summary generation customization
 - Repository adapter extension
+- MCP tool and resource extension
+
+### Authentication & Security
+
+- OAuth support for MCP server (when configured)
+- Input validation for all exposed endpoints
+- Safe handling of repository access
