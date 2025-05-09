@@ -1,8 +1,8 @@
-# Product Context: CodeKit
+# Product Context: CodeKite
 
 ## Why This Project Exists
 
-CodeKit addresses the growing need for AI systems to understand and work with codebases effectively. As AI assistants and tools increasingly help with software development, they require deep, contextual understanding of code. CodeKit provides the infrastructure to extract, analyze, and contextualize code repositories to power these AI capabilities.
+CodeKite addresses the growing need for AI systems to understand and work with codebases effectively. As AI assistants and tools increasingly help with software development, they require deep, contextual understanding of code. As a Code Intelligence Agent, CodeKite provides the intelligence to extract, analyze, and contextualize code repositories to power these AI capabilities.
 
 ## Problems CodeKit Solves
 

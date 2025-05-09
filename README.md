@@ -1,8 +1,10 @@
-# CodeKite Code Intelligence Tools
+# CodeKite
+
+> Code Intelligence Agent
 
 [![CI](https://github.com/shaneholloman/codekite/actions/workflows/ci.yml/badge.svg)](https://github.com/shaneholloman/codekite/actions/workflows/ci.yml)
 
-`codekite` is a Python toolset for codebase mapping, symbol extraction, code search, and context generation for LLMs. It provides a structured API for analyzing codebases and generating appropriate context for various development tasks.
+`codekite` is a Python Agent for codebase mapping, symbol extraction, code search, and context generation for LLMs. It provides a structured API for analyzing codebases and generating appropriate context for various development tasks.
 
 ## Architecture
 

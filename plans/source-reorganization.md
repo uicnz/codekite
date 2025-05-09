@@ -1,8 +1,8 @@
-# CodeKit Source Code Reorganization Plan
+# CodeKite Source Code Reorganization Plan
 
 ## Current Structure
 
-Currently, the CodeKit source code is organized with all core implementation files directly in the `src/codekite/` directory:
+Currently, the CodeKite (Code Intelligence Agent) source code is organized with all core implementation files directly in the `src/codekite/` directory:
 
 ```tree
 src/codekite/

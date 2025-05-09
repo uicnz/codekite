@@ -1,8 +1,8 @@
-# Project Brief: CodeKit
+# Project Brief: CodeKite
 
 ## Overview
 
-CodeKit is a Python library designed for code analysis, search, and context generation to enhance AI-powered code understanding. It focuses on providing developers with tools to extract, search, and contextualize code repositories while offering standardized MCP protocol integration for AI assistants.
+CodeKite is a Code Intelligence Agent built in Python for code analysis, search, and context generation to enhance AI-powered code understanding. It focuses on providing developers with an intelligent agent to extract, search, and contextualize code repositories while offering standardized MCP protocol integration for AI assistants.
 
 ## Core Requirements
 

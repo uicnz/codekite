@@ -1,8 +1,8 @@
-# System Patterns: CodeKit
+# System Patterns: CodeKite
 
 ## System Architecture
 
-CodeKit follows a modular architecture where components are loosely coupled but highly cohesive. The design emphasizes flexibility, extensibility, and interoperability between components.
+CodeKite, as a Code Intelligence Agent, follows a modular architecture where components are loosely coupled but highly cohesive. The design emphasizes flexibility, extensibility, and interoperability between components, enabling the agent to intelligently analyze and understand code.
 
 ## Key Components
 

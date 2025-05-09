@@ -1,4 +1,4 @@
-# Progress: CodeKit
+# Progress: CodeKite - Code Intelligence Agent
 
 ## What Works
 

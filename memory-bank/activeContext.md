@@ -1,8 +1,8 @@
-# Active Context: CodeKit
+# Active Context: CodeKite
 
 ## Current Work Focus
 
-The current development focus is on establishing the core functionality of CodeKit, with particular emphasis on:
+The current development focus is on establishing the core functionality of CodeKite as a Code Intelligence Agent, with particular emphasis on:
 
 1. Repository interface and code extraction
 2. Symbol extraction across multiple languages

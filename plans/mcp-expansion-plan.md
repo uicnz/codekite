@@ -1,8 +1,8 @@
-# CodeKit MCP Expansion Plan
+# CodeKite MCP Expansion Plan
 
 ## Current Status
 
-CodeKit currently exposes a limited subset of its capabilities through the Model Context Protocol (MCP). This document outlines the current coverage and identifies key areas for expansion to provide comprehensive access to all CodeKit features through the MCP interface.
+CodeKite, as a Code Intelligence Agent, currently exposes a limited subset of its capabilities through the Model Context Protocol (MCP). This document outlines the current coverage and identifies key areas for expansion to provide comprehensive access to all CodeKite features through the MCP interface.
 
 ## Currently Implemented MCP Components
 
