@@ -1,2 +1,2 @@
 """codekite REST API package."""
-from .app import app  # re-export for `uvicorn codekite.api:app`
+from .app import app as app  # re-export for `uvicorn codekite.api:app`

@@ -2,7 +2,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 from typing import Any, List, Dict, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import pathspec  # Added for .gitignore handling
 
 
@@ -98,12 +98,12 @@ class CodeSearcher:
                 for i, line_content in enumerate(lines):
                     if regex.search(line_content):
                         start_context_before = max(0, i - current_options.context_lines_before)
-                        context_before = [l.rstrip("\n") for l in lines[start_context_before:i]]
+                        context_before = [line.rstrip("\n") for line in lines[start_context_before:i]]
 
                         # Context after should not include the matching line itself
                         start_context_after = i + 1
                         end_context_after = start_context_after + current_options.context_lines_after
-                        context_after = [l.rstrip("\n") for l in lines[start_context_after:end_context_after]]
+                        context_after = [line.rstrip("\n") for line in lines[start_context_after:end_context_after]]
 
                         matches.append(
                             {

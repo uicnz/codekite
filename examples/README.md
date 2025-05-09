@@ -4,6 +4,34 @@ This directory contains example scripts that demonstrate the capabilities of the
 
 ## Available Examples
 
+### MCP Integration Examples
+
+- **analyze_repo.py**: Uses the Model Context Protocol (MCP) client to analyze any GitHub repository, providing detailed structure, code patterns, and contextual understanding.
+
+  ```sh
+  # First, start the MCP server in a separate terminal:
+  uv run python -m src.codekite.mcp.server
+
+  # Then run the analyzer with a GitHub repository URL:
+  python examples/analyze_repo.py https://github.com/username/repo
+
+  # Search for specific patterns with custom results limit:
+  python examples/analyze_repo.py https://github.com/username/repo --search "class" --max-results 10
+
+  # Search for function definitions:
+  python examples/analyze_repo.py https://github.com/username/repo --search "def\\s+\\w+" --max-results 15
+  ```
+
+- **clone_and_analyze.py**: Temporarily clones a repository locally, performs comprehensive analysis using the MCP server, then cleans up afterwards.
+
+  ```sh
+  # First, start the MCP server in a separate terminal:
+  uv run python -m src.codekite.mcp.server
+
+  # Then clone and analyze a repository:
+  python examples/clone_and_analyze.py https://github.com/username/repo
+  ```
+
 ### Core Functionality Examples
 
 - **example_kit_capabilities.py**: Demonstrates the five core capabilities of CodeKite: code structure analysis, intelligent search, context extraction, LLM integration, and dependency analysis.
@@ -54,3 +82,44 @@ This directory contains example scripts that demonstrate the capabilities of the
 - All examples can be run from the root directory of the repository.
 - Some examples require additional dependencies or API keys as noted above.
 - Output files (like JSON maps) will be created in the current working directory.
+
+## Running the MCP Server
+
+The Model Context Protocol (MCP) server is a key component for the new analysis examples. It provides a standardized interface for AI assistants and other tools to access CodeKit's capabilities.
+
+### Server Setup
+
+```sh
+# Start the server on the default port (8000)
+uv run python -m src.codekite.mcp.server
+
+# The server will output:
+# [INFO] Starting Simple CodeKit MCP server...
+# INFO:     Started server process [...]
+# INFO:     Waiting for application startup.
+# INFO:     Application startup complete.
+# INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+```
+
+### MCP Tools and Resources
+
+The server exposes the following capabilities:
+
+- Tools:
+  - `codekite_open_repository`: Opens a local or remote repository
+  - `codekite_search_code`: Searches for code patterns
+  - `codekite_build_context`: Generates context for AI understanding
+
+- Resources:
+  - `codekite://repository/{id}/structure`: Repository structure
+  - `codekite://repository/{id}/summary`: Repository statistics
+  - `codekite://repository/{id}/docstrings`: Extracted docstrings
+
+### Example MCP Workflow
+
+1. Start the MCP server (`uv run python -m src.codekite.mcp.server`)
+2. Run one of the analysis scripts, such as `analyze_repo.py`
+3. The script connects to the server, opens a repository, and retrieves information
+4. Results are displayed in a structured format
+
+For detailed implementations, see the source code of the example scripts.

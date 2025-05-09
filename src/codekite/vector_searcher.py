@@ -7,7 +7,6 @@ try:
 except ImportError:
     chromadb = None  # type: ignore[assignment]
 
-from pathlib import Path
 
 
 class VectorDBBackend:
@@ -61,7 +60,7 @@ class ChromaDBBackend(VectorDBBackend):
                 self.collection.delete(where={"source": {"$ne": "impossible_source_value_to_match_all"}})  # type: ignore[dict-item]
                 # Or, if you know a common metadata key, like 'file_path' from previous version:
                 # self.collection.delete(where={"file_path": {"$ne": "impossible_file_path"}})
-            except Exception as e:
+            except Exception:
                 # Log or handle cases where delete might fail or is not supported as expected.
                 # For instance, if the collection was empty, some backends might error on delete-all attempts.
                 # logger.warning(f"Could not clear collection before adding: {e}")

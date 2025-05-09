@@ -29,7 +29,6 @@ logger = logging.getLogger(__name__)
 # Use TYPE_CHECKING to avoid circular import issues with Repository
 if TYPE_CHECKING:
     from codekite.repository import Repository
-    from codekite.repo_mapper import RepoMapper  # For type hinting
 
 
 class LLMError(Exception):

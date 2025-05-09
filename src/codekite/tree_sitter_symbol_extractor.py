@@ -1,7 +1,6 @@
 import os
 import logging
 import traceback
-from pathlib import Path
 from typing import List, Dict, Optional, Any, ClassVar, cast
 from tree_sitter_language_pack import get_parser, get_language
 
