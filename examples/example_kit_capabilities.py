@@ -36,7 +36,7 @@ def format_output(title, content, limit=5):
 
 def main():
     # Load the current repository
-    # Use parent directory to access the full codekit project
+    # Use parent directory to access the full codekite project
     repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     print(f"Loading repository: {repo_path}")
     repo = Repository(repo_path)

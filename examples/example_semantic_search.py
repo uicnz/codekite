@@ -336,7 +336,7 @@ def direct_repo_map_search(repo_path, search_term):
 if __name__ == "__main__":
     # If no arguments are provided through command line, use a default example
     if len(sys.argv) == 1:
-        # Use parent directory to access the full codekit project
+        # Use parent directory to access the full codekite project
         repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         print(f"No arguments provided, using default repository path: {repo_path}")
 

@@ -9,7 +9,7 @@ export default defineConfig({
       social: [
         {
           icon: "github",
-          href: "https://github.com/shaneholloman/codekit",
+          href: "https://github.com/shaneholloman/codekite",
           label: "GitHub",
         },
       ],

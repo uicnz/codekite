@@ -1,4 +1,4 @@
-# kit 🛠️ Code Intelligence Toolkit
+# kit Code Intelligence Toolkit
 
 `kit` is a modular, production-grade Python toolkit for codebase mapping, symbol extraction, code search, and building LLM-powered developer tools, agents, and workflows.
 
@@ -10,14 +10,14 @@ Use `kit` to build things like code reviewers, code generators, even IDEs, all e
 
 ```sh
 # Installation (includes all features)
-pip install codekit
+pip install codekite # not implemented yet
 ```
 
 ### Install from Source
 
 ```sh
-git clone https://github.com/shaneholloman/codekit.git
-cd kit
+git clone https://github.com/shaneholloman/codekite.git
+cd codekite
 uv sync
 uv pip install -e .
 ```
@@ -67,12 +67,6 @@ print(repo.extract_symbols('src/main.py'))
 
 - **And much more...** `kit` also offers capabilities for semantic search on raw code, building custom context for LLMs, and more.
 
-Explore the **[Full Documentation](https://kit.shaneholloman.dev)** for detailed usage, advanced features, and practical examples.
-
 ## License
 
 MIT License
-
-## Contributing
-
-We welcome contributions! Please see our [Roadmap](https://kit.shaneholloman.dev/development/roadmap) for project directions.

@@ -28,7 +28,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/shaneholloman/codekit"
+Homepage = "https://github.com/shaneholloman/codekite"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
