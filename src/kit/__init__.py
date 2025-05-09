@@ -15,7 +15,7 @@ from .docstring_indexer import DocstringIndexer, SummarySearcher
 from .llm_context import ContextAssembler
 
 try:
-    from .summaries import Summarizer, OpenAIConfig, LLMError
+    from .summaries import Summarizer, OpenAIConfig, LLMError  # noqa: F401 - Imported for public API
 except ImportError:
     # Allow kit to be imported even if LLM extras aren't installed.
     # Users will get an ImportError later if they try to use Summarizer.
