@@ -2,7 +2,7 @@
 A modular toolkit for LLM-powered codebase understanding.
 """
 
-__author__ = "cased"
+__author__ = "Shane Holloman"
 __version__ = "0.1.0"
 
 from .repository import Repository

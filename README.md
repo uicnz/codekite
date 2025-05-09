@@ -67,7 +67,7 @@ print(repo.extract_symbols('src/main.py'))
 
 - **And much more...** `kit` also offers capabilities for semantic search on raw code, building custom context for LLMs, and more.
 
-Explore the **[Full Documentation](https://kit.cased.com)** for detailed usage, advanced features, and practical examples.
+Explore the **[Full Documentation](https://kit.shaneholloman.dev)** for detailed usage, advanced features, and practical examples.
 
 ## License
 
@@ -75,4 +75,4 @@ MIT License
 
 ## Contributing
 
-We welcome contributions! Please see our [Roadmap](https://kit.cased.com/development/roadmap) for project directions.
+We welcome contributions! Please see our [Roadmap](https://kit.shaneholloman.dev/development/roadmap) for project directions.
