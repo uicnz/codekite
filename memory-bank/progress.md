@@ -128,6 +128,23 @@
 - Standalone MCP server implementation with lazy loading to resolve circular import issues
 - Automated testing for MCP functionality completed with client tests validating all functionality
 - Proper namespacing ensures compatibility when used alongside other MCP servers
+- Comprehensive expansion plan created (`plans/mcp-expansion-plan.md`) documenting current coverage and missing functionality
+
+#### Currently Mapped to MCP
+
+- [PASS] Basic repository operations (opening, file access)
+- [PASS] Pattern-based code search
+- [PASS] Basic context building
+- [PASS] Repository structure and summary resources
+
+#### Not Yet Mapped to MCP
+
+- [FAIL] Dependency analysis functionality
+- [FAIL] Vector-based semantic search capabilities
+- [FAIL] LLM-based code summarization
+- [FAIL] Comprehensive repository mapping
+- [FAIL] Advanced docstring indexing and search
+- [FAIL] Enhanced context assembly with templates
 
 ### Search and Indexing
 

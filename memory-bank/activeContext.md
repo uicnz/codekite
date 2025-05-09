@@ -47,6 +47,26 @@ The current development focus is on establishing the core functionality of CodeK
 - Updated resource URIs to use `codekite://` protocol scheme for proper namespacing
 - Added robust test client to verify all MCP functionality
 
+### MCP Coverage Status
+
+**Currently Mapped to MCP:**
+
+- Basic repository operations (opening, file access)
+- Simple code search (pattern-based)
+- Basic context building
+- Repository structure and summary access
+
+**Not Yet Mapped to MCP:**
+
+- Dependency analysis
+- Vector-based semantic search
+- LLM-based code summarization
+- Repository mapping
+- Advanced docstring indexing
+- Enhanced context assembly
+
+A comprehensive expansion plan has been created in `plans/mcp-expansion-plan.md` that details all missing capabilities and implementation strategies. Refer to this document for a complete analysis of current gaps and planned MCP enhancements.
+
 ## Active Decisions
 
 ### Performance vs. Accuracy Trade-offs
