@@ -131,7 +131,7 @@ This approach is powerful because it combines semantic understanding (from summa
                 else: # Default to file level
                     code_content = repo.get_file_content(res['file_path'])
                     chunk_identifier = res['file_path']
-                
+
                 if not code_content.strip():
                     print(f"Warning: No content retrieved for {chunk_identifier}, skipping.")
                     continue
@@ -142,7 +142,7 @@ This approach is powerful because it combines semantic understanding (from summa
                 })
             except FileNotFoundError: # Still relevant for get_file_content or if extract_symbols fails to find file
                 print(f"Warning: File not found when trying to retrieve content for {res['file_path']}")
-        
+
         if not context_chunks:
              return "Found relevant file names, but could not retrieve their content."
 
@@ -160,7 +160,7 @@ This approach is powerful because it combines semantic understanding (from summa
         final_prompt = f"## Code Context:\n\n{prompt_context}\n\n## User Question:\n\n{user_query}\n\n## Answer:"
 
         print("\nSending request to LLM...")
-        
+
         # Assuming OpenAI client for this example structure
         # Adapt if using Anthropic or Google
         if isinstance(QA_LLM_CONFIG, OpenAIConfig):

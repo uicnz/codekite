@@ -169,13 +169,13 @@ for func_def in defined_functions:
     # This heuristic assumes a usage is NOT the definition if its file and line differ,
     # or if the usage 'type' (if available and detailed) indicates a call.
     # A simpler heuristic: if only 1 usage, it's likely just the definition.
-    
+
     actual_references = []
     for u in usages:
         # Check if the usage is different from the definition site
         if not (u.get("file") == definition_file and u.get("line") == definition_line):
             actual_references.append(u)
-    
+
     # If a function has no other references apart from its own definition site (or very few)
     # It's a candidate for being unused. The threshold (e.g., 0 or 1) can be adjusted.
     if len(actual_references) == 0:

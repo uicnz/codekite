@@ -16,12 +16,9 @@ syntax or specific variable names.
 
 ## Why use it?
 
-* **Cleaner embeddings** – Comments like *“Summary of retry logic”* embed better
-  than nested `for`-loops.
-* **Smaller index** – One summary per file (or symbol) is < 1 kB, while the file
-  itself might be thousands of tokens.
-* **Provider-agnostic** – Works with any LLM supported by `kit.Summarizer`
-  (OpenAI, Anthropic, Google…).
+* **Cleaner embeddings** – Comments like *“Summary of retry logic”* embed better than nested `for`-loops.
+* **Smaller index** – One summary per file (or symbol) is < 1 kB, while the file itself might be thousands of tokens.
+* **Provider-agnostic** – Works with any LLM supported by `kit.Summarizer` (OpenAI, Anthropic, Google…).
 
 ## How it Works
 
@@ -121,7 +118,7 @@ if hasattr(indexer.backend, 'collection'):
     # 'embeddings' are excluded for brevity.
     retrieved_data = chroma_collection.get(
         limit=3,
-        include=['metadatas', 'documents'] 
+        include=['metadatas', 'documents']
     )
 
     if retrieved_data and retrieved_data.get('ids'):
@@ -131,7 +128,7 @@ if hasattr(indexer.backend, 'collection'):
             summary_text = retrieved_data['documents'][i] if retrieved_data['documents'] else "N/A"
             # 'metadata' contains file_path, symbol_name, original summary, etc.
             metadata = retrieved_data['metadatas'][i] if retrieved_data['metadatas'] else {}
-            
+
             print(f"\n--- Item {i+1} ---")
             print(f"  ID (in Chroma): {item_id}")
             print(f"  Stored Summary (Document): {summary_text}")

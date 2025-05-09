@@ -4,7 +4,7 @@ title: Code Summarization
 
 import { Aside } from '@astrojs/starlight/components';
 
-In addition to the non-LLM based functions of the `Repository` class, 
+In addition to the non-LLM based functions of the `Repository` class,
 `kit` also integrates directly with LLMs via the `Summarizer` class to provide intelligent code summarization capabilities. This helps you quickly understand the purpose and functionality of entire code files, specific functions, or classes.
 
 ## Getting Started
@@ -12,20 +12,20 @@ In addition to the non-LLM based functions of the `Repository` class,
 To use code summarization, you'll need an LLM provider configured. Currently, OpenAI, Anthropic, and Google Cloud's Generative AI models are supported.
 
 1.  **Install Dependencies:**
-    ```bash
+    ```sh
     # Ensure you are in your project's virtual environment
     uv pip install codekit
     ```
     The installation includes all dependencies for OpenAI, Anthropic, and Google Cloud's Generative AI models.
 
 2.  **Set API Key(s):** Configure the API key(s) for your chosen provider(s) as environment variables:
-    ```bash
+    ```sh
     # For OpenAI
     export OPENAI_API_KEY="sk-..."
-    
+
     # For Anthropic
     export ANTHROPIC_API_KEY="sk-ant-..."
-    
+
     # For Google
     export GOOGLE_API_KEY="AIzaSy..."
     ```
@@ -42,7 +42,7 @@ import kit
 import os
 
 # Ensure API key is set (replace with your actual key handling)
-# os.environ["OPENAI_API_KEY"] = "YOUR_API_KEY" 
+# os.environ["OPENAI_API_KEY"] = "YOUR_API_KEY"
 
 try:
     # Load the repository
@@ -88,7 +88,7 @@ from kit.summaries import OpenAIConfig, AnthropicConfig, GoogleConfig
 # Load repo
 repo = kit.Repository("/path/to/your/project")
 
-# --- OpenAI Example --- 
+# --- OpenAI Example ---
 # Define custom OpenAI configuration
 openai_custom_config = OpenAIConfig(
     api_key="sk-...", # Can be omitted if OPENAI_API_KEY is set
@@ -120,7 +120,7 @@ openrouter_config = OpenAIConfig(
 openrouter_summarizer = repo.get_summarizer(config=openrouter_config)
 ```
 
-# --- Anthropic Example --- 
+# --- Anthropic Example ---
 # Define custom Anthropic configuration
 anthropic_config = AnthropicConfig(
     api_key="sk-ant-...", # Can be omitted if ANTHROPIC_API_KEY is set
@@ -131,7 +131,7 @@ anthropic_summarizer = repo.get_summarizer(config=anthropic_config)
 anthropic_summary = anthropic_summarizer.summarize_file("src/utils_anthropic.py")
 # print(f"Anthropic Summary:\n{anthropic_summary}")
 
-# --- Google Example --- 
+# --- Google Example ---
 # Define custom Google configuration
 google_config = GoogleConfig(
     api_key="AIzaSy...", # Can be omitted if GOOGLE_API_KEY is set
@@ -157,7 +157,7 @@ summarizer = repo.get_summarizer() # Assumes OPENAI_API_KEY is set
 
 # Summarize a specific function
 function_summary = summarizer.summarize_function(
-    file_path="src/core/processing.py", 
+    file_path="src/core/processing.py",
     function_name="process_main_data"
 )
 print(f"Function Summary:\n{function_summary}")
@@ -200,7 +200,7 @@ for sym in class_symbols:
         print(f"--- Summarizing Class: {class_name} ---")
         try:
             summary = summarizer.summarize_class(
-                file_path=file_to_analyze, 
+                file_path=file_to_analyze,
                 class_name=class_name
             )
             print(summary)
@@ -218,19 +218,19 @@ for sym in class_symbols:
   from kit.summaries import Summarizer, OpenAIConfig, AnthropicConfig, GoogleConfig
 
   my_repo = Repository("/path/to/code")
-  
+
   # Example with AnthropicConfig
   # Similar approach for OpenAIConfig or GoogleConfig
   my_anthropic_config = AnthropicConfig(
-      api_key="sk-ant-your-key", 
+      api_key="sk-ant-your-key",
       model="claude-3-sonnet-20240229"
   )
   direct_summarizer = Summarizer(repo=my_repo, config=my_anthropic_config)
-  
+
   # Or for OpenAI:
   # my_openai_config = OpenAIConfig(api_key="sk-your-key", model="gpt-4o")
   # direct_summarizer = Summarizer(repo=my_repo, config=my_openai_config)
-  
+
   # Or for Google:
   # my_google_config = GoogleConfig(api_key="AIzaSy-your-key", model="gemini-pro")
   # direct_summarizer = Summarizer(repo=my_repo, config=my_google_config)

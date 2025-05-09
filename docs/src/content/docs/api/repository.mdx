@@ -15,7 +15,7 @@ from kit import Repository
 local_repo = Repository("/path/to/your/local/project")
 
 # Initialize with a remote URL (requires git)
-# remote_repo = Repository("https://github.com/user/repo.git") 
+# remote_repo = Repository("https://github.com/user/repo.git")
 ```
 
 ## Core Methods
@@ -39,7 +39,7 @@ repository_instance = Repository(path_or_url="/path/to/local/project")
 
 # For a remote Git repository (public or private)
 # repository_instance = Repository(
-#     path_or_url="https://github.com/owner/repo-name", 
+#     path_or_url="https://github.com/owner/repo-name",
 #     github_token="YOUR_GITHUB_TOKEN",  # Optional: For private repos
 #     cache_dir="/path/to/cache"       # Optional: For caching clones
 # )
@@ -303,4 +303,3 @@ context_blob = assembler.format_context()
 * `ContextAssembler`: Ready-to-use assembler instance.
 
 ## `repository.get_summarizer()`
-

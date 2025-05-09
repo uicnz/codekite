@@ -56,7 +56,7 @@ assembler = ContextAssembler(
    response = my_llm.chat(prompt + "\n\nQ: …")
    ```
 2. **Docstring search first** – Use `SummarySearcher` for high-level matches,
-   then pull full code for those files via `repo.context`.  
+   then pull full code for those files via `repo.context`.
 3. **Diff review bots** – Feed only the changed lines + surrounding context.
 
 ## API reference

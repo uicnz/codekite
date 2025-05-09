@@ -48,11 +48,11 @@ With the `head_sha` obtained, we can now leverage `kit.Repository` to access the
 ```python
 from kit import Repository
 
-# For this tutorial, we assume the remote repository's default branch 
-# reflects the PR's base or that a local clone is already checked out 
+# For this tutorial, we assume the remote repository's default branch
+# reflects the PR's base or that a local clone is already checked out
 # to the correct PR head commit (head_sha).
 # kit.Repository, when given a URL, currently clones the default branch.
-# Supporting checkout of a specific ref (like head_sha) directly via Repository 
+# Supporting checkout of a specific ref (like head_sha) directly via Repository
 # initialization is forthcoming.
 
 repo = Repository(
@@ -95,14 +95,14 @@ assembler.add_diff(diff)
 # For simplicity, this tutorial will only add content for existing files in the PR head.
 for p_file in patch: # Iterate through PatchedFile objects from unidiff
     if not p_file.is_removed_file: # Only add content for new or modified files
-        assembler.add_file(p_file.path) 
+        assembler.add_file(p_file.path)
 
 # Optional but powerful: semantic search for related code using PR title/description.
-# This leverages `repo.search_semantic()`. For the most insightful results, 
-# this method can be backed by a `DocstringIndexer` that uses AI-generated summaries, 
+# This leverages `repo.search_semantic()`. For the most insightful results,
+# this method can be backed by a `DocstringIndexer` that uses AI-generated summaries,
 # enabling matches based on conceptual similarity rather than just keyword overlap.
 # Ensure your `Repository` instance is configured with an appropriate embedding function
-# and (ideally) a `DocstringIndexer`. 
+# and (ideally) a `DocstringIndexer`.
 # See the "[Docstring Search](/tutorials/docstring_search)" and "[Semantic Code Search](/tutorials/semantic_code_search)" tutorials for setup details.
 
 # Example (ensure pr_title and pr_description are available strings from your PR data):
@@ -112,10 +112,10 @@ if pr_description: queries_for_semantic_search.append(pr_description)
 
 for original_query in queries_for_semantic_search:
     if original_query.strip(): # Ensure the query string is not empty or just whitespace
-        search_hits = repo.search_semantic(original_query, top_k=3) 
+        search_hits = repo.search_semantic(original_query, top_k=3)
         # Add a descriptive label for the LLM to understand the source of these results
         assembler.add_search_results(
-            search_hits, 
+            search_hits,
             query=f"Code semantically related to: '{original_query}'"
         )
 

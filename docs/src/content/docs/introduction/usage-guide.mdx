@@ -39,7 +39,7 @@ When cloning remote repositories, `kit` caches them locally to speed up subseque
 
 ```python
 repo = Repository(
-    "https://github.com/owner/repo-name", 
+    "https://github.com/owner/repo-name",
     cache_dir="/path/to/persistent/cache"
 )
 ```
@@ -131,20 +131,20 @@ repo = Repository(repo_path)
 
 # 2. Configure your LLM
 # Ensure your API key is set (e.g., OPENAI_API_KEY environment variable)
-llm_config = OpenAI(model="gpt-3.5-turbo") 
+llm_config = OpenAI(model="gpt-3.5-turbo")
 
 # 3. Initialize the DocstringIndexer
 # It needs the repository and an LLM configuration.
 # You can also specify a directory to cache generated docstrings.
 indexer = DocstringIndexer(
-    repository=repo, 
+    repository=repo,
     llm_config=llm_config,
-    cache_dir="kit_docstring_cache" 
+    cache_dir="kit_docstring_cache"
 )
 
 # 4. Build the index (generates summaries for new/changed files/symbols)
 # This can take time depending on the repo size and LLM speed.
-indexer.build_index() 
+indexer.build_index()
 
 # 5. Get a summary for a specific symbol
 # For example, a function 'greet' in 'utils.py'

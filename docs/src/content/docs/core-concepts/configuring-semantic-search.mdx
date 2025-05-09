@@ -41,7 +41,7 @@ When you initialize `VectorSearcher` (typically via `repo.get_vector_searcher()`
 
 **Configuration Options:**
 
-*   **`persist_dir` (Optional[str]):** This is the most important configuration option. It specifies the directory where the ChromaDB index will be stored on disk. 
+*   **`persist_dir` (Optional[str]):** This is the most important configuration option. It specifies the directory where the ChromaDB index will be stored on disk.
     *   If you provide a path to `repo.get_vector_searcher(persist_dir=...)` or directly to the `VectorSearcher` constructor, that path will be used.
     *   If no `persist_dir` is specified, `kit` defaults to creating the index in a subdirectory within your repository, typically at `YOUR_REPO_PATH/.kit/vector_db/`.
     *   Persisting the index allows you to reuse it across sessions without needing to re-embed and re-index your codebase every time.
@@ -51,7 +51,7 @@ At present, other ChromaDB-specific configurations (like collection names or dis
 ```python
 # Example: Initialize with default ChromaDB backend and specify a persist directory
 vector_searcher = repo.get_vector_searcher(
-    embed_fn=my_embedding_function, 
+    embed_fn=my_embedding_function,
     persist_dir="./my_custom_kit_vector_index" # Index will be saved here
 )
 
@@ -61,7 +61,7 @@ vector_searcher.build_index()
 # Later, to reuse the persisted index:
 # Ensure you use the same embed_fn and persist_dir
 vector_searcher_reloaded = repo.get_vector_searcher(
-    embed_fn=my_embedding_function, 
+    embed_fn=my_embedding_function,
     persist_dir="./my_custom_kit_vector_index"
 )
 results = vector_searcher_reloaded.search("my query")

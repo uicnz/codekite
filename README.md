@@ -8,14 +8,14 @@ Use `kit` to build things like code reviewers, code generators, even IDEs, all e
 
 ### Install from PyPI
 
-```bash
+```sh
 # Installation (includes all features)
 pip install codekit
 ```
 
 ### Install from Source
 
-```bash
+```sh
 git clone https://github.com/shaneholloman/codekit.git
 cd kit
 uv sync
