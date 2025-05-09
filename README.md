@@ -10,7 +10,7 @@ Use `codekite` to build things like code reviewers, code generators, even IDEs, 
 
 ```sh
 # Installation (includes all features)
-pip install codekite # not implemented yet
+uv tool install codekite # not implemented yet
 ```
 
 ### Install from Source
