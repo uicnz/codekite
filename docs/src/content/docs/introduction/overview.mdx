@@ -1,0 +1,58 @@
+---
+title: Overview
+---
+
+## kit: Code Intelligence Toolkit
+
+A modular, production-grade toolkit for codebase mapping, symbol extraction, code search, and LLM-powered developer workflows. Supports multi-language codebases via `tree-sitter`.
+
+`kit` features a "mid-level API" to build your own custom tools, applications, agents, and workflows: easily build code review bots, semantic code search, documentation generators, and more.
+
+`kit` is **free and open source** with a permissive MIT license. Check it out on [GitHub](https://github.com/cased/kit).
+
+## Installation
+
+### Install from PyPI
+
+```bash
+# Basic installation, it's currently `cased-kit` on pypi
+pip install cased-kit
+
+# With OpenAI support
+pip install cased-kit[openai]
+
+# With all features (OpenAI, Anthropic, Google, vector search, API)
+pip install cased-kit[all]
+```
+
+### Install from Source
+
+```bash
+git clone https://github.com/cased/kit.git
+cd kit
+uv venv .venv
+source .venv/bin/activate
+uv pip install -e .
+```
+
+## Why Use kit?
+
+`kit` helps with:
+
+*   **Unifying Code Access:** Provides a single, consistent `Repository` object to interact with files, symbols, and search across diverse codebases, regardless of language.
+*   **Deep Code Understanding:** Leverages `tree-sitter` for accurate, language-specific parsing, enabling reliable symbol extraction and structural analysis across an entire codebase.
+*   **Bridging Code and LLMs:** Offers tools specifically designed to chunk code effectively and retrieve relevant context for large language models, powering smarter AI developer tools.
+
+## Core Philosophy
+
+`kit` aims to be a **toolkit** for building applications, agents, and workflows.
+It handles the low-level parsing and indexing complexity, and allows you to adapt these components to your specific needs.
+
+We believe the building blocks for code intelligence and LLM workflows for developer tools should be free and open source,
+so you can build amazing products and experiences.
+
+
+## Where to Go Next
+
+*   **Dive into the API:** Explore the [Core Concepts](/core-concepts/repository-api) to understand the `Repository` object and its capabilities.
+*   **Build Something:** Follow the [Tutorials](/tutorials/ai_pr_reviewer) for step-by-step guides on creating practical tools.

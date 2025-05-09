@@ -1,0 +1,68 @@
+---
+title: The Repository Interface
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+The `kit.Repository` object is the backbone of the library. It serves as your primary interface for accessing, analyzing, and understanding codebases, regardless of their language or location (local path or remote Git URL).
+
+## Why the `Repository` Object?
+
+Interacting directly with code across different languages, file structures, and potential locations (local vs. remote) can be cumbersome. The `Repository` object provides a **unified and consistent abstraction layer** to handle this complexity.
+
+Key benefits include:
+
+- **Unified Access:** Provides a single entry point to read files, extract code structures (symbols), perform searches, and more.
+- **Location Agnostic:** Works seamlessly with both local file paths and remote Git repository URLs (handling cloning and caching automatically when needed).
+- **Language Abstraction:** Leverages `tree-sitter` parsers under the hood to understand the syntax of various programming languages, allowing you to work with symbols (functions, classes, etc.) in a standardized way.
+- **Foundation for Tools:** Acts as the foundation upon which you can build higher-level developer tools and workflows, such as documentation generators, AI code reviewers, or semantic search engines.
+
+## What Can You Do with a `Repository`?
+
+Once you instantiate a `Repository` object pointing to your target codebase:
+
+```python
+from kit import Repository
+
+# Point to a local project
+my_repo = Repository("/path/to/local/project")
+
+# Or point to a remote GitHub repo
+# github_repo = Repository("https://github.com/owner/repo-name")
+```
+
+You can perform various code intelligence tasks:
+
+- **Explore Structure:** Get the file tree (`.get_file_tree()`).
+- **Read Content:** Access the raw content of specific files (`.get_file_content()`).
+- **Understand Code:** Extract detailed information about functions, classes, and other symbols (`.extract_symbols()`).
+- **Analyze Dependencies:** Find where symbols are defined and used (`.find_symbol_usages()`).
+- **Search:** Perform literal text searches (`.search_text()`) or powerful semantic searches (`.search_semantic()`).
+- **Prepare for LLMs:** Chunk code intelligently by lines or symbols (`.chunk_file_by_lines()`, `.chunk_file_by_symbols()`) and get code context around specific lines (`.extract_context_around_line()`).
+- **Integrate with AI:** Obtain configured summarizers (`.get_summarizer()`) or vector searchers (`.get_vector_searcher()`) for advanced AI workflows.
+- **Export Data:** Save the file tree, symbol information, or full repository index to structured formats like JSON (`.write_index()`, `.write_symbols()`, etc.).
+
+The following table lists some of the key classes and tools you can access through the `Repository` object:
+
+| Class/Tool         | Description                                    |
+| ------------------ | ---------------------------------------------- |
+| `Summarizer`       | Generate summaries of code using LLMs          |
+| `VectorSearcher`   | Query vector index of code for semantic search |
+| `DocstringIndexer` | Build vector index of LLM-generated summaries  |
+| `SummarySearcher`  | Query that index                               |
+
+
+<Aside type="tip">
+  For a complete list of methods, parameters, and detailed usage examples,
+  please refer to the **[Repository Class API Reference](/api/repository/)**.
+</Aside>
+
+
+<Aside type="note">
+## File and Directory Exclusion (.gitignore support)
+
+By default, kit automatically ignores files and directories listed in your `.gitignore` as well as `.git/` and its contents. This ensures your indexes, symbol extraction, and searches do not include build artifacts, dependencies, or version control internals.
+
+**Override:**
+- This behavior is the default. If you want to include ignored files, you can override this by modifying the `RepoMapper` logic (see `src/kit/repo_mapper.py`) or subclassing it with custom exclusion rules.
+</Aside>
