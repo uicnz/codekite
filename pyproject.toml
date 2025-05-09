@@ -1,6 +1,6 @@
 [project]
 name = "codekite"
-version = "0.1.2"
+version = "0.1.6"
 description = "A modular toolkit for LLM powered codebase understanding."
 authors = [
     { name = "Shane Holloman", email = "shaneholloman@gmail.com" }
