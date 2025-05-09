@@ -1,5 +1,5 @@
 import tempfile
-from kit import RepoMapper
+from codekite import RepoMapper
 
 def test_get_file_tree():
     with tempfile.TemporaryDirectory() as tmpdir:

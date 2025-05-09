@@ -1,6 +1,6 @@
 import tempfile
 import os
-from kit import CodeSearcher
+from codekite import CodeSearcher
 
 def test_search_text_basic():
     with tempfile.TemporaryDirectory() as tmpdir:

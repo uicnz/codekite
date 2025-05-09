@@ -30,7 +30,7 @@ jobs:
           # Activate the virtual environment
           source .venv/bin/activate
           # Run mypy type checking
-          mypy src/kit
+          mypy src/codekite
       - name: Run Tests
         run: |
           # Activate the virtual environment

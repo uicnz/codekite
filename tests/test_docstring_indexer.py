@@ -4,8 +4,8 @@ import pytest
 from pathlib import Path
 from unittest.mock import MagicMock
 
-from kit import Repository, DocstringIndexer, SummarySearcher, Summarizer
-from kit.vector_searcher import VectorDBBackend
+from codekite import Repository, DocstringIndexer, SummarySearcher, Summarizer
+from codekite.vector_searcher import VectorDBBackend
 
 
 class DummyBackend(VectorDBBackend):

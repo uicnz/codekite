@@ -4,7 +4,7 @@ title: The Repository Interface
 
 import { Aside } from "@astrojs/starlight/components";
 
-The `kit.Repository` object is the backbone of the library. It serves as your primary interface for accessing, analyzing, and understanding codebases, regardless of their language or location (local path or remote Git URL).
+The `codekite.Repository` object is the backbone of the library. It serves as your primary interface for accessing, analyzing, and understanding codebases, regardless of their language or location (local path or remote Git URL).
 
 ## Why the `Repository` Object?
 
@@ -22,7 +22,7 @@ Key benefits include:
 Once you instantiate a `Repository` object pointing to your target codebase:
 
 ```python
-from kit import Repository
+from codekite import Repository
 
 # Point to a local project
 my_repo = Repository("/path/to/local/project")
@@ -61,8 +61,8 @@ The following table lists some of the key classes and tools you can access throu
 <Aside type="note">
 ## File and Directory Exclusion (.gitignore support)
 
-By default, kit automatically ignores files and directories listed in your `.gitignore` as well as `.git/` and its contents. This ensures your indexes, symbol extraction, and searches do not include build artifacts, dependencies, or version control internals.
+By default, codekite automatically ignores files and directories listed in your `.gitignore` as well as `.git/` and its contents. This ensures your indexes, symbol extraction, and searches do not include build artifacts, dependencies, or version control internals.
 
 **Override:**
-- This behavior is the default. If you want to include ignored files, you can override this by modifying the `RepoMapper` logic (see `src/kit/repo_mapper.py`) or subclassing it with custom exclusion rules.
+- This behavior is the default. If you want to include ignored files, you can override this by modifying the `RepoMapper` logic (see `src/codekite/repo_mapper.py`) or subclassing it with custom exclusion rules.
 </Aside>

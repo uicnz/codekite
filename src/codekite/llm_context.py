@@ -20,7 +20,7 @@ class ContextAssembler:
     Parameters
     ----------
     repo
-        A :class:`kit.repository.Repository` object representing the codebase
+        A :class:`codekite.repository.Repository` object representing the codebase
         we want to reason about. The assembler uses it to fetch file content
         and (in the future) symbol relationships.
     title

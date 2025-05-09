@@ -1,5 +1,5 @@
 import tempfile
-from kit import Repository
+from codekite import Repository
 
 def test_repo_index_and_chunking():
     with tempfile.TemporaryDirectory() as tmpdir:

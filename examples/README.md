@@ -1,12 +1,12 @@
-# Kit Examples
+# CodeKite Examples
 
-This directory contains example scripts that demonstrate the capabilities of the Kit (Code Intelligence Toolkit).
+This directory contains example scripts that demonstrate the capabilities of the CodeKite (Code Intelligence).
 
 ## Available Examples
 
 ### Core Functionality Examples
 
-- **example_kit_capabilities.py**: Demonstrates the five core capabilities of Kit: code structure analysis, intelligent search, context extraction, LLM integration, and dependency analysis.
+- **example_kit_capabilities.py**: Demonstrates the five core capabilities of CodeKite: code structure analysis, intelligent search, context extraction, LLM integration, and dependency analysis.
 
   ```sh
   uv run examples/example_kit_capabilities.py
@@ -32,7 +32,7 @@ This directory contains example scripts that demonstrate the capabilities of the
 
 ### LLM Integration Examples
 
-- **example_llm_summarization.py**: Shows how Kit can use LLMs like OpenAI's models to generate summaries of files, functions, and classes.
+- **example_llm_summarization.py**: Shows how codekite can use LLMs like OpenAI's models to generate summaries of files, functions, and classes.
 
   ```sh
   # Requires an OpenAI API key
@@ -42,7 +42,7 @@ This directory contains example scripts that demonstrate the capabilities of the
 
 ### Remote Repository Examples
 
-- **example_remote_repo.py**: Tests Kit's ability to clone and analyze remote GitHub repositories, demonstrating its remote capabilities.
+- **example_remote_repo.py**: Tests codekite's ability to clone and analyze remote GitHub repositories, demonstrating its remote capabilities.
 
   ```sh
   uv run examples/example_remote_repo.py https://github.com/shanholloman/codemapper

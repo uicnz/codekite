@@ -1,4 +1,4 @@
-# Makefile for kit project
+# Makefile for codekite project
 # Usage:
 #   make setup   # Clone grammars, build .so, install deps, set env
 #   make test    # Run all tests

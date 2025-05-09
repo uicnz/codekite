@@ -1,4 +1,4 @@
-"""kit Command Line Interface."""
+"""codekite Command Line Interface."""
 
 import typer
 
@@ -7,21 +7,21 @@ app = typer.Typer(help="A modular toolkit for LLM-powered codebase understanding
 
 @app.command()
 def serve(host: str = "0.0.0.0", port: int = 8000, reload: bool = True):
-    """Run the kit REST API server (requires `kit[api]` dependencies)."""
+    """Run the codekite REST API server (requires `codekite[api]` dependencies)."""
     try:
         import uvicorn
-        from kit.api import app as fastapi_app  # Import the FastAPI app instance
+        from codekite.api import app as fastapi_app  # Import the FastAPI app instance
     except ImportError:
         typer.secho(
-            "Error: FastAPI or Uvicorn not installed. Please run `pip install kit[api]`",
+            "Error: FastAPI or Uvicorn not installed. Please run `pip install codekite[api]`",
             fg=typer.colors.RED,
         )
         raise typer.Exit(code=1)
 
-    typer.echo(f"Starting kit API server on http://{host}:{port}")
+    typer.echo(f"Starting codekite API server on http://{host}:{port}")
     # When reload=True, we must use import string instead of app instance
     if reload:
-        uvicorn.run("kit.api.app:app", host=host, port=port, reload=reload)
+        uvicorn.run("codekite.api.app:app", host=host, port=port, reload=reload)
     else:
         uvicorn.run(fastapi_app, host=host, port=port, reload=reload)
 
@@ -33,7 +33,7 @@ def search(
     pattern: str = typer.Option("*.py", "--pattern", "-p", help="Glob pattern for files to search."),
 ):
     """Perform a textual search in a local repository."""
-    from kit import Repository  # Local import to avoid circular deps if CLI is imported elsewhere
+    from codekite import Repository  # Local import to avoid circular deps if CLI is imported elsewhere
 
     try:
         repo = Repository(path)

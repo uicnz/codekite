@@ -6,8 +6,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
-from kit import Repository
-from kit.dependency_analyzer import DependencyAnalyzer
+from codekite import Repository
+from codekite.dependency_analyzer import DependencyAnalyzer
 
 
 def test_dependency_analyzer_basic():

@@ -4,21 +4,21 @@ title: Build an AI PR Reviewer
 
 import { Aside } from '@astrojs/starlight/components';
 
-`kit` shines when an LLM needs to *understand a change in the context of the **entire** code-base*—exactly what a human reviewer does. A good review often requires looking beyond the immediate lines changed to understand their implications, check for consistency with existing patterns, and ensure no unintended side-effects arise. This tutorial walks through a **minimal but complete** AI PR-review bot that demonstrates how `kit` provides this crucial whole-repo context. The bot will:
+`codekite` shines when an LLM needs to *understand a change in the context of the **entire** code-base*—exactly what a human reviewer does. A good review often requires looking beyond the immediate lines changed to understand their implications, check for consistency with existing patterns, and ensure no unintended side-effects arise. This tutorial walks through a **minimal but complete** AI PR-review bot that demonstrates how `codekite` provides this crucial whole-repo context. The bot will:
 
 1.  Fetches a GitHub PR (diff + metadata).
-2.  Builds a `kit.Repository` for the **changed branch** so we can query *any* file, symbol or dependency as it exists in that PR.
-3.  Generates a focused context bundle with `kit.llm_context.ContextAssembler`, which intelligently combines the diff, the full content of changed files, relevant neighboring code, and even semantically similar code from elsewhere in the repository.
+2.  Builds a `codekite.Repository` for the **changed branch** so we can query *any* file, symbol or dependency as it exists in that PR.
+3.  Generates a focused context bundle with `codekite.llm_context.ContextAssembler`, which intelligently combines the diff, the full content of changed files, relevant neighboring code, and even semantically similar code from elsewhere in the repository.
 4.  Sends the bundle to an LLM and posts the comments back to GitHub.
 
-By the end you will see how a few dozen lines of Python—plus `kit`—give your LLM the *whole-repo* super-power, enabling it to perform more insightful and human-like code reviews.
+By the end you will see how a few dozen lines of Python—plus `codekite`—give your LLM the *whole-repo* super-power, enabling it to perform more insightful and human-like code reviews.
 
 ## 1. Fetch PR data
 
 To start, our AI reviewer needs the raw materials of the pull request. We'll use the GitHub REST API to grab two key pieces of information:
 
 *   The **diff**: This contains the actual line-by-line changes proposed in the PR. It's the primary subject of the review.
-*   The PR-head **commit SHA**: This is a unique identifier for the specific version of the code that the PR branch represents. `kit` will use this SHA to load and analyze the codebase exactly as it appears in the PR, ensuring our review is based on the correct snapshot of the files.
+*   The PR-head **commit SHA**: This is a unique identifier for the specific version of the code that the PR branch represents. `codekite` will use this SHA to load and analyze the codebase exactly as it appears in the PR, ensuring our review is based on the correct snapshot of the files.
 
 Use the GitHub REST API to grab the *diff* **and** the PR-head **commit SHA** (we'll need that to load files as they exist in the PR):
 
@@ -41,28 +41,28 @@ def fetch_pr(repo, pr_number):
 ---
 ## 2. Create a `Repository` for the PR branch
 
-With the `head_sha` obtained, we can now leverage `kit.Repository` to access the codebase as it exists at that specific commit. A powerful feature of `kit` is its ability to work with remote Git repositories by specifying a URL and a `ref` (like our `head_sha`). This means `kit` can analyze the PR's code state often without needing a full, persistent local clone of that specific branch, making the process efficient.
+With the `head_sha` obtained, we can now leverage `codekite.Repository` to access the codebase as it exists at that specific commit. A powerful feature of `codekite` is its ability to work with remote Git repositories by specifying a URL and a `ref` (like our `head_sha`). This means `codekite` can analyze the PR's code state often without needing a full, persistent local clone of that specific branch, making the process efficient.
 
-`kit` can load a remote Git repo *at any commit*—no full clone required:
+`codekite` can load a remote Git repo *at any commit*—no full clone required:
 
 ```python
-from kit import Repository
+from codekite import Repository
 
 # For this tutorial, we assume the remote repository's default branch
 # reflects the PR's base or that a local clone is already checked out
 # to the correct PR head commit (head_sha).
-# kit.Repository, when given a URL, currently clones the default branch.
+# codekite.Repository, when given a URL, currently clones the default branch.
 # Supporting checkout of a specific ref (like head_sha) directly via Repository
 # initialization is forthcoming.
 
 repo = Repository(
     path_or_url="https://github.com/OWNER/REPO.git", # Replace with actual repo URL
     github_token=os.getenv("GITHUB_TOKEN"),
-    cache_dir="~/.cache/kit",  # clones are cached for speed
+    cache_dir="~/.cache/codekite",  # clones are cached for speed
 )
 ```
 
-The `cache_dir` parameter tells `kit` where to store parts of remote repositories it fetches. This caching significantly speeds up subsequent operations on the same repository or commit, which is very beneficial for a bot that might process multiple PRs or re-analyze a PR if it's updated.
+The `cache_dir` parameter tells `codekite` where to store parts of remote repositories it fetches. This caching significantly speeds up subsequent operations on the same repository or commit, which is very beneficial for a bot that might process multiple PRs or re-analyze a PR if it's updated.
 
 Now `repo` can *instantly* answer questions like:
 `repo.search_text("TODO")` (useful for checking if the PR resolves or introduces to-do items),
@@ -73,10 +73,10 @@ These capabilities allow our AI reviewer to gather rich contextual information f
 ---
 ## 3. Build context for the LLM
 
-The `ContextAssembler` is the workhorse for preparing the input to the LLM. It orchestrates several `kit` features to build a comprehensive understanding of the PR:
+The `ContextAssembler` is the workhorse for preparing the input to the LLM. It orchestrates several `codekite` features to build a comprehensive understanding of the PR:
 
 ```python
-from kit import Repository, ContextAssembler
+from codekite import Repository, ContextAssembler
 from unidiff import PatchedFile, PatchSet
 
 # Assume `repo`, `diff`, `pr_title`, `pr_description` are defined
@@ -126,7 +126,7 @@ The `ContextAssembler` is used as follows:
 
 1.  **`assembler.add_diff(diff)`**: This provides the LLM with the direct changes from the PR.
 2.  **`assembler.add_file(p_file.path)`**: Supplying the full content of changed files allows the LLM to see modifications in their complete original context, not just the diff hunks.
-3.  **Augment with Semantic Search (`assembler.add_search_results(...)`)**: This is a key step where `kit` truly empowers the AI reviewer. Beyond direct code connections, `kit`'s `repo.search_semantic()` method can unearth other code sections that are *conceptually related* to the PR's intent, even if not directly linked by calls or imports.
+3.  **Augment with Semantic Search (`assembler.add_search_results(...)`)**: This is a key step where `codekite` truly empowers the AI reviewer. Beyond direct code connections, `codekite`'s `repo.search_semantic()` method can unearth other code sections that are *conceptually related* to the PR's intent, even if not directly linked by calls or imports.
 
     You can use queries derived from the PR's title or description to find examples of similar functionality, relevant design patterns, or areas that might require parallel updates.
 
@@ -139,7 +139,7 @@ Finally, `assembler.format_context()` consolidates all the added information int
 ---
 ## 4. Prepare the LLM Prompt
 
-With the meticulously assembled `context_blob` from `kit`, we can now prompt an LLM. The quality of the prompt, including the system message that sets the LLM's role and the user message containing the context, is vital. Because `kit` has provided such comprehensive and well-structured context, the LLM is significantly better equipped to act like an "expert software engineer" and provide a nuanced, insightful review.
+With the meticulously assembled `context_blob` from `codekite`, we can now prompt an LLM. The quality of the prompt, including the system message that sets the LLM's role and the user message containing the context, is vital. Because `codekite` has provided such comprehensive and well-structured context, the LLM is significantly better equipped to act like an "expert software engineer" and provide a nuanced, insightful review.
 
 ```python
 from openai import OpenAI
@@ -174,11 +174,11 @@ requests.post(
 ---
 ## Where to go next?
 
-This tutorial provides a foundational AI PR reviewer. `kit`'s components can help you extend it further:
+This tutorial provides a foundational AI PR reviewer. `codekite`'s components can help you extend it further:
 
 *   **Chunk large diffs or files**: If a PR is very large, the `ContextAssembler` currently adds full content. You might need strategies to chunk very large files (e.g., using `repo.chunk_file_by_symbols` or `repo.chunk_file_by_lines`) or diffs before adding them to the assembler, or implement more granular context addition to stay within LLM limits.
-*   **Custom ranking**: The `ContextAssembler` could be configured or extended to allow different weights for various context pieces (e.g., prioritizing semantic search matches that are highly relevant over less critical dependency information). `kit`'s search results, which often include scores, can inform this process.
-*   **Inline comments**: To provide more granular feedback, parse the LLM's output to identify suggestions pertaining to specific files and lines. `kit`'s symbol information (which includes line numbers from `RepoMapper`) is crucial for accurately mapping these suggestions back to the codebase and using the GitHub *review* API to post comments directly on the diff.
-*   **Supersonic**: For more advanced automation, tools like Supersonic could leverage `kit`'s understanding and context to not just suggest, but also *automatically apply* LLM-suggested changes, potentially opening follow-up PRs. This might involve `kit.Repository`'s file access methods and (in the future) more advanced code manipulation primitives.
+*   **Custom ranking**: The `ContextAssembler` could be configured or extended to allow different weights for various context pieces (e.g., prioritizing semantic search matches that are highly relevant over less critical dependency information). `codekite`'s search results, which often include scores, can inform this process.
+*   **Inline comments**: To provide more granular feedback, parse the LLM's output to identify suggestions pertaining to specific files and lines. `codekite`'s symbol information (which includes line numbers from `RepoMapper`) is crucial for accurately mapping these suggestions back to the codebase and using the GitHub *review* API to post comments directly on the diff.
+*   **Supersonic**: For more advanced automation, tools like Supersonic could leverage `codekite`'s understanding and context to not just suggest, but also *automatically apply* LLM-suggested changes, potentially opening follow-up PRs. This might involve `codekite.Repository`'s file access methods and (in the future) more advanced code manipulation primitives.
 
-> With `kit` your LLM sees code the way *humans* do: in the rich context of the entire repository.  Better signal in → better reviews out.
+> With `codekite` your LLM sees code the way *humans* do: in the rich context of the entire repository.  Better signal in → better reviews out.

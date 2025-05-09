@@ -2,7 +2,7 @@
 """Tests for Ruby and C symbol extraction."""
 import os
 import tempfile
-from kit import Repository
+from codekite import Repository
 
 
 def _extract(tmpdir: str, filename: str, content: str):

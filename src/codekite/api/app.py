@@ -1,4 +1,4 @@
-"""FastAPI application exposing core kit capabilities."""
+"""FastAPI application exposing core codekite capabilities."""
 from __future__ import annotations
 
 from typing import Dict
@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from ..repository import Repository
 from ..llm_context import ContextAssembler
 
-app = FastAPI(title="kit API", version="0.1.0")
+app = FastAPI(title="codekite API", version="0.1.0")
 
 
 class RepoIn(BaseModel):

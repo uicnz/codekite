@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from kit.tree_sitter_symbol_extractor import TreeSitterSymbolExtractor
+from codekite.tree_sitter_symbol_extractor import TreeSitterSymbolExtractor
 
 SAMPLES = {
     ".py": "def foo():\n    pass\n\nclass Bar:\n    pass\n",

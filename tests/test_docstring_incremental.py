@@ -8,8 +8,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from kit import Repository, DocstringIndexer
-from kit.vector_searcher import VectorDBBackend
+from codekite import Repository, DocstringIndexer
+from codekite.vector_searcher import VectorDBBackend
 
 FIXTURE_REPO = Path(__file__).parent / "fixtures" / "realistic_repo"
 

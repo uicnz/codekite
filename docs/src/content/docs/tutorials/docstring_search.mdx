@@ -2,7 +2,7 @@
 title: Build a Docstring Search Engine
 ---
 
-In this tutorial you'll build a semantic search tool on top of `kit`
+In this tutorial you'll build a semantic search tool on top of `codekite`
 using **docstring-based indexing**.
 
 Why docstrings?  Summaries distill *intent* rather than syntax.  Embedding these
@@ -16,17 +16,17 @@ symbol instead of dozens of raw-code chunks).
 ## 1. Install dependencies
 
 ```sh
-uv pip install kit[openai] sentence-transformers chromadb
+uv pip install codekite[openai] sentence-transformers chromadb
 ```
 
 ## 2. Initialise a repo and summarizer
 
 ```python
-import kit
+import codekite
 from sentence_transformers import SentenceTransformer
 
 REPO_PATH = "/path/to/your/project"
-repo = kit.Repository(REPO_PATH)
+repo = codekite.Repository(REPO_PATH)
 
 summarizer = repo.get_summarizer()  # defaults to OpenAIConfig
 ```
@@ -37,8 +37,8 @@ summarizer = repo.get_summarizer()  # defaults to OpenAIConfig
 embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 embed_fn = lambda txt: embed_model.encode(txt).tolist()
 
-indexer = kit.DocstringIndexer(repo, summarizer, embed_fn)
-indexer.build()          # writes .kit/docstring_db
+indexer = codekite.DocstringIndexer(repo, summarizer, embed_fn)
+indexer.build()          # writes .codekite/docstring_db
 ```
 
 The first run will take time depending on repo size and LLM latency.
@@ -47,7 +47,7 @@ Summaries are cached inside the vector DB, so subsequent runs are cheap.
 ## 4. Query the index
 
 ```python
-searcher = kit.SummarySearcher(indexer)
+searcher = codekite.SummarySearcher(indexer)
 
 results = searcher.search("How is the retry back-off implemented?", top_k=3)
 for hit in results:

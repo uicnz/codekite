@@ -1,9 +1,9 @@
 import time
-from kit.repository import Repository as Repo
+from codekite.repository import Repository as Repo
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description="Benchmark kit repo indexing.")
+    parser = argparse.ArgumentParser(description="Benchmark codekite repo indexing.")
     parser.add_argument("repo", nargs="?", default=".", help="Path to repo root (default: .)")
     args = parser.parse_args()
     repo = Repo(args.repo)

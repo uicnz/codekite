@@ -16,7 +16,7 @@ This approach is powerful because it combines semantic understanding (from summa
 
 ## Prerequisites
 
-*   You have `kit` installed (`pip install codekite`).
+*   You have `codekite` installed (`pip install codekite`).
 *   You have an OpenAI API key set (`export OPENAI_API_KEY=...`).
 *   You have a local Git repository you want to query.
 
@@ -29,8 +29,8 @@ This approach is powerful because it combines semantic understanding (from summa
     First, let's set up our `Repository`, `DocstringIndexer`, `Summarizer` (for the indexer), `SummarySearcher`, and `ContextAssembler`.
 
     ```python
-    from kit import Repository, DocstringIndexer, Summarizer, SummarySearcher, ContextAssembler
-    from kit.llms.openai import OpenAIConfig # Or AnthropicConfig, GoogleConfig
+    from codekite import Repository, DocstringIndexer, Summarizer, SummarySearcher, ContextAssembler
+    from codekite.llms.openai import OpenAIConfig # Or AnthropicConfig, GoogleConfig
 
     # --- Configuration ---
     REPO_PATH = "/path/to/your/local/git/repo" #! MODIFY

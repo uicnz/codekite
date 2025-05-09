@@ -1,7 +1,7 @@
 import os
 import pytest
 from pathlib import Path
-from kit import Repository
+from codekite import Repository
 
 def test_typescript_symbol_extraction(tmp_path: Path):
     # Minimal TypeScript code with a function and a class

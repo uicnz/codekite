@@ -2,19 +2,19 @@
 title: Codebase Summarizer
 ---
 
-This tutorial shows how to use `kit` to generate a structured Markdown summary of your codebase, including the file tree and all extracted symbols (functions, classes, etc.). Such a summary can be invaluable for quickly understanding a new project, tracking architectural changes, or for documentation purposes.
+This tutorial shows how to use `codekite` to generate a structured Markdown summary of your codebase, including the file tree and all extracted symbols (functions, classes, etc.). Such a summary can be invaluable for quickly understanding a new project, tracking architectural changes, or for documentation purposes.
 
 ## Step 1: Summarize the Codebase Structure
 
-The core of this task lies in using `kit`'s `Repository` object to analyze the codebase and extract its structural information. This process involves two main `kit` operations:
+The core of this task lies in using `codekite`'s `Repository` object to analyze the codebase and extract its structural information. This process involves two main `codekite` operations:
 
-1.  **Initializing the `Repository`**: `repo = Repo(repo_path)` creates an instance that points `kit` to the target codebase. `kit` then becomes aware of the repository's location and is ready to perform various analyses.
-2.  **Indexing the Repository**: `index = repo.index()` is a key `kit` command. When called, `kit` (typically using its internal `RepoMapper` component) traverses the repository, parses supported source files, identifies structural elements like files, directories, classes, functions, and other symbols. It then compiles this information into a structured `index`.
+1.  **Initializing the `Repository`**: `repo = Repo(repo_path)` creates an instance that points `codekite` to the target codebase. `codekite` then becomes aware of the repository's location and is ready to perform various analyses.
+2.  **Indexing the Repository**: `index = repo.index()` is a key `codekite` command. When called, `codekite` (typically using its internal `RepoMapper` component) traverses the repository, parses supported source files, identifies structural elements like files, directories, classes, functions, and other symbols. It then compiles this information into a structured `index`.
 
-Use kit's `Repo` object to index the codebase and gather all relevant information.
+Use codekite's `Repo` object to index the codebase and gather all relevant information.
 
 ```python
-from kit import Repo
+from codekite import Repo
 
 def summarize_codebase(repo_path: str) -> str:
     repo = Repo(repo_path)
@@ -42,7 +42,7 @@ def summarize_codebase(repo_path: str) -> str:
     return "\n".join(lines)
 ```
 
-This function, `summarize_codebase`, first initializes `kit` for the given `repo_path`. Then, `repo.index()` does the heavy lifting of analyzing the code. The resulting `index` object is a dictionary, typically containing at least two keys:
+This function, `summarize_codebase`, first initializes `codekite` for the given `repo_path`. Then, `repo.index()` does the heavy lifting of analyzing the code. The resulting `index` object is a dictionary, typically containing at least two keys:
 
 *   `'file_tree'`: A list representing the directory structure and files within the repository.
 *   `'symbols'`: A dictionary where keys are file paths, and each value is a list of symbols found in that file. Each symbol is itself a dictionary containing details like its name and type (e.g., function, class).
@@ -61,7 +61,7 @@ Provide CLI arguments for repo path and output file:
 import argparse
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Codebase summarizer using kit.")
+    parser = argparse.ArgumentParser(description="Codebase summarizer using codekite.")
     parser.add_argument("--repo", required=True, help="Path to the code repository")
     parser.add_argument("--output", help="Output Markdown file (default: stdout)")
     args = parser.parse_args()
@@ -93,7 +93,7 @@ python codebase_summarizer.py --repo /path/to/repo --output summary.md
 
 ## Example Output
 
-The generated Markdown file (or console output) will provide a clear, structured overview of your project, derived directly from `kit`'s analysis. It will list the files and then, for each file, the symbols defined within it.
+The generated Markdown file (or console output) will provide a clear, structured overview of your project, derived directly from `codekite`'s analysis. It will list the files and then, for each file, the symbols defined within it.
 
 ```
 # Codebase Summary for /path/to/repo
@@ -117,9 +117,9 @@ The generated Markdown file (or console output) will provide a clear, structured
 
 ## Customization Ideas
 
-The basic summarizer can be extended in many ways, leveraging more of `kit`'s potential or other Python libraries:
+The basic summarizer can be extended in many ways, leveraging more of `codekite`'s potential or other Python libraries:
 
-*   **Add code metrics**: `kit`'s `RepoMapper` might provide (or be extended to provide) metrics like lines of code or complexity for files/symbols.
+*   **Add code metrics**: `codekite`'s `RepoMapper` might provide (or be extended to provide) metrics like lines of code or complexity for files/symbols.
 *   **Include docstrings or comments**: The symbol information from `repo.index()` can be augmented to include extracted docstrings or important comments associated with each symbol.
 *   **Output in other formats**: Instead of Markdown, you could use libraries to format the `index` data as HTML, CSV, JSON, or any other structured format.
 *   **Integrate with CI**: Run this script as part of your Continuous Integration (CI) pipeline to automatically update the codebase summary whenever changes are pushed.

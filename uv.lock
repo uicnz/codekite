@@ -780,7 +780,7 @@ wheels = [
 ]
 
 [[package]]
-name = "kit"
+name = "codekite"
 version = "0.1.2"
 source = { editable = "." }
 dependencies = [

@@ -8,12 +8,12 @@ The `DocstringIndexer` class is responsible for building a vector index of AI-ge
 ## Constructor
 
 **Class: `DocstringIndexer`**
-*(defined in `kit/docstring_indexer.py`)*
+*(defined in `codekite/docstring_indexer.py`)*
 
 ```python
-from kit import Repository, Summarizer
-from kit.docstring_indexer import DocstringIndexer, EmbedFn # EmbedFn is Optional[Callable[[str], List[float]]]
-from kit.vector_searcher import VectorDBBackend # Optional
+from codekite import Repository, Summarizer
+from codekite.docstring_indexer import DocstringIndexer, EmbedFn # EmbedFn is Optional[Callable[[str], List[float]]]
+from codekite.vector_searcher import VectorDBBackend # Optional
 
 # Example basic initialization
 repo = Repository("/path/to/your/repo")
@@ -25,7 +25,7 @@ indexer = DocstringIndexer(repo=repo, summarizer=summarizer)
 #     # ... your embedding logic ...
 #     return [0.1, 0.2, ...]
 #
-# from kit.vector_searcher import ChromaDBBackend
+# from codekite.vector_searcher import ChromaDBBackend
 # custom_backend = ChromaDBBackend(collection_name="my_custom_index", persist_dir="./my_chroma_db")
 #
 # indexer_custom = DocstringIndexer(
@@ -40,9 +40,9 @@ indexer = DocstringIndexer(repo=repo, summarizer=summarizer)
 **Parameters:**
 
 *   **`repo`** (`Repository`, required):
-    An instance of `kit.Repository` pointing to the codebase to be indexed.
+    An instance of `codekite.Repository` pointing to the codebase to be indexed.
 *   **`summarizer`** (`Summarizer`, required):
-    An instance of `kit.Summarizer` used to generate summaries for code symbols or files.
+    An instance of `codekite.Summarizer` used to generate summaries for code symbols or files.
 *   **`embed_fn`** (`Optional[Callable[[str], List[float]]]`, default: `SentenceTransformer('all-MiniLM-L6-v2')`):
     A function that takes a string and returns its embedding (a list of floats).
     If `None`, a default embedding function using `sentence-transformers` (`all-MiniLM-L6-v2` model) will be used.
@@ -61,7 +61,7 @@ indexer = DocstringIndexer(repo=repo, summarizer=summarizer)
 ### `build`
 
 **Method: `DocstringIndexer.build`**
-*(defined in `kit/docstring_indexer.py`)*
+*(defined in `codekite/docstring_indexer.py`)*
 
 Builds or rebuilds the docstring index. It iterates through files in the repository (respecting `.gitignore` and `file_extensions`), extracts symbols or uses whole file content based on the `level`, generates summaries, embeds them, and adds them to the vector database. It also handles caching to avoid re-processing unchanged symbols/files.
 
@@ -97,7 +97,7 @@ indexer.build(file_extensions=[".py", ".mdx"])
 ### `get_searcher`
 
 **Method: `DocstringIndexer.get_searcher`**
-*(defined in `kit/docstring_indexer.py`)*
+*(defined in `codekite/docstring_indexer.py`)*
 
 Returns a `SummarySearcher` instance that is configured to query the index managed by this `DocstringIndexer`.
 

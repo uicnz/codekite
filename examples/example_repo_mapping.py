@@ -1,7 +1,7 @@
 """
 Map Repository Demo
 
-This script demonstrates how to use Kit to generate a complete map
+This script demonstrates how to use codekite to generate a complete map
 of a repository's structure and symbols, outputting the results as JSON.
 
 Usage:
@@ -11,7 +11,7 @@ import os
 import sys
 import json
 import time
-from kit import Repository
+from codekite import Repository
 
 def map_repository(repo_path_or_url):
     """Map the repository and output its structure as JSON"""
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         repo_path_or_url = sys.argv[1]
     else:
-        # Use the kit repo itself as default
+        # Use the codekite repo itself as default
         # Use parent directory to access the full codekite project
         repo_path_or_url = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

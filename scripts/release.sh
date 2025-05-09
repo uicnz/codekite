@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to build, publish, and tag a release for the kit project locally.
+# Script to build, publish, and tag a release for the codekite project locally.
 
 # Exit immediately if a command exits with a non-zero status.
 set -e
@@ -46,7 +46,7 @@ fi
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 if [[ "${CURRENT_BRANCH}" != "main" && "${CURRENT_BRANCH}" != "master" ]]; then # Adjust 'main' or 'master' as per your default branch
     echo "Warning: You are not on the main/master branch (current: ${CURRENT_BRANCH})."
-    read -p "Continue anyway? (y/N): " confirm_branch
+    read -r -p "Continue anyway? (y/N): " confirm_branch
     if [[ "$confirm_branch" != [yY] ]]; then
         echo "Aborted by user."
         exit 1
@@ -63,7 +63,7 @@ if [ -z "${TWINE_USERNAME}" ] || [ -z "${TWINE_PASSWORD}" ]; then
 fi
 if [ "${TWINE_USERNAME}" != "__token__" ]; then
     echo "Warning: TWINE_USERNAME is not set to '__token__'. This is the required username for token-based authentication with PyPI."
-    read -p "Continue anyway? (y/N): " confirm_twine_user
+    read -r -p "Continue anyway? (y/N): " confirm_twine_user
     if [[ "$confirm_twine_user" != [yY] ]]; then
         echo "Aborted by user."
         exit 1
@@ -80,11 +80,11 @@ fi
 
 echo ""
 echo "Release pre-flight checks passed for version ${VERSION}."
-read -p "Proceed with build, PyPI publish, and git tagging? (y/N): " confirm_proceed
+read -r -p "Proceed with build, PyPI publish, and git tagging? (y/N): " confirm_proceed
 if [[ "$confirm_proceed" != [yY] ]]; then
     echo "Aborted by user."
     exit 1
-fi 
+fi
 
 # --- Build Package ---
 echo ""
@@ -110,7 +110,7 @@ git push origin "${TAG_NAME}"
 if command -v gh &> /dev/null; then
     echo ""
     echo "GitHub CLI ('gh') found."
-    read -p "Do you want to attempt to create a GitHub Release for tag ${TAG_NAME}? (y/N): " confirm_gh_release
+    read -r -p "Do you want to attempt to create a GitHub Release for tag ${TAG_NAME}? (y/N): " confirm_gh_release
     if [[ "$confirm_gh_release" == [yY] ]]; then
         echo "Creating GitHub Release for ${TAG_NAME}..."
         # --generate-notes will create release notes from commits since the last tag.

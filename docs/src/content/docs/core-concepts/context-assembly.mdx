@@ -15,7 +15,7 @@ together into a single prompt-sized string.
 ## Quick start
 
 ```python
-from kit import Repository, ContextAssembler
+from codekite import Repository, ContextAssembler
 
 repo = Repository("/path/to/project")
 
@@ -62,14 +62,14 @@ assembler = ContextAssembler(
 ## API reference
 
 ```python
-from kit.llm_context import ContextAssembler
+from codekite.llm_context import ContextAssembler
 ```
 
 ### `__init__(repo, *, title=None)`
 
 Constructs a new `ContextAssembler`.
 
-*   `repo`: A `kit.repository.Repository` instance.
+*   `repo`: A `codekite.repository.Repository` instance.
 *   `title` (optional): A string to prepend to the assembled context.
 
 ### `from_chunks(chunks, max_chars=12000, separator="...", header="", footer="")`

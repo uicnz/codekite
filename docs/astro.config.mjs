@@ -5,7 +5,7 @@ import starlight from "@astrojs/starlight";
 export default defineConfig({
   integrations: [
     starlight({
-      title: "kit ",
+      title: "codekite ",
       social: [
         {
           icon: "github",
@@ -64,7 +64,7 @@ export default defineConfig({
           autogenerate: { directory: "development" },
         },
         {
-          label: " Extending Kit",
+          label: " Extending codekite",
           autogenerate: { directory: "extending" },
         },
       ],

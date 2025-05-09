@@ -2,14 +2,14 @@
 title: Semantic Code Search
 ---
 
-This tutorial demonstrates how to build a semantic code search tool using `kit`. You'll learn how to search for code symbols (functions, classes, etc.) matching a keyword or phrase and return results as JSON.
+This tutorial demonstrates how to build a semantic code search tool using `codekite`. You'll learn how to search for code symbols (functions, classes, etc.) matching a keyword or phrase and return results as JSON.
 
 ## Step 1: Implement Semantic Search
 
 Use the `Repository` class to index your codebase and search for symbols matching a query.
 
 ```python
-from kit import Repository
+from codekite import Repository
 from typing import List, Dict, Any
 
 def semantic_search(repo_path: str, query: str) -> List[Dict[str, Any]]:
@@ -34,7 +34,7 @@ import argparse
 import json
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Semantic code search using kit.")
+    parser = argparse.ArgumentParser(description="Semantic code search using codekite.")
     parser.add_argument("--repo", required=True, help="Path to the code repository")
     parser.add_argument("--query", required=True, help="Search query (keyword or phrase)")
     parser.add_argument("--output", help="Output file for results (JSON)")
@@ -93,4 +93,4 @@ python semantic_code_search.py --repo /path/to/repo --query "parse json" --outpu
 
 ## Conclusion
 
-With a few lines of code, you can build a semantic code search tool for any codebase using `kit`. This makes it easy to find relevant code and accelerate development or review workflows.
+With a few lines of code, you can build a semantic code search tool for any codebase using `codekite`. This makes it easy to find relevant code and accelerate development or review workflows.

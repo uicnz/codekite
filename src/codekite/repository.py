@@ -70,7 +70,7 @@ class Repository:
         from urllib.parse import urlparse
 
         repo_name = urlparse(url).path.strip("/").replace("/", "-")
-        cache_root = Path(cache_dir or tempfile.gettempdir()) / "kit-repo-cache"
+        cache_root = Path(cache_dir or tempfile.gettempdir()) / "codekite-repo-cache"
         cache_root.mkdir(parents=True, exist_ok=True)
 
         repo_path = cache_root / repo_name
@@ -213,7 +213,7 @@ class Repository:
         Factory method to get a Summarizer instance configured for this repository.
 
         Requires LLM dependencies (e.g., openai, anthropic, google-generativeai) to be installed.
-        Example: `pip install kit[openai,anthropic,google]` or the specific one needed.
+        Example: `pip install codekite[openai,anthropic,google]` or the specific one needed.
 
         Args:
             config: Optional configuration object (e.g., OpenAIConfig, AnthropicConfig, GoogleConfig).
@@ -231,7 +231,7 @@ class Repository:
             from .summaries import Summarizer, OpenAIConfig, AnthropicConfig, GoogleConfig
         except ImportError as e:
             raise ImportError(
-                "Summarizer dependencies not found. Did you install kit with LLM extras (e.g., kit[openai])?"
+                "Summarizer dependencies not found. Did you install codekite with LLM extras (e.g., codekite[openai])?"
             ) from e
 
         # Determine config: use provided or default (which checks env vars)

@@ -1,4 +1,4 @@
-from kit import Repository
+from codekite import Repository
 import tempfile
 import os
 import shutil

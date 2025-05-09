@@ -1,14 +1,14 @@
 """
-Kit Capabilities Demo
+codekite Capabilities Demo
 
-This script demonstrates all five key capabilities of Kit by analyzing its own codebase:
+This script demonstrates all five key capabilities of codekite by analyzing its own codebase:
 1. Code Structure Analysis
 2. Intelligent Code Search
 3. Context Extraction
 4. LLM Integration (summaries)
 5. Dependency Analysis
 """
-from kit import Repository
+from codekite import Repository
 import json
 import os
 
@@ -52,7 +52,7 @@ def main():
     format_output("Capability 1: Code Structure Analysis - File Tree", py_files)
 
     # Extract symbols from repository.py
-    repo_file = "src/kit/repository.py"
+    repo_file = "src/codekite/repository.py"
     symbols = repo.extract_symbols(repo_file)
     format_output("Capability 1: Code Structure Analysis - Symbols", symbols)
 
@@ -113,11 +113,11 @@ def main():
         # Placeholder for actual context assembly
         # The method used was incorrect - ContextAssembler doesn't have assemble_context
         # It likely has other methods for building context
-        sample_content = repo.get_file_content("src/kit/repo_mapper.py")[:500] + "...[truncated]"
+        sample_content = repo.get_file_content("src/codekite/repo_mapper.py")[:500] + "...[truncated]"
         context = {
-            "query": "How does Kit extract symbols from code?",
+            "query": "How does codekite extract symbols from code?",
             "content": sample_content,
-            "source": "src/kit/repo_mapper.py",
+            "source": "src/codekite/repo_mapper.py",
             "note": "Context assembly shown with sample content (method names were incorrect)"
         }
         format_output("Capability 3: Context Extraction - Context Example", context)
@@ -133,11 +133,11 @@ def main():
     print("=" * 80)
     print("This capability requires LLM API access (OpenAI, Anthropic, or Google).")
     print("To use this feature:")
-    print("1. Install Kit with LLM extras: `pip install kit[openai]` or `kit[anthropic]` or `kit[google]`")
+    print("1. Install codekite with LLM extras: `pip install codekite[openai]` or `codekite[anthropic]` or `codekite[google]`")
     print("2. Set appropriate API keys as environment variables")
     print("3. Create a configuration object:")
     print("   ```python")
-    print("   from kit.summaries import OpenAIConfig")
+    print("   from codekite.summaries import OpenAIConfig")
     print("   config = OpenAIConfig(api_key='your_key_here')  # Or use env vars")
     print("   summarizer = repo.get_summarizer(config)")
     print("   ```")

@@ -3,14 +3,14 @@ title: Practical Recipes
 ---
 
 :::note
-These snippets are *copy-paste-ready* solutions for common developer-productivity tasks with **kit**. Adapt them to scripts, CI jobs, or IDE plugins.
+These snippets are *copy-paste-ready* solutions for common developer-productivity tasks with **codekite**. Adapt them to scripts, CI jobs, or IDE plugins.
 :::
 
 ## 1. Rename every function `old_name` → `new_name`
 
 ```python
 from pathlib import Path
-from kit import Repository
+from codekite import Repository
 
 repo = Repository("/path/to/project")
 
@@ -38,7 +38,7 @@ repo.mapper.scan_repo()  # refresh symbols if you'll run more queries
 ## 2. Summarize a Git diff for an LLM PR review
 
 ```python
-from kit import Repository
+from codekite import Repository
 repo = Repository(".")
 assembler = repo.get_context_assembler()
 assembler.add_diff(diff_text)  # diff_text from `git diff`
@@ -80,7 +80,7 @@ repo.write_index("repo_index.json")
 This recipe helps you understand where a particular function is being used throughout your entire codebase, which is crucial for impact analysis or refactoring.
 
 ```python
-from kit import Repository
+from codekite import Repository
 
 # Initialize the repository
 repo = Repository("/path/to/your_project")
@@ -126,7 +126,7 @@ for usage in usages:
 This recipe provides a heuristic to find functions that *might* be unused within the analyzed codebase. This can be a starting point for identifying dead code. Note that this is a heuristic because it might not catch dynamically called functions, functions part of a public API but not used internally, or functions used only in parts of the codebase not analyzed (e.g., separate test suites).
 
 ```python
-from kit import Repository
+from codekite import Repository
 
 repo = Repository("/path/to/your_project")
 

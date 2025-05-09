@@ -1,10 +1,10 @@
 """
-Semantic Code Search using Kit
+Semantic Code Search using codekite
 
-This script demonstrates Kit's semantic search capabilities for finding code
+This script demonstrates codekite's semantic search capabilities for finding code
 based on natural language queries or code snippets.
 """
-from kit import Repository
+from codekite import Repository
 import argparse
 import json
 import os
@@ -49,7 +49,7 @@ def semantic_search(repo_path: str, query: str, limit: int = 10, embed_fn=None) 
         # (only exclude it if we find enough other results)
         return True
 
-    # Use the built-in semantic search capability of Kit
+    # Use the built-in semantic search capability of codekite
     try:
         # Try different parameter options (API might have changed)
         try:
@@ -198,7 +198,7 @@ def semantic_search(repo_path: str, query: str, limit: int = 10, embed_fn=None) 
         return results[:limit]
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Semantic code search using Kit.")
+    parser = argparse.ArgumentParser(description="Semantic code search using codekite.")
     parser.add_argument("--repo", required=True, help="Path to the code repository")
     parser.add_argument("--query", required=True, help="Search query (keyword or phrase)")
     parser.add_argument("--limit", type=int, default=10, help="Maximum number of results")

@@ -18,7 +18,7 @@ syntax or specific variable names.
 
 * **Cleaner embeddings** - Comments like *“Summary of retry logic”* embed better than nested `for`-loops.
 * **Smaller index** - One summary per file (or symbol) is < 1 kB, while the file itself might be thousands of tokens.
-* **Provider-agnostic** - Works with any LLM supported by `kit.Summarizer` (OpenAI, Anthropic, Google…).
+* **Provider-agnostic** - Works with any LLM supported by `codekite.Summarizer` (OpenAI, Anthropic, Google…).
 
 ## How it Works
 
@@ -27,8 +27,8 @@ syntax or specific variable names.
  
 
 ```python
-from kit import Repository, DocstringIndexer, Summarizer
-from kit.llms.openai import OpenAIConfig # For configuring the summarization LLM
+from codekite import Repository, DocstringIndexer, Summarizer
+from codekite.llms.openai import OpenAIConfig # For configuring the summarization LLM
 
 # 1. Initialize your Repository
 repo = Repository("/path/to/your/codebase")
@@ -52,7 +52,7 @@ indexer.build()
 # After building, you can query the index using a SummarySearcher.
 
 # Option 1: Manually create a SummarySearcher (traditional way)
-# from kit import SummarySearcher
+# from codekite import SummarySearcher
 # searcher_manual = SummarySearcher(indexer)
 
 # Option 2: Use the convenient get_searcher() method (recommended)
@@ -74,8 +74,8 @@ If you want to use a different embedding model or a custom embedding function, y
 For example, if you wanted to use a different model from the `sentence-transformers` library:
 
 ```python
-from kit import Repository, DocstringIndexer, Summarizer
-from kit.llms.openai import OpenAIConfig
+from codekite import Repository, DocstringIndexer, Summarizer
+from codekite.llms.openai import OpenAIConfig
 from sentence_transformers import SentenceTransformer # Make sure you have this installed
 
 repo = Repository("/path/to/your/codebase")
@@ -180,7 +180,7 @@ This shows that each entry in the ChromaDB collection has:
 
 Knowing the structure of this stored data can be very helpful when working with search results or debugging the indexing process.
 
-_(Note for Kit Developers: Consider adding a backend-agnostic `indexer.inspect_entries()` method for easier inspection in the future)._
+_(Note for codekite Developers: Consider adding a backend-agnostic `indexer.inspect_entries()` method for easier inspection in the future)._
 
 ### Symbol-Level Indexing
 
@@ -210,7 +210,7 @@ When `level="symbol"`:
 3.  **Querying**: Use `SummarySearcher` to find relevant summaries.
 
     ```python
-    from kit import SummarySearcher
+    from codekite import SummarySearcher
 
     searcher = SummarySearcher(indexer) # Pass the built indexer
     results = searcher.search("user authentication logic", top_k=3)
@@ -229,10 +229,10 @@ When `level="symbol"`:
 ## Quick start
 
 ```python
-import kit
+import codekite
 from sentence_transformers import SentenceTransformer
 
-repo = kit.Repository("/path/to/your/project")
+repo = codekite.Repository("/path/to/your/project")
 
 # 1. LLM summarizer (make sure OPENAI_API_KEY / etc. is set)
 summarizer = repo.get_summarizer()
@@ -241,12 +241,12 @@ summarizer = repo.get_summarizer()
 embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 embed_fn = lambda txt: embed_model.encode(txt).tolist()
 
-# 3. Build the index (stored in .kit/docstring_db)
-indexer = kit.DocstringIndexer(repo, summarizer)
+# 3. Build the index (stored in .codekite/docstring_db)
+indexer = codekite.DocstringIndexer(repo, summarizer)
 indexer.build()
 
 # 4. Search
-searcher = kit.SummarySearcher(indexer)
+searcher = codekite.SummarySearcher(indexer)
 for hit in searcher.search("retry back-off", top_k=5):
     print(hit["file"], "→", hit["summary"])
 ```
@@ -254,9 +254,9 @@ for hit in searcher.search("retry back-off", top_k=5):
 ### Storage details
 
 `DocstringIndexer` delegates persistence to any
-`kit.vector_searcher.VectorDBBackend`.  The default backend is
+`codekite.vector_searcher.VectorDBBackend`.  The default backend is
 [`Chroma`](https://docs.trychroma.com/) and lives in
-`.kit/docstring_db/` inside your repo.
+`.codekite/docstring_db/` inside your repo.
 
 ## Use Cases
 

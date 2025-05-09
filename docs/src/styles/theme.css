@@ -299,14 +299,14 @@ figure {
   }
 }
 
-/* Custom styles for the Kit homepage - Updated for direct variable override */
-body.kit-homepage {
+/* Custom styles for the codekite homepage - Updated for direct variable override */
+body.codekite-homepage {
   --sl-content-width: 90rem; /* Override Starlight's content width variable for the homepage */
 }
 
 /* Optional: Adjust for smaller screens if 90rem is too wide */
 @media (max-width: 1024px) { /* Example breakpoint, adjust as needed */
-  body.kit-homepage {
+  body.codekite-homepage {
     --sl-content-width: 100%; /* Or a specific smaller value like 70rem if 100% is too much */
   }
 }

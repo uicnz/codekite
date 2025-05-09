@@ -1,8 +1,8 @@
-# kit Code Intelligence Toolkit
+# CodeKite Code Intelligence Toolkit
 
-`kit` is a modular, production-grade Python toolkit for codebase mapping, symbol extraction, code search, and building LLM-powered developer tools, agents, and workflows.
+`codekite` is a modular, production-grade Python toolkit for codebase mapping, symbol extraction, code search, and building LLM-powered developer tools, agents, and workflows.
 
-Use `kit` to build things like code reviewers, code generators, even IDEs, all enriched with the right code context.
+Use `codekite` to build things like code reviewers, code generators, even IDEs, all enriched with the right code context.
 
 ## Quick Installation
 
@@ -25,7 +25,7 @@ uv pip install -e .
 ## Basic Usage
 
 ```python
-from kit import Repository
+from codekite import Repository
 
 # Load a local repository
 repo = Repository("/path/to/your/local/codebase")
@@ -43,7 +43,7 @@ print(repo.extract_symbols('src/main.py'))
 
 ## Key Features & Capabilities
 
-`kit` helps your apps and agents deeply understand and interact with codebases, providing the core components to build your own AI-powered developer tools. Here are just a few of the things you can do:
+`codekite` helps your apps and agents deeply understand and interact with codebases, providing the core components to build your own AI-powered developer tools. Here are just a few of the things you can do:
 
 - **Explore Code Structure:**
 
@@ -65,7 +65,7 @@ print(repo.extract_symbols('src/main.py'))
   - Leverage LLMs to create natural language summaries for files, functions, or classes using the `Summarizer` (e.g., `summarizer.summarize_file()`, `summarizer.summarize_function()`).
   - Build a searchable semantic index of these AI-generated docstrings with `DocstringIndexer` and query it with `SummarySearcher` to find code based on intent and meaning.
 
-- **And much more...** `kit` also offers capabilities for semantic search on raw code, building custom context for LLMs, and more.
+- **And much more...** `codekite` also offers capabilities for semantic search on raw code, building custom context for LLMs, and more.
 
 ## License
 

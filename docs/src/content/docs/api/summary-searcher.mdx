@@ -8,12 +8,12 @@ The `SummarySearcher` class provides a simple way to query an index built by [`D
 ## Constructor
 
 **Class: `SummarySearcher`**
-*(defined in `kit/docstring_indexer.py`)*
+*(defined in `codekite/docstring_indexer.py`)*
 
 The `SummarySearcher` is typically initialized with an instance of `DocstringIndexer`. It uses the `DocstringIndexer`'s configured backend and embedding function to perform searches.
 
 ```python
-from kit.docstring_indexer import DocstringIndexer, SummarySearcher
+from codekite.docstring_indexer import DocstringIndexer, SummarySearcher
 
 # Assuming 'indexer' is an already initialized DocstringIndexer instance
 # indexer = DocstringIndexer(repo=my_repo, summarizer=my_summarizer)
@@ -32,7 +32,7 @@ searcher = SummarySearcher(indexer=indexer)
 ### `search`
 
 **Method: `SummarySearcher.search`**
-*(defined in `kit/docstring_indexer.py`)*
+*(defined in `codekite/docstring_indexer.py`)*
 
 Embeds the given `query` string and searches the vector database (via the indexer's backend) for the `top_k` most similar document summaries.
 

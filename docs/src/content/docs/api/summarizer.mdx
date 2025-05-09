@@ -72,7 +72,7 @@ The `Summarizer` currently uses `OpenAIConfig` for its LLM settings. When a `Sum
 You can customize this by creating an `OpenAIConfig` instance and passing it to `repo.get_summarizer()`:
 
 ```python
-from kit.summaries import OpenAIConfig
+from codekite.summaries import OpenAIConfig
 
 # Example: Customize model and temperature
 my_config = OpenAIConfig(model="gpt-3.5-turbo", temperature=0.2)

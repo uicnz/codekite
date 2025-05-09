@@ -1,22 +1,22 @@
 ---
-title: Exploring Kit Interactively with the Python Shell
-description: A hands-on guide to trying out Kit's features directly in a Python interpreter.
+title: Exploring codekite Interactively with the Python Shell
+description: A hands-on guide to trying out codekite's features directly in a Python interpreter.
 ---
 
 import { Steps } from '@astrojs/starlight/components';
 
-This guide walks you through interactively exploring the `kit` library's capabilities using a Python shell. This is a great way to quickly understand how different components work, test out methods, and see the structure of the data they return.
+This guide walks you through interactively exploring the `codekite` library's capabilities using a Python shell. This is a great way to quickly understand how different components work, test out methods, and see the structure of the data they return.
 
 ## Prerequisites
 
 Before you begin, ensure you have:
 
-1.  Cloned the `kit` repository.
-2.  Set up your Python environment and installed `kit`'s dependencies. Ideally, you've installed `kit` in editable mode if you're also making changes:
+1.  Cloned the `codekite` repository.
+2.  Set up your Python environment and installed `codekite`'s dependencies. Ideally, you've installed `codekite` in editable mode if you're also making changes:
     ```sh
     pip install -e .
     ```
-3.  (Optional but recommended) Familiarized yourself with the [Core Concepts](/core-concepts/introduction) of `kit`.
+3.  (Optional but recommended) Familiarized yourself with the [Core Concepts](/core-concepts/introduction) of `codekite`.
 
 ## Getting Started: Your First Exploration
 
@@ -37,11 +37,11 @@ Let's dive in! We'll start by instantiating the `Repository` class and trying ou
     The `Repository` class is your main entry point for interacting with a codebase.
 
     ```python
-    from kit.repository import Repository
+    from codekite.repository import Repository
     import os # We'll use this for path joining
 
-    # Replace with the absolute path to your local clone of the 'kit' repository (or any other repo)
-    # For example, if you are in the root of the 'kit' repo itself:
+    # Replace with the absolute path to your local clone of the 'codekite' repository (or any other repo)
+    # For example, if you are in the root of the 'codekite' repo itself:
     repo_path = os.path.abspath(".")
     # Or provide a full path directly:
     # repo_path = "/path/to/your/repository"
@@ -56,19 +56,19 @@ Let's dive in! We'll start by instantiating the `Repository` class and trying ou
 
 ## Extracting Symbols from a File
 
-One of the core features of `kit` is its ability to parse source code and extract meaningful symbols like classes, functions, and methods. The `repo.extract_symbols()` method is used for this. After recent updates, this method now provides the full source code for each symbol and the correct line numbers spanning the entire symbol definition.
+One of the core features of `codekite` is its ability to parse source code and extract meaningful symbols like classes, functions, and methods. The `repo.extract_symbols()` method is used for this. After recent updates, this method now provides the full source code for each symbol and the correct line numbers spanning the entire symbol definition.
 
 <Steps>
 
 1.  **Choose a File and Extract Symbols**
 
-    Let's try extracting symbols from the `src/kit/repository.py` file itself.
+    Let's try extracting symbols from the `src/codekite/repository.py` file itself.
 
     ```python
     # Assuming 'repo' is your Repository instance from the previous step
     # and 'os' is imported.
 
-    file_to_test_relative = "src/kit/repository.py"
+    file_to_test_relative = "src/codekite/repository.py"
     full_file_path = os.path.join(repo.repo_path, file_to_test_relative)
 
     print(f"Extracting symbols from: {full_file_path}")
@@ -117,7 +117,7 @@ One of the core features of `kit` is its ability to parse source code and extrac
 
 ## Listing All Files in the Repository
 
-To get an overview of all files and directories that `kit` recognizes within your repository, you can use the `repo.get_file_tree()` method. This is helpful for understanding the scope of what `kit` will operate on.
+To get an overview of all files and directories that `codekite` recognizes within your repository, you can use the `repo.get_file_tree()` method. This is helpful for understanding the scope of what `codekite` will operate on.
 
 <Steps>
 
@@ -137,7 +137,7 @@ To get an overview of all files and directories that `kit` recognizes within you
         print("------")
 
         # Example of what one item might look like:
-        # {'path': 'src/kit/repository.py', 'is_dir': False, 'name': 'repository.py', 'size': 14261}
+        # {'path': 'src/codekite/repository.py', 'is_dir': False, 'name': 'repository.py', 'size': 14261}
     else:
         print("File tree is empty or could not be retrieved.")
     ```
@@ -150,13 +150,13 @@ To get an overview of all files and directories that `kit` recognizes within you
     *   `'name'`: The base name of the file or directory.
     *   `'size'`: The size in bytes (often 0 for directories in this view).
 
-    This method respects rules defined in `.gitignore` (by default) and gives you a snapshot of the files `kit` is aware of.
+    This method respects rules defined in `.gitignore` (by default) and gives you a snapshot of the files `codekite` is aware of.
 
 </Steps>
 
 ## Searching for Text in Files
 
-`kit` allows you to perform text-based searches across your repository, similar to using `grep`. This is handled by the `repo.search_text()` method.
+`codekite` allows you to perform text-based searches across your repository, similar to using `grep`. This is handled by the `repo.search_text()` method.
 
 <Steps>
 
@@ -328,12 +328,12 @@ Permiss...
 ---
 ```
 
-**Example 2: Chunking a larger file (e.g., `src/kit/repository.py`)**
+**Example 2: Chunking a larger file (e.g., `src/codekite/repository.py`)**
 
 For larger files, the content will be split into multiple string chunks.
 
 ```python
-repo_py_path = "src/kit/repository.py"
+repo_py_path = "src/codekite/repository.py"
 repo_py_chunks = repo.chunk_file_by_lines(repo_py_path, max_lines=50)
 
 print(f"\nNumber of chunks for {repo_py_path} (with max_lines=50): {len(repo_py_chunks)}")
@@ -344,12 +344,12 @@ for i, chunk_content in enumerate(repo_py_chunks[:2]):
     print(f"  Content (first 100 chars):\n  \"\"\"\n{chunk_content[:100]}...\n  \"\"\"")
 ```
 
-**Expected Output (for `src/kit/repository.py`, showing 2 of 7 chunks):**
+**Expected Output (for `src/codekite/repository.py`, showing 2 of 7 chunks):**
 
 ```text
-Number of chunks for src/kit/repository.py (with max_lines=50): 7
+Number of chunks for src/codekite/repository.py (with max_lines=50): 7
 
---- Chunk 1 for src/kit/repository.py ---
+--- Chunk 1 for src/codekite/repository.py ---
   Approx. line count: 48
   Content (first 100 chars):
   """
@@ -357,7 +357,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Unio...
   """
 
---- Chunk 2 for src/kit/repository.py ---
+--- Chunk 2 for src/codekite/repository.py ---
   Approx. line count: 20
   Content (first 100 chars):
   """
@@ -369,17 +369,17 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional, Unio...
 
 ### Chunking File Content by Symbols (`repo.chunk_file_by_symbols()`)
 
-A more semantically aware way to chunk files is by symbols. This method uses `kit`'s understanding of code structure to break the file into chunks that correspond to whole symbols like functions, classes, or methods. Each chunk represents a meaningful structural unit of the code.
+A more semantically aware way to chunk files is by symbols. This method uses `codekite`'s understanding of code structure to break the file into chunks that correspond to whole symbols like functions, classes, or methods. Each chunk represents a meaningful structural unit of the code.
 
 The method signature is: `repo.chunk_file_by_symbols(file_path: str) -> List[Dict[str, Any]]`
 
 -   `file_path`: The relative path to the file within the repository.
 -   It returns a list of dictionaries. Each dictionary represents one symbol-chunk and contains details like the symbol's `name`, `type`, `code` content, and `start_line`/`end_line` numbers.
 
-**Example: Chunking `src/kit/tree_sitter_symbol_extractor.py` by symbols**
+**Example: Chunking `src/codekite/tree_sitter_symbol_extractor.py` by symbols**
 
 ```python
-extractor_path = "src/kit/tree_sitter_symbol_extractor.py"
+extractor_path = "src/codekite/tree_sitter_symbol_extractor.py"
 symbol_chunks = repo.chunk_file_by_symbols(file_path=extractor_path)
 
 print(f"Successfully chunked '{extractor_path}' into {len(symbol_chunks)} symbol-based chunks.")
@@ -400,10 +400,10 @@ for i, chunk_dict in enumerate(symbol_chunks[:2]): # Show first 2 symbol chunks
     print(f"  Content (first 150 chars of code):\n  \"\"\"\n{code_content[:150]}...\n  \"\"\"")
 ```
 
-**Expected Output (for `src/kit/tree_sitter_symbol_extractor.py`, showing 2 of 4 chunks):**
+**Expected Output (for `src/codekite/tree_sitter_symbol_extractor.py`, showing 2 of 4 chunks):**
 
 ```text
-Successfully chunked 'src/kit/tree_sitter_symbol_extractor.py' into 4 symbol-based chunks.
+Successfully chunked 'src/codekite/tree_sitter_symbol_extractor.py' into 4 symbol-based chunks.
 
 --- Symbol Chunk 1 ---
   Symbol Name: TreeSitterSymbolExtractor

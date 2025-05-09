@@ -1,5 +1,5 @@
 [project]
-name = "kit"
+name = "codekite"
 version = "0.1.2"
 description = "A modular toolkit for LLM powered codebase understanding."
 authors = [
@@ -53,4 +53,4 @@ ignore_missing_imports = true
 
 
 [project.scripts]
-kit = "kit.cli:app"
+codekite = "codekite.cli:app"

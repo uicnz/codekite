@@ -1,8 +1,8 @@
 import os
 import tempfile
 import pytest
-from kit import Repository
-from kit.tree_sitter_symbol_extractor import TreeSitterSymbolExtractor
+from codekite import Repository
+from codekite.tree_sitter_symbol_extractor import TreeSitterSymbolExtractor
 
 def test_hcl_symbol_extraction():
     hcl_content = '''

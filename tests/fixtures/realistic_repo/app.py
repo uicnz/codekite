@@ -7,7 +7,7 @@ from utils import greet
 
 def main() -> None:
     """Run an expanded demo workflow showcasing more features."""
-    print("Kit Realistic Repo Demo\n" + "="*30)
+    print("codekite Realistic Repo Demo\n" + "="*30)
 
     auth_service = AuthService()
 

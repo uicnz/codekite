@@ -2,14 +2,14 @@
 title: Dependency Graph Visualizer
 ---
 
-This tutorial demonstrates how to visualize the import dependency graph of a Python codebase using `kit`. The output is in DOT format, which you can render with Graphviz to generate visual diagrams.
+This tutorial demonstrates how to visualize the import dependency graph of a Python codebase using `codekite`. The output is in DOT format, which you can render with Graphviz to generate visual diagrams.
 
 ## Step 1: Build the Dependency Graph
 
 The script parses each Python file and extracts import statements to build a dependency graph.
 
 ```python
-from kit import Repository
+from codekite import Repository
 from collections import defaultdict
 
 def build_dependency_graph(repo_path: str) -> str:
@@ -41,7 +41,7 @@ Add CLI arguments for repo path and output file:
 import argparse
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Dependency graph visualizer using kit.")
+    parser = argparse.ArgumentParser(description="Dependency graph visualizer using codekite.")
     parser.add_argument("--repo", required=True, help="Path to the code repository")
     parser.add_argument("--output", help="Output DOT file (default: stdout)")
     args = parser.parse_args()
@@ -83,4 +83,4 @@ This will produce an image of your codebase's import relationships.
 
 ## Conclusion
 
-Visualizing dependencies helps you understand, refactor, and document complex codebases. With `kit` and Graphviz, you can generate these graphs automatically as your project evolves.
+Visualizing dependencies helps you understand, refactor, and document complex codebases. With `codekite` and Graphviz, you can generate these graphs automatically as your project evolves.

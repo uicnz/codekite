@@ -4,12 +4,12 @@ title: Repository API
 
 import { Aside } from '@astrojs/starlight/components';
 
-This page details the methods and properties of the central `kit.Repository` class.
+This page details the methods and properties of the central `codekite.Repository` class.
 
 ## Initialization
 
 ```python
-from kit import Repository
+from codekite import Repository
 
 # Initialize with a local path
 local_repo = Repository("/path/to/your/local/project")
@@ -29,10 +29,10 @@ local_repo = Repository("/path/to/your/local/project")
 
 ## Creating a `Repository` Instance
 
-To start using `kit`, first create an instance of the `Repository` class. This points `kit` to the codebase you want to analyze.
+To start using `codekite`, first create an instance of the `Repository` class. This points `codekite` to the codebase you want to analyze.
 
 ```python
-from kit import Repository
+from codekite import Repository
 
 # For a local directory
 repository_instance = Repository(path_or_url="/path/to/local/project")
@@ -192,8 +192,8 @@ repository.get_vector_searcher(embed_fn=None, backend=None, persist_dir=None) ->
 **Parameters:**
 
 *   `embed_fn` (Callable): **Required on first call.** A function that takes a list of strings and returns a list of embedding vectors.
-*   `backend` (Optional[Any]): Specifies the vector database backend. If `None`, `kit` defaults to using `ChromaDBBackend`.
-*   `persist_dir` (Optional[str]): Path to a directory to persist the vector index. If `None`, the `VectorSearcher` will default to `YOUR_REPO_PATH/.kit/vector_db/` for ChromaDB. Setting to `None` implies using this default persistence path for ChromaDB.
+*   `backend` (Optional[Any]): Specifies the vector database backend. If `None`, `codekite` defaults to using `ChromaDBBackend`.
+*   `persist_dir` (Optional[str]): Path to a directory to persist the vector index. If `None`, the `VectorSearcher` will default to `YOUR_REPO_PATH/.codekite/vector_db/` for ChromaDB. Setting to `None` implies using this default persistence path for ChromaDB.
 
 **Returns:**
 

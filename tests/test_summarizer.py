@@ -1,5 +1,5 @@
 import pytest
-from kit.summaries import Summarizer, LLMError
+from codekite.summaries import Summarizer, LLMError
 from pathlib import Path
 
 

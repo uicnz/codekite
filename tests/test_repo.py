@@ -1,7 +1,7 @@
 import tempfile
 import os
 import pytest
-from kit import Repository
+from codekite import Repository
 
 def test_repo_get_file_tree_and_symbols():
     with tempfile.TemporaryDirectory() as tmpdir:

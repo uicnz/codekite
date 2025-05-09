@@ -55,5 +55,5 @@ coverage.xml
 .DS_Store
 .vercel
 
-# Kit specific
-.kit/docstring_db/
+# codekite specific
+.codekite/docstring_db/

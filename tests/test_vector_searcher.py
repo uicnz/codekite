@@ -1,8 +1,8 @@
 import tempfile
 import os
 import pytest
-from kit import Repository
-from kit.vector_searcher import VectorSearcher, ChromaDBBackend
+from codekite import Repository
+from codekite.vector_searcher import VectorSearcher, ChromaDBBackend
 from pathlib import Path
 import chromadb.api.shared_system_client as _ssc
 

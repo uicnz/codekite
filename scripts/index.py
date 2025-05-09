@@ -6,7 +6,7 @@ Usage:
 """
 import sys
 import json
-from kit import Repository
+from codekite import Repository
 
 if __name__ == "__main__":
     repo_path = sys.argv[1] if len(sys.argv) > 1 else "."

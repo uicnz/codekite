@@ -1,41 +1,41 @@
 ---
 title: Integrating with Supersonic
-description: Using kit for code analysis and Supersonic for automated PR creation.
+description: Using codekite for code analysis and Supersonic for automated PR creation.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-`kit` excels at understanding and analyzing codebases, while [Supersonic](https://github.com/shaneholloman/supersonic) provides a high-level Python API specifically designed for programmatically creating GitHub Pull Requests. Combining them allows you to build powerful workflows that analyze code, generate changes, and automatically propose those changes via PRs.
+`codekite` excels at understanding and analyzing codebases, while [Supersonic](https://github.com/shaneholloman/supersonic) provides a high-level Python API specifically designed for programmatically creating GitHub Pull Requests. Combining them allows you to build powerful workflows that analyze code, generate changes, and automatically propose those changes via PRs.
 
 <Aside type="note">
   **Use Case**
   Think of workflows like AI-powered code refactoring, automated dependency updates based on analysis, or generating documentation snippets from code and submitting them for review.
 </Aside>
 
-## The Workflow: Analyze with `kit`, Act with `Supersonic`
+## The Workflow: Analyze with `codekite`, Act with `Supersonic`
 
 A typical integration pattern looks like this:
 
-1.  **Analyze Code with `kit`**: Use `kit.Repository` methods like `extract_symbols`, `find_symbol_usages`, or `search_semantic` to understand the codebase or identify areas for modification.
+1.  **Analyze Code with `codekite`**: Use `codekite.Repository` methods like `extract_symbols`, `find_symbol_usages`, or `search_semantic` to understand the codebase or identify areas for modification.
 2.  **Generate Changes**: Based on the analysis (potentially involving an LLM), generate the new code content or identify necessary file modifications.
 3.  **Create PR with `Supersonic`**: Use `Supersonic`'s simple API (`create_pr_from_content`, `create_pr_from_file`, etc.) to package the generated changes into a new Pull Request on GitHub.
 
 ## Example: AI Refactoring Suggestion
 
-Imagine an AI tool that uses `kit` to analyze a Python file, identifies a potential refactoring, generates the improved code, and then uses `Supersonic` to create a PR.
+Imagine an AI tool that uses `codekite` to analyze a Python file, identifies a potential refactoring, generates the improved code, and then uses `Supersonic` to create a PR.
 
 ```python
-import kit
+import codekite
 from supersonic import Supersonic
 import os
 
-# Assume kit.Repository is initialized with a local path
+# Assume codekite.Repository is initialized with a local path
 LOCAL_REPO_PATH = "/path/to/your/local/repo/clone"
-# repo_analyzer = kit.Repository(LOCAL_REPO_PATH)
-# Note: kit analysis methods like extract_symbols would still be used here in a real scenario.
+# repo_analyzer = codekite.Repository(LOCAL_REPO_PATH)
+# Note: codekite analysis methods like extract_symbols would still be used here in a real scenario.
 
 # Assume 'ai_generate_refactoring' is your function that uses an LLM
-# potentially fed with context from kit (not shown here for brevity)
+# potentially fed with context from codekite (not shown here for brevity)
 def ai_generate_refactoring(original_code: str) -> str:
     # ... your AI logic here ...
     improved_code = original_code.replace("old_function", "new_function") # Simplified example
@@ -91,4 +91,4 @@ except Exception as e:
 
 ```
 
-This example illustrates how `kit`'s analytical strengths can be combined with `Supersonic`'s action-oriented PR capabilities to build powerful code automation.
+This example illustrates how `codekite`'s analytical strengths can be combined with `Supersonic`'s action-oriented PR capabilities to build powerful code automation.

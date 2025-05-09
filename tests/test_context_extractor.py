@@ -1,6 +1,6 @@
 import tempfile
 from pathlib import Path
-from kit import ContextExtractor
+from codekite import ContextExtractor
 
 def test_chunk_file_by_lines():
     with tempfile.TemporaryDirectory() as tmpdir:

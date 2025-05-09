@@ -5,7 +5,7 @@ title: Code Summarization
 import { Aside } from '@astrojs/starlight/components';
 
 In addition to the non-LLM based functions of the `Repository` class,
-`kit` also integrates directly with LLMs via the `Summarizer` class to provide intelligent code summarization capabilities. This helps you quickly understand the purpose and functionality of entire code files, specific functions, or classes.
+`codekite` also integrates directly with LLMs via the `Summarizer` class to provide intelligent code summarization capabilities. This helps you quickly understand the purpose and functionality of entire code files, specific functions, or classes.
 
 ## Getting Started
 
@@ -29,7 +29,7 @@ To use code summarization, you'll need an LLM provider configured. Currently, Op
     # For Google
     export GOOGLE_API_KEY="AIzaSy..."
     ```
-    You only need to set the key for the provider(s) you intend to use. If no specific configuration is provided to the `Summarizer` (see 'Configuration (Advanced)' below), `kit` defaults to using OpenAI via `OpenAIConfig()`, which expects `OPENAI_API_KEY`.
+    You only need to set the key for the provider(s) you intend to use. If no specific configuration is provided to the `Summarizer` (see 'Configuration (Advanced)' below), `codekite` defaults to using OpenAI via `OpenAIConfig()`, which expects `OPENAI_API_KEY`.
 
     For `OpenAIConfig`, you can also customize parameters such as the `model`, `temperature`, or `base_url` (e.g., for connecting to services like OpenRouter). See the 'Configuration (Advanced)' section for detailed examples.
 
@@ -38,7 +38,7 @@ To use code summarization, you'll need an LLM provider configured. Currently, Op
 The primary way to access summarization is through the `Repository` object's `get_summarizer()` factory method.
 
 ```python
-import kit
+import codekite
 import os
 
 # Ensure API key is set (replace with your actual key handling)
@@ -46,7 +46,7 @@ import os
 
 try:
     # Load the repository
-    repo = kit.Repository("/path/to/your/project")
+    repo = codekite.Repository("/path/to/your/project")
 
     # Get the summarizer instance (defaults to OpenAIConfig using env var OPENAI_API_KEY)
     # See 'Configuration (Advanced)' for using Anthropic or Google.
@@ -71,7 +71,7 @@ except Exception as e:
 
 ### How it Works
 
-When you call `summarize_file`, `kit` performs the following steps:
+When you call `summarize_file`, `codekite` performs the following steps:
 
 1.  Retrieves the content of the specified file using `repo.get_file_content()`.
 2.  Constructs a prompt containing the file content, tailored for code summarization.
@@ -83,10 +83,10 @@ When you call `summarize_file`, `kit` performs the following steps:
 While environment variables are the default, you can provide specific configuration:
 
 ```python
-from kit.summaries import OpenAIConfig, AnthropicConfig, GoogleConfig
+from codekite.summaries import OpenAIConfig, AnthropicConfig, GoogleConfig
 
 # Load repo
-repo = kit.Repository("/path/to/your/project")
+repo = codekite.Repository("/path/to/your/project")
 
 # --- OpenAI Example ---
 # Define custom OpenAI configuration
@@ -150,9 +150,9 @@ print(f"Google Summary:\n{google_summary}")
 Beyond entire files, you can target specific functions or classes:
 
 ```python
-import kit
+import codekite
 
-repo = kit.Repository("/path/to/your/project")
+repo = codekite.Repository("/path/to/your/project")
 summarizer = repo.get_summarizer() # Assumes OPENAI_API_KEY is set
 
 # Summarize a specific function
@@ -172,7 +172,7 @@ print(f"Class Summary:\n{class_summary}")
 ```
 
 <Aside type="note">
-  Under the hood, `summarize_function` and `summarize_class` will use `kit`'s symbol extraction capabilities (`repo.extract_symbols`) to locate the precise code snippet for the target function or class before sending it to the LLM, providing more focused summaries.
+  Under the hood, `summarize_function` and `summarize_class` will use `codekite`'s symbol extraction capabilities (`repo.extract_symbols`) to locate the precise code snippet for the target function or class before sending it to the LLM, providing more focused summaries.
 </Aside>
 
 ### Combining with Other Repository Features
@@ -180,9 +180,9 @@ print(f"Class Summary:\n{class_summary}")
 You can combine the `Summarizer` with other `Repository` methods for powerful workflows. For example, find all classes in a file and then summarize each one:
 
 ```python
-import kit
+import codekite
 
-repo = kit.Repository("/path/to/your/project")
+repo = codekite.Repository("/path/to/your/project")
 summarizer = repo.get_summarizer()
 
 file_to_analyze = "src/services/notification_service.py"
@@ -214,8 +214,8 @@ for sym in class_symbols:
   While `repo.get_summarizer()` is the most convenient way to get a configured `Summarizer`, you can also instantiate it directly if needed:
 
   ```python
-  from kit import Repository
-  from kit.summaries import Summarizer, OpenAIConfig, AnthropicConfig, GoogleConfig
+  from codekite import Repository
+  from codekite.summaries import Summarizer, OpenAIConfig, AnthropicConfig, GoogleConfig
 
   my_repo = Repository("/path/to/code")
 

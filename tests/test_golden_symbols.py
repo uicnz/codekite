@@ -2,7 +2,7 @@ import os
 import tempfile
 import pytest
 import asyncio
-from kit import Repository
+from codekite import Repository
 
 # Helper to run extraction
 def run_extraction(tmpdir, filename, content):

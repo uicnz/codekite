@@ -2,7 +2,7 @@
 title: Dump Repo Map
 ---
 
-This tutorial explains how to use `kit` to dump a complete map of your repository—including the file tree and all extracted symbols—as a JSON file. This is useful for further analysis, visualization, or integration with other tools.
+This tutorial explains how to use `codekite` to dump a complete map of your repository—including the file tree and all extracted symbols—as a JSON file. This is useful for further analysis, visualization, or integration with other tools.
 
 ## Step 1: Create the Script
 
@@ -10,14 +10,14 @@ Create a Python script named `dump_repo_map.py` with the following content. This
 
 ```python
 # dump_repo_map.py
-import kit
+import codekite
 import json
 import argparse
 import sys
 import os
 
 def main():
-    parser = argparse.ArgumentParser(description="Dump a repository's file tree and symbols as JSON using kit.")
+    parser = argparse.ArgumentParser(description="Dump a repository's file tree and symbols as JSON using codekite.")
     parser.add_argument("repo_path", help="Path to the repository directory.")
     args = parser.parse_args()
 
@@ -28,7 +28,7 @@ def main():
 
     try:
         print(f"Mapping repository at: {repo_path}", file=sys.stderr)
-        mapper = kit.RepoMapper(repo_path)
+        mapper = codekite.RepoMapper(repo_path)
         repo_map = mapper.get_repo_map()
         # Print the JSON map to stdout
         print(json.dumps(repo_map, indent=2))

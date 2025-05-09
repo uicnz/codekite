@@ -4,28 +4,28 @@ title: Quickstart
 
 ```sh
 git clone https://github.com/shaneholloman/codekite.git
-cd kit
+cd codekite
 uv venv .venv
 source .venv/bin/activate
 uv pip install -e .
 ```
 
-Now, you can use kit!
-kit ships with a demonstration repository at `tests/fixtures/` you can use to get started.
+Now, you can use codekite!
+codekite ships with a demonstration repository at `tests/fixtures/` you can use to get started.
 
-Try this simple Python script (e.g., save as `test_kit.py` in the `kit` directory you cloned):
+Try this simple Python script (e.g., save as `test_kit.py` in the `codekite` directory you cloned):
 
 ```python
-import kit
+import codekite
 import os
 
 # Path to the demo repository
 repo_path = "tests/fixtures/realistic_repo"
 
 print(f"Loading repository at: {repo_path}")
-# Ensure you have cloned the 'kit' repository and are in its root directory
+# Ensure you have cloned the 'codekite' repository and are in its root directory
 # for this relative path to work correctly.
-repo = kit.Repository(repo_path)
+repo = codekite.Repository(repo_path)
 
 # Print the first 5 Python files found in the demo repo
 print("\nFound Python files in the demo repo (first 5):")

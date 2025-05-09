@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 
-from kit.summaries import (
+from codekite.summaries import (
     Summarizer,
     OpenAIConfig,
     AnthropicConfig,
@@ -13,7 +13,7 @@ from kit.summaries import (
     genai as kit_s_genai,
     genai_types as kit_s_genai_types
 )
-from kit.repository import Repository
+from codekite.repository import Repository
 
 import sys
 import types
@@ -65,7 +65,7 @@ def temp_code_file(tmp_path):
 # --- Test Summarizer Initialization ---
 
 @patch('openai.OpenAI', create=True) # Mock OpenAI client constructor
-@patch('kit.summaries.tiktoken', create=True) # Mock tiktoken
+@patch('codekite.summaries.tiktoken', create=True) # Mock tiktoken
 def test_summarizer_init_default_is_openai(mock_tiktoken, mock_openai_constructor, mock_repo):
     # Test that Summarizer defaults to OpenAIConfig if no config is provided.
     # The Summarizer will then attempt to initialize an OpenAI client.
@@ -209,7 +209,7 @@ def test_get_llm_client_anthropic(mock_anthropic_constructor, mock_repo):
 def test_get_llm_client_google(mock_google_client_constructor, mock_repo):
     """Test _get_llm_client returns and caches Google client."""
     if kit_s_genai is None:
-        pytest.skip("google.genai not available to kit.summaries")
+        pytest.skip("google.genai not available to codekite.summaries")
 
     # Set up the mock before creating the Summarizer
     mock_client_instance = MagicMock()
@@ -352,7 +352,7 @@ def test_summarize_file_anthropic(mock_anthropic_constructor, mock_repo, temp_co
 def test_summarize_file_google(mock_google_client_constructor, mock_repo, temp_code_file):
     """Test summarize_file with GoogleConfig."""
     if kit_s_genai is None:
-        pytest.skip("google.genai not available to kit.summaries")
+        pytest.skip("google.genai not available to codekite.summaries")
 
     mock_file_content = "# A simple Python script\nprint('Google AI is fun!')"
     # Ensure get_abs_path returns a consistent path
@@ -520,7 +520,7 @@ def test_summarize_function_anthropic(mock_anthropic_constructor, mock_repo):
 def test_summarize_function_google(mock_google_client_constructor, mock_repo):
     """Test summarize_function with GoogleConfig."""
     if kit_s_genai is None:
-        pytest.skip("google.genai not available to kit.summaries")
+        pytest.skip("google.genai not available to codekite.summaries")
 
     mock_func_code = "def calculate_sum(numbers: list[int]) -> int:\n    return sum(numbers)"
     mock_repo.extract_symbols.return_value = [{ 
@@ -694,7 +694,7 @@ def test_summarize_class_anthropic(mock_anthropic_constructor, mock_repo):
 def test_summarize_class_google(mock_google_client_constructor, mock_repo):
     """Test summarize_class with GoogleConfig."""
     if kit_s_genai is None:
-        pytest.skip("google.genai not available to kit.summaries")
+        pytest.skip("google.genai not available to codekite.summaries")
     mock_class_code = "class Logger:\n    def __init__(self, level='INFO'):\n        self.level = level\n\n    def log(self, message):\n        print(f'[{self.level}] {message}')"
     mock_repo.extract_symbols.return_value = [{ 
         "name": "Logger",

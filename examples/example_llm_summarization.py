@@ -1,17 +1,17 @@
 """
-Test the LLM integration capability of Kit with OpenAI
+Test the LLM integration capability of codekite with OpenAI
 
-This script demonstrates using Kit's Summarizer to generate summaries
+This script demonstrates using codekite's Summarizer to generate summaries
 of files, functions, and classes using OpenAI's models.
 
 Requirements:
 - OpenAI API key set as OPENAI_API_KEY environment variable
-- Kit installed with OpenAI extras: uv pip install -e ".[openai]"
+- codekite installed with OpenAI extras: uv pip install -e ".[openai]"
 """
 import os
 import sys
-from kit import Repository
-from kit.summaries import OpenAIConfig
+from codekite import Repository
+from codekite.summaries import OpenAIConfig
 
 def format_output(title, content):
     """Helper function to format and print output"""
@@ -21,7 +21,7 @@ def format_output(title, content):
     print(content)
 
 def test_summarization(repo_path):
-    """Test Kit's LLM integration with OpenAI summarization"""
+    """Test codekite's LLM integration with OpenAI summarization"""
 
     # Ensure API key is set
     api_key = os.environ.get("OPENAI_API_KEY")
@@ -64,20 +64,20 @@ def test_summarization(repo_path):
             sys.exit(1)
 
         # Start with a smaller file to test
-        small_file = "src/kit/code_searcher.py"
+        small_file = "src/codekite/code_searcher.py"
         print(f"\nSummarizing small file: {small_file}")
         file_summary = summarizer.summarize_file(small_file)
         format_output("File Summary", file_summary)
 
         # 2. Summarize a function (also try a smaller one)
-        function_file = "src/kit/code_searcher.py"
+        function_file = "src/codekite/code_searcher.py"
         function_name = "search_text"
         print(f"\nSummarizing function: {function_name} in {function_file}")
         function_summary = summarizer.summarize_function(function_file, function_name)
         format_output("Function Summary", function_summary)
 
         # 3. Summarize a class (stick with smaller file)
-        class_file = "src/kit/code_searcher.py"
+        class_file = "src/codekite/code_searcher.py"
         class_name = "CodeSearcher"
         print(f"\nSummarizing class: {class_name} in {class_file}")
         class_summary = summarizer.summarize_class(class_file, class_name)
@@ -89,18 +89,18 @@ def test_summarization(repo_path):
         print("\nTrying larger file - Repository class...")
         try:
             # Try with Repository class - but this might hit token limits
-            large_file = "src/kit/repository.py"
+            large_file = "src/codekite/repository.py"
             repo_summary = summarizer.summarize_file(large_file)
             format_output("Repository File Summary", repo_summary)
         except Exception as e:
             print(f"Warning: Could not summarize large file: {str(e)}")
-            print("This is likely due to token limits and doesn't indicate an issue with Kit's functionality.")
+            print("This is likely due to token limits and doesn't indicate an issue with codekite's functionality.")
 
         print("\nAll LLM integration tests completed!")
 
     except ModuleNotFoundError:
         print("\nError: Required packages for LLM integration are not installed.")
-        print("Please install kit with OpenAI support:")
+        print("Please install codekite with OpenAI support:")
         print("  uv pip install -e '.[openai]'")
         print("\nOr install openai separately:")
         print("  uv pip install openai")

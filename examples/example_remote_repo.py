@@ -1,7 +1,7 @@
 """
-Test Kit's ability to analyze a remote GitHub repository
+Test codekite's ability to analyze a remote GitHub repository
 
-This script demonstrates how Kit can clone and analyze a remote GitHub repository,
+This script demonstrates how codekite can clone and analyze a remote GitHub repository,
 and then use LLMs to generate summaries of its components.
 
 Requirements:
@@ -11,8 +11,8 @@ Requirements:
 import os
 import sys
 import time
-from kit import Repository
-from kit.summaries import OpenAIConfig
+from codekite import Repository
+from codekite.summaries import OpenAIConfig
 
 def format_output(title, content):
     """Helper function to format and print output"""
@@ -22,7 +22,7 @@ def format_output(title, content):
     print(content)
 
 def test_remote_repository(repo_url):
-    """Test Kit's ability to clone and analyze a remote GitHub repository"""
+    """Test codekite's ability to clone and analyze a remote GitHub repository"""
     start_time = time.time()
 
     # 1. Initialize Repository with GitHub URL (should auto-clone)

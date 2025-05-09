@@ -1,5 +1,5 @@
 import tempfile, os
-from kit import Repository
+from codekite import Repository
 
 def _extract(tmpdir: str, filename: str, content: str):
     path = os.path.join(tmpdir, filename)

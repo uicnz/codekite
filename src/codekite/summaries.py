@@ -28,8 +28,8 @@ logger = logging.getLogger(__name__)
 
 # Use TYPE_CHECKING to avoid circular import issues with Repository
 if TYPE_CHECKING:
-    from kit.repository import Repository
-    from kit.repo_mapper import RepoMapper  # For type hinting
+    from codekite.repository import Repository
+    from codekite.repo_mapper import RepoMapper  # For type hinting
 
 
 class LLMError(Exception):
@@ -242,7 +242,7 @@ class Summarizer:
         Initializes the Summarizer.
 
         Args:
-            repo: The kit.Repository instance containing the code.
+            repo: The codekite.Repository instance containing the code.
             config: LLM configuration (OpenAIConfig, AnthropicConfig, or GoogleConfig).
                     If None, defaults to OpenAIConfig.
             llm_client: Optional pre-initialized LLM client. If None, client will be

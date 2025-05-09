@@ -2,26 +2,26 @@
 title: Usage Guide
 ---
 
-This guide provides practical examples of how to use the core `Repository` object in `kit` to interact with your codebase.
+This guide provides practical examples of how to use the core `Repository` object in `codekite` to interact with your codebase.
 
 ## Initializing a `Repository`
 
-First, create an instance of the `Repository` class, pointing it to your code. `kit` can work with local directories or clone remote Git repositories.
-This is the starting point for any analysis, giving `kit` access to the codebase.
+First, create an instance of the `Repository` class, pointing it to your code. `codekite` can work with local directories or clone remote Git repositories.
+This is the starting point for any analysis, giving `codekite` access to the codebase.
 
 ### Local Directory
 
 If your code is already on your machine:
 
 ```python
-from kit import Repository
+from codekite import Repository
 
 repo = Repository("/path/to/your/local/project")
 ```
 
 ### Remote Git Repository
 
-`kit` can clone a public or private Git repository. For private repos, provide a GitHub token.
+`codekite` can clone a public or private Git repository. For private repos, provide a GitHub token.
 
 ```python
 # Public repo
@@ -35,7 +35,7 @@ repo = Repository("https://github.com/owner/private-repo-name", github_token=git
 
 ### Caching
 
-When cloning remote repositories, `kit` caches them locally to speed up subsequent initializations. By default, caches are stored in a temporary directory. You can specify a persistent cache directory:
+When cloning remote repositories, `codekite` caches them locally to speed up subsequent initializations. By default, caches are stored in a temporary directory. You can specify a persistent cache directory:
 
 ```python
 repo = Repository(
@@ -82,7 +82,7 @@ matches = repo.search_text("my_function_call", file_pattern="*.py")
 
 ## Preparing Code for LLMs
 
-`kit` provides utilities to prepare code snippets for large language models.
+`codekite` provides utilities to prepare code snippets for large language models.
 These methods help break down large codebases into manageable pieces suitable for LLM context windows or specific analysis tasks.
 
 ### Chunking
@@ -108,22 +108,22 @@ context = repo.extract_context_around_line("src/my_module.py", line=42)
 
 ## Generating Code Summaries (Alpha)
 
-`kit` includes an alpha feature for generating natural language summaries (like dynamic docstrings) for code elements (files, functions, classes) using a configured Large Language Model (LLM). This can be useful for:
+`codekite` includes an alpha feature for generating natural language summaries (like dynamic docstrings) for code elements (files, functions, classes) using a configured Large Language Model (LLM). This can be useful for:
 
 *   Quickly understanding the purpose of a piece of code.
 *   Providing context to other LLM-powered tools.
 *   Powering semantic search based on generated summaries rather than just raw code.
 
-**Note:** This feature is currently in **alpha**. The API may change, and it requires an LLM (e.g., via OpenAI, Anthropic) to be configured for `kit` to use for summarization.
+**Note:** This feature is currently in **alpha**. The API may change, and it requires an LLM (e.g., via OpenAI, Anthropic) to be configured for `codekite` to use for summarization.
 
 ### Using the `DocstringIndexer`
 
 The `DocstringIndexer` is responsible for managing the summarization process and storing/retrieving these generated "docstrings."
 
 ```python
-from kit import Repository
-from kit.docstring_indexer import DocstringIndexer
-from kit.models import OpenAI # Or your preferred LLM provider model
+from codekite import Repository
+from codekite.docstring_indexer import DocstringIndexer
+from codekite.models import OpenAI # Or your preferred LLM provider model
 
 # 1. Initialize your Repository
 repo_path = "tests/fixtures/realistic_repo" # Or your project path
@@ -187,8 +187,8 @@ usages = repo.find_symbol_usages("MyClass", symbol_type="class")
 
 ## Exporting Data
 
-`kit` can export the gathered information (file tree, symbols, index, usages) to JSON files for use in other tools or offline analysis.
-Persist the results of your analysis or integrate `kit`'s findings into other development workflows.
+`codekite` can export the gathered information (file tree, symbols, index, usages) to JSON files for use in other tools or offline analysis.
+Persist the results of your analysis or integrate `codekite`'s findings into other development workflows.
 
 ```python
 # Export the full index (files + symbols)

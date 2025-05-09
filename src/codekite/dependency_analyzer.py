@@ -28,7 +28,7 @@ class DependencyAnalyzer:
         Initialize the analyzer with a Repository instance.
 
         Args:
-            repository: A kit.Repository instance
+            repository: A codekite.Repository instance
         """
         self.repo = repository
         self.dependency_graph: Dict[str, Dict[str, Any]] = {}
