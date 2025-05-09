@@ -1,5 +1,5 @@
 ---
-title: 🛠️ kit documentation
+title: kit documentation
 template: doc
 tableOfContents: false
 bodyClass: kit-homepage
@@ -9,31 +9,20 @@ import Card from "../../components/Card.astro";
 import CardGroup from "../../components/CardGroup.astro";
 import { Image } from "astro:assets";
 
-<div class="hero-container">
-<div class="hero-image">
-    <Image
-      src="/kit.png"
-      alt="Kit Toolkit Logo"
-      width={600}
-      height={600}
-      loading="eager"
-    />
-  </div>
-  <div class="hero-text">
-    Welcome to **kit** - the Python toolkit from [Shane Holloman](https://shaneholloman.dev) for building LLM-powered developer tools and workflows.
-
-    kit shines for getting **precise, accurate, and relevant context** to
-    LLMs. Use kit to build code reviewers, code generators and graphs, even full-fledged coding assistants: all enriched with the right code context.
-
-    MIT-licensed on [GitHub](https://github.com/shaneholloman/codekit).
-  </div>
-</div>
-
-<hr />
-
 {/* Features Section - Full Width Items */}
 
 <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; margin-bottom: 2rem;">
+  <div style="padding: 1.25rem; border: 1px solid var(--sl-color-gray-5); border-radius: 0.5rem;">
+    <h4 style="margin-top: 0; font-size: 1.1rem;">Map any codebase</h4>
+    <p style="font-size: 0.95rem; color: var(--sl-color-gray-2); margin-bottom: 0;">
+        Welcome to **kit** - the Python toolkit from [Shane Holloman](https://shaneholloman.dev) for building LLM-powered developer tools and workflows.
+
+        kit shines for getting **precise, accurate, and relevant context** to
+        LLMs. Use kit to build code reviewers, code generators and graphs, even full-fledged coding assistants: all enriched with the right code context.
+
+        MIT-licensed on [GitHub](https://github.com/shaneholloman/codekit).
+    </p>
+  </div>
   <div style="padding: 1.25rem; border: 1px solid var(--sl-color-gray-5); border-radius: 0.5rem;">
     <h4 style="margin-top: 0; font-size: 1.1rem;">Map any codebase</h4>
     <p style="font-size: 0.95rem; color: var(--sl-color-gray-2); margin-bottom: 0;">
