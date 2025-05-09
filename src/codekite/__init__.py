@@ -2,8 +2,10 @@
 A modular toolkit for LLM-powered codebase understanding.
 """
 
+import importlib.metadata
+
 __author__ = "Shane Holloman"
-__version__ = "0.1.6"
+__version__ = importlib.metadata.version("codekite")
 
 from .repository import Repository
 from .repo_mapper import RepoMapper

@@ -322,6 +322,49 @@ wheels = [
 ]
 
 [[package]]
+name = "codekite"
+version = "0.1.6"
+source = { editable = "." }
+dependencies = [
+    { name = "anthropic" },
+    { name = "black" },
+    { name = "chromadb" },
+    { name = "fastapi" },
+    { name = "google-genai" },
+    { name = "mypy" },
+    { name = "numpy" },
+    { name = "openai" },
+    { name = "pathspec" },
+    { name = "pytest" },
+    { name = "ruff" },
+    { name = "sentence-transformers" },
+    { name = "tiktoken" },
+    { name = "tree-sitter-language-pack" },
+    { name = "typer" },
+    { name = "uvicorn", extra = ["standard"] },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "anthropic", specifier = ">=0.20.0" },
+    { name = "black" },
+    { name = "chromadb", specifier = ">=0.5.25" },
+    { name = "fastapi", specifier = ">=0.100" },
+    { name = "google-genai", specifier = ">=1.14.0" },
+    { name = "mypy" },
+    { name = "numpy", specifier = ">=1.25" },
+    { name = "openai", specifier = ">=1.0.0" },
+    { name = "pathspec", specifier = ">=0.11.1" },
+    { name = "pytest", specifier = ">=8.3.5" },
+    { name = "ruff" },
+    { name = "sentence-transformers", specifier = ">=2.2.0" },
+    { name = "tiktoken", specifier = ">=0.4.0" },
+    { name = "tree-sitter-language-pack", specifier = ">=0.7.2" },
+    { name = "typer", specifier = ">=0.9" },
+    { name = "uvicorn", extras = ["standard"], specifier = ">=0.20" },
+]
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -777,49 +820,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/bf/ce/46fbd9c8119cfc3581ee5643ea49464d168028cfb5caff5fc0596d0cf914/jsonschema_specifications-2025.4.1.tar.gz", hash = "sha256:630159c9f4dbea161a6a2205c3011cc4f18ff381b189fff48bb39b9bf26ae608", size = 15513, upload-time = "2025-04-23T12:34:07.418Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/01/0e/b27cdbaccf30b890c40ed1da9fd4a3593a5cf94dae54fb34f8a4b74fcd3f/jsonschema_specifications-2025.4.1-py3-none-any.whl", hash = "sha256:4653bffbd6584f7de83a67e0d620ef16900b390ddc7939d56684d6c81e33f1af", size = 18437, upload-time = "2025-04-23T12:34:05.422Z" },
-]
-
-[[package]]
-name = "codekite"
-version = "0.1.2"
-source = { editable = "." }
-dependencies = [
-    { name = "anthropic" },
-    { name = "black" },
-    { name = "chromadb" },
-    { name = "fastapi" },
-    { name = "google-genai" },
-    { name = "mypy" },
-    { name = "numpy" },
-    { name = "openai" },
-    { name = "pathspec" },
-    { name = "pytest" },
-    { name = "ruff" },
-    { name = "sentence-transformers" },
-    { name = "tiktoken" },
-    { name = "tree-sitter-language-pack" },
-    { name = "typer" },
-    { name = "uvicorn", extra = ["standard"] },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "anthropic", specifier = ">=0.20.0" },
-    { name = "black" },
-    { name = "chromadb", specifier = ">=0.5.25" },
-    { name = "fastapi", specifier = ">=0.100" },
-    { name = "google-genai", specifier = ">=1.14.0" },
-    { name = "mypy" },
-    { name = "numpy", specifier = ">=1.25" },
-    { name = "openai", specifier = ">=1.0.0" },
-    { name = "pathspec", specifier = ">=0.11.1" },
-    { name = "pytest", specifier = ">=8.3.5" },
-    { name = "ruff" },
-    { name = "sentence-transformers", specifier = ">=2.2.0" },
-    { name = "tiktoken", specifier = ">=0.4.0" },
-    { name = "tree-sitter-language-pack", specifier = ">=0.7.2" },
-    { name = "typer", specifier = ">=0.9" },
-    { name = "uvicorn", extras = ["standard"], specifier = ">=0.20" },
 ]
 
 [[package]]

@@ -1,8 +1,34 @@
 """codekite Command Line Interface."""
 
+import importlib.metadata
 import typer
 
 app = typer.Typer(help="A modular toolkit for LLM-powered codebase understanding.")
+
+def _get_version():
+    """Get the package version from metadata."""
+    return importlib.metadata.version("codekite")
+
+def version_callback(value: bool):
+    """Handle --version flag."""
+    if value:
+        typer.echo(f"codekite version: {_get_version()}")
+        raise typer.Exit()
+    return value
+
+@app.callback()
+def main(
+    version: bool = typer.Option(
+        False, "--version", help="Show the version and exit.", callback=version_callback
+    ),
+):
+    """codekite CLI main entrypoint."""
+    pass
+
+@app.command()
+def version():
+    """Show the version and exit."""
+    typer.echo(f"codekite version: {_get_version()}")
 
 
 @app.command()
