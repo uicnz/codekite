@@ -21,6 +21,23 @@ graph TD
     A --> J[DocstringIndexer]
     J --> K[SummarySearcher]
     A --> L[ContextAssembler]
+
+    %% MCP Server and Client
+    M[MCP Server] --> A
+    A --> M
+    M --> N[External LLM Tools]
+    O[MCP Client] --> M
+
+    %% REST API Server
+    P[REST API Server] --> A
+    A --> P
+    Q[HTTP Clients] --> P
+
+    %% %% Styling
+    %% classDef core fill:#f9f,stroke:#333,stroke-width:2px
+    %% classDef external fill:#bbf,stroke:#33f,stroke-width:1px
+    %% class A,B,C,D,E,F,G,I,J,K,L,M,P core
+    %% class H,N,O,Q external
 ```
 
 ## Installation
@@ -81,6 +98,8 @@ CodeKite consists of several modular components:
 8. **Summarizer** - Generates natural language summaries using LLMs
 9. **DependencyAnalyzer** - Analyzes module dependencies and relationships
 10. **ContextAssembler** - Formats code context for LLM prompts
+11. **MCP Server** - Model Context Protocol server for integration with LLM tools
+12. **REST API Server** - FastAPI server providing HTTP access to CodeKite capabilities
 
 ## Features
 
@@ -170,7 +189,26 @@ codekite search /path/to/repo "search_query" --pattern "*.py"
 
 # Start API server
 codekite serve --port 8000
+
+# Start MCP server
+codekite mcp-serve --port 8000
 ```
+
+## Testing
+
+### MCP Tests
+
+CodeKite includes a suite of interactive tests for the Model Context Protocol (MCP) server and client in the `tests/mcp/` directory. These tests are designed for developer use, manual verification, and demonstrations of MCP functionality.
+
+```sh
+# Start an MCP server
+python -c "from codekite.cli import app; app(['mcp-serve', '--transport', 'streamable-http', '--port', '8000', '--asgi', '--log-level', 'debug'])"
+
+# Run a basic client test (in a separate terminal)
+python tests/mcp/test_mcp_basic.py
+```
+
+For more details, see the [MCP Test Suite README](tests/mcp/README.md).
 
 ## Supported Languages
 
