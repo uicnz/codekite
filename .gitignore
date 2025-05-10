@@ -57,3 +57,5 @@ coverage.xml
 
 # codekite specific
 .codekite/docstring_db/
+
+tmp-commits/

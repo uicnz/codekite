@@ -39,16 +39,31 @@ class ContextAssembler:
             return
         self._sections.append("## Diff\n```diff\n" + diff.strip() + "\n```")
 
-    def add_file(self, file_path: str, *, highlight_changes: bool = False) -> None:
+    def add_file(self, file_path: str, *, highlight_changes: bool = False,
+                 max_lines: int | None = None,
+                 max_bytes: int | None = None,
+                 skip_if_name_in: Optional[Sequence[str]] = None,
+                 ) -> None:
         """Embed full file content.
 
         If *highlight_changes* is true we still just inline raw content -
         markup is left to the caller/LLM.
         """
+        # Guard: skip by exact filename
+        if skip_if_name_in and Path(file_path).name in skip_if_name_in:
+            return
+
         try:
             code = self.repo.get_file_content(file_path)
         except FileNotFoundError:
             return
+
+        # Guards: size limits
+        if max_bytes is not None and len(code.encode("utf-8", "ignore")) > max_bytes:
+            return
+        if max_lines is not None and code.count("\n") + 1 > max_lines:
+            return
+
         lang = Path(file_path).suffix.lstrip(".") or "text"
         header = f"## {file_path} (full)" if not highlight_changes else f"## {file_path} (with changes highlighted)"
         self._sections.append(f"{header}\n```{lang}\n{code}\n```")
