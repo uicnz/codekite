@@ -1,4 +1,4 @@
-# Tech Context: CodeKit
+# Tech Context: CodeKite
 
 ## Technologies Used
 

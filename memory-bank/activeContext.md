@@ -37,7 +37,7 @@ The current development focus is on establishing the core functionality of CodeK
 
 ### MCP Integration
 
-- Implemented standalone FastMCP server for CodeKit capabilities
+- Implemented standalone FastMCP server for CodeKite capabilities
 - Created MCP tools for repository operations, code search, and context building
 - Added MCP resources for accessing repository structure and metadata
 - Created testing utilities for validating MCP functionality

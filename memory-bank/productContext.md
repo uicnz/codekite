@@ -4,34 +4,34 @@
 
 CodeKite addresses the growing need for AI systems to understand and work with codebases effectively. As AI assistants and tools increasingly help with software development, they require deep, contextual understanding of code. As a Code Intelligence Agent, CodeKite provides the intelligence to extract, analyze, and contextualize code repositories to power these AI capabilities.
 
-## Problems CodeKit Solves
+## Problems CodeKite Solves
 
 ### 1. Code Context Generation
 
 - **Problem**: AI systems need relevant code context to provide accurate assistance
-- **Solution**: CodeKit extracts and assembles context from repositories based on queries or specifications
+- **Solution**: CodeKite extracts and assembles context from repositories based on queries or specifications
 
 ### 2. Semantic Understanding Gaps
 
 - **Problem**: Textual search of code often misses semantic relationships
-- **Solution**: CodeKit provides semantic code search and relationship mapping
+- **Solution**: CodeKite provides semantic code search and relationship mapping
 
 ### 3. Documentation Discovery
 
 - **Problem**: Finding relevant documentation in large codebases is challenging
-- **Solution**: CodeKit indexes and makes docstrings searchable
+- **Solution**: CodeKite indexes and makes docstrings searchable
 
 ### 4. Code Comprehension
 
 - **Problem**: Understanding unfamiliar code requires significant cognitive effort
-- **Solution**: CodeKit generates summaries to aid comprehension
+- **Solution**: CodeKite generates summaries to aid comprehension
 
 ### 5. AI Assistant Integration
 
 - **Problem**: AI assistants need standardized ways to interact with code understanding tools
-- **Solution**: CodeKit's MCP server provides a standardized protocol for AI tools to access code insights
+- **Solution**: CodeKite's MCP server provides a standardized protocol for AI tools to access code insights
 
-## How CodeKit Works
+## How CodeKite Works
 
 ### Core Components
 
@@ -41,7 +41,7 @@ CodeKite addresses the growing need for AI systems to understand and work with c
 4. **Summarizer**: Generate concise code summaries
 5. **Context Extractor**: Pull relevant context from code
 6. **Dependency Analyzer**: Understand relationships between code components
-7. **MCP Server**: Expose CodeKit capabilities via Model Context Protocol for AI assistants
+7. **MCP Server**: Expose CodeKite capabilities via Model Context Protocol for AI assistants
 
 ### Workflow
 
@@ -52,7 +52,7 @@ CodeKite addresses the growing need for AI systems to understand and work with c
 
 ### MCP Integration Workflow
 
-1. Start the MCP server with CodeKit capabilities
+1. Start the MCP server with CodeKite capabilities
 2. AI assistant connects to the server via supported transport protocol
 3. AI discovers available tools and resources
 4. AI invokes tools to open repositories, search code, or build context
@@ -69,7 +69,7 @@ CodeKite addresses the growing need for AI systems to understand and work with c
 - Performance that scales with codebase size
 - MCP integration for standardized AI assistant access
 
-### For End Users of AI Tools Powered by CodeKit
+### For End Users of AI Tools Powered by CodeKite
 
 - Accurate and relevant code context
 - High-quality code summaries that aid understanding

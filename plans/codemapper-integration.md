@@ -115,22 +115,25 @@ src/codekite/
 Add new MCP tools to expose CodeMapper functionality:
 
 1. **Tools**
-   - `codekite_generate_codemap`: Generate code structure map
-   - `codekite_generate_docmap`: Generate documentation map
+   - `codekite_generate_codemap`: Generate code structure map in multiple formats (Markdown, XML, JSON, YAML)
+   - `codekite_generate_docmap`: Generate documentation map in multiple formats
    - `codekite_get_map_formats`: List available map output formats
+   - `codekite_generate_llms_txt`: Generate LLMs.txt for AI assistant guidance
 
 2. **Resources**
-   - `codekite://repository/{repo_id}/codemap`: Generated code map
-   - `codekite://repository/{repo_id}/docmap`: Generated doc map
+   - `codekite://repository/{repo_id}/codemap`: Generated code map with format parameter
+   - `codekite://repository/{repo_id}/docmap`: Generated doc map with format parameter
 
 #### REST API Integration
 
 Add new REST API endpoints:
 
 1. **Code Mapping Endpoints**
-   - `POST /api/repositories/{repo_id}/maps/code`: Generate code map
-   - `POST /api/repositories/{repo_id}/maps/docs`: Generate doc map
+   - `POST /api/repositories/{repo_id}/maps/code`: Generate code map with format selection (Markdown, XML, JSON, YAML)
+   - `POST /api/repositories/{repo_id}/maps/docs`: Generate doc map with format selection
    - `GET /api/repositories/{repo_id}/maps`: Get generated maps
+   - `GET /api/repositories/{repo_id}/maps/formats`: List supported output formats
+   - `POST /api/repositories/{repo_id}/maps/llms-txt`: Generate LLMs.txt for AI guidance
 
 ### 3. Code Adaptations
 
@@ -192,20 +195,24 @@ Add new REST API endpoints:
 ## Benefits of Integration
 
 1. **Enhanced Documentation Capabilities**
-   - Generate human-readable code structure documentation
+   - Generate human-readable code structure documentation in multiple formats (Markdown, XML, JSON, YAML)
    - Improve documentation discovery and organization
+   - Support both human-readable and machine-readable output formats
 
 2. **Better Context Generation**
    - Include structural information in AI context
    - Provide higher-level code organization understanding
+   - Enable AI to work with code maps in preferred format
 
 3. **Comprehensive Repository Analysis**
    - Combine semantic understanding with structural mapping
    - Provide both machine-oriented and human-oriented views of repositories
+   - Generate standardized LLMs.txt files for AI assistant guidance
 
 4. **Unified Interface**
    - Single API for code intelligence and documentation
    - Consistent experience across different code analysis needs
+   - Format flexibility through parameterized outputs
 
 ## Potential Challenges
 

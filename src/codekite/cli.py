@@ -122,7 +122,7 @@ def mcp_serve(
 
     # Configure transport based on user selection
     if transport == MCPTransport.STDIO:
-        typer.echo("Starting CodeKit MCP server with STDIO transport")
+        typer.echo("Starting CodeKite MCP server with STDIO transport")
         mcp.run(transport="stdio")
     else:
         # For HTTP-based transports
@@ -133,10 +133,10 @@ def mcp_serve(
         }
 
         if transport == MCPTransport.STREAMABLE_HTTP:
-            typer.echo(f"Starting CodeKit MCP server with Streamable HTTP transport on http://{host}:{port}{mcp_path}")
+            typer.echo(f"Starting CodeKite MCP server with Streamable HTTP transport on http://{host}:{port}{mcp_path}")
             config["path"] = mcp_path
         elif transport == MCPTransport.SSE:
-            typer.echo(f"Starting CodeKit MCP server with SSE transport on http://{host}:{port}")
+            typer.echo(f"Starting CodeKite MCP server with SSE transport on http://{host}:{port}")
 
         # Configure CORS for development
         config["cors_origins"] = ["*"]

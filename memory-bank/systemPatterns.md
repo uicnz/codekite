@@ -56,7 +56,7 @@ Intelligently assembles relevant code context based on specific queries or needs
 
 ### MCP Server
 
-Model Context Protocol server that provides AI assistants with standardized access to CodeKit's capabilities.
+Model Context Protocol server that provides AI assistants with standardized access to CodeKite's capabilities.
 
 - **Responsibilities**: Exposing tools and resources, handling client requests
 - **Dependencies**: Repository Interface, Search Components, Context Assembly

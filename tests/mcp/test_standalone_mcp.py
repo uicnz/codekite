@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Test script for the standalone CodeKit MCP server.
+Test script for the standalone CodeKite MCP server.
 
 This script tests the already-running MCP server for basic functionality.
 

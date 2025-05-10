@@ -24,7 +24,7 @@ CodeKite, as a Code Intelligence Agent, currently exposes a limited subset of it
 
 ## Missing MCP Implementations
 
-The following CodeKit capabilities are not yet accessible through the MCP interface:
+The following CodeKite capabilities are not yet accessible through the MCP interface:
 
 ### 1. Dependency Analysis (dependency_analyzer.py)
 
@@ -159,4 +159,4 @@ The following CodeKit capabilities are not yet accessible through the MCP interf
 
 ## Conclusion
 
-Expanding CodeKit's MCP interface to cover all major capabilities will significantly enhance its utility for AI assistants and other tools. The phased approach outlined in this document allows for incremental delivery of value while maintaining a clear path toward complete coverage.
+Expanding CodeKite's MCP interface to cover all major capabilities will significantly enhance its utility for AI assistants and other tools. The phased approach outlined in this document allows for incremental delivery of value while maintaining a clear path toward complete coverage.

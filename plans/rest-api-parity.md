@@ -22,13 +22,13 @@ src/codekite/api/
 └── app.py  # FastAPI implementation
 ```
 
-However, this implementation does not fully cover all CodeKit capabilities, particularly the newer features and those identified as missing from the MCP server in the MCP expansion plan.
+However, this implementation does not fully cover all CodeKite capabilities, particularly the newer features and those identified as missing from the MCP server in the MCP expansion plan.
 
 ## API Design Principles
 
 ### 1. Resource-Oriented Architecture
 
-The REST API should follow RESTful principles with resources that map directly to CodeKit concepts:
+The REST API should follow RESTful principles with resources that map directly to CodeKite concepts:
 
 - Repositories
 - Files
@@ -72,11 +72,11 @@ All API responses will follow a standard format:
 
 ## API Endpoint Mapping
 
-The following table shows how CodeKit functions and MCP tools/resources will map to REST API endpoints.
+The following table shows how CodeKite functions and MCP tools/resources will map to REST API endpoints.
 
 ### Repository Operations
 
-| CodeKit Function          | MCP Tool/Resource                           | REST API Endpoint                       | HTTP Method |
+| CodeKite Function          | MCP Tool/Resource                           | REST API Endpoint                       | HTTP Method |
 | ------------------------- | ------------------------------------------- | --------------------------------------- | ----------- |
 | Repository initialization | `codekite_open_repository`                  | `/api/repositories`                     | POST        |
 | Repository info           | `codekite://repository/{repo_id}/summary`   | `/api/repositories/{repo_id}`           | GET         |
@@ -85,7 +85,7 @@ The following table shows how CodeKit functions and MCP tools/resources will map
 
 ### Code Search
 
-| CodeKit Function | MCP Tool/Resource      | REST API Endpoint                               | HTTP Method |
+| CodeKite Function | MCP Tool/Resource      | REST API Endpoint                               | HTTP Method |
 | ---------------- | ---------------------- | ----------------------------------------------- | ----------- |
 | Pattern search   | `codekite_search_code` | `/api/repositories/{repo_id}/search/pattern`    | GET         |
 | Semantic search  | (To be added)          | `/api/repositories/{repo_id}/search/semantic`   | GET         |
@@ -94,7 +94,7 @@ The following table shows how CodeKit functions and MCP tools/resources will map
 
 ### Dependency Analysis
 
-| CodeKit Function | MCP Tool/Resource | REST API Endpoint                                | HTTP Method |
+| CodeKite Function | MCP Tool/Resource | REST API Endpoint                                | HTTP Method |
 | ---------------- | ----------------- | ------------------------------------------------ | ----------- |
 | Get dependencies | (To be added)     | `/api/repositories/{repo_id}/dependencies`       | GET         |
 | Analyze impact   | (To be added)     | `/api/repositories/{repo_id}/impact`             | POST        |
@@ -102,7 +102,7 @@ The following table shows how CodeKit functions and MCP tools/resources will map
 
 ### Summarization
 
-| CodeKit Function   | MCP Tool/Resource | REST API Endpoint                                                 | HTTP Method |
+| CodeKite Function   | MCP Tool/Resource | REST API Endpoint                                                 | HTTP Method |
 | ------------------ | ----------------- | ----------------------------------------------------------------- | ----------- |
 | Summarize file     | (To be added)     | `/api/repositories/{repo_id}/summaries/files/{file_path}`         | GET         |
 | Summarize function | (To be added)     | `/api/repositories/{repo_id}/summaries/functions/{function_path}` | GET         |
@@ -110,7 +110,7 @@ The following table shows how CodeKit functions and MCP tools/resources will map
 
 ### Context Assembly
 
-| CodeKit Function  | MCP Tool/Resource        | REST API Endpoint                               | HTTP Method |
+| CodeKite Function  | MCP Tool/Resource        | REST API Endpoint                               | HTTP Method |
 | ----------------- | ------------------------ | ----------------------------------------------- | ----------- |
 | Build context     | `codekite_build_context` | `/api/repositories/{repo_id}/context`           | POST        |
 | Optimize context  | (To be added)            | `/api/repositories/{repo_id}/context/optimize`  | POST        |
@@ -192,7 +192,7 @@ src/codekite/api/
 │   └── context.py
 └── services/             # Business logic
     ├── __init__.py
-    └── adapter.py        # Adapts CodeKit functions to API operations
+    └── adapter.py        # Adapts CodeKite functions to API operations
 ```
 
 ### Authentication and Authorization
@@ -232,7 +232,7 @@ Create integration tests for:
 
 Create special tests to verify parity between:
 
-- CodeKit function results vs. REST API results
+- CodeKite function results vs. REST API results
 - MCP server results vs. REST API results
 
 ## Documentation
@@ -308,7 +308,7 @@ Add performance monitoring:
 
 The REST API implementation will be considered successful when:
 
-1. All CodeKit functions are accessible via REST endpoints
+1. All CodeKite functions are accessible via REST endpoints
 2. All MCP tools and resources have equivalent REST endpoints
 3. Test coverage is >90% for API code
 4. Documentation is complete and accurate
@@ -316,4 +316,4 @@ The REST API implementation will be considered successful when:
 
 ## Conclusion
 
-Implementing a complete REST API with perfect parity to both CodeKit functions and the MCP server will provide a comprehensive and flexible interface for all clients. This plan outlines a phased approach to ensure all functionality is exposed in a consistent, well-documented API that adheres to REST best practices.
+Implementing a complete REST API with perfect parity to both CodeKite functions and the MCP server will provide a comprehensive and flexible interface for all clients. This plan outlines a phased approach to ensure all functionality is exposed in a consistent, well-documented API that adheres to REST best practices.

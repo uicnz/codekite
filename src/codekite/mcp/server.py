@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Simple FastMCP server for CodeKit.
+Simple FastMCP server for CodeKite.
 
 This is a lightweight MCP server implementation that avoids
 complex typing issues. Use this for testing and development.
@@ -17,7 +17,7 @@ from datetime import datetime
 from fastmcp import FastMCP
 
 # Initialize server
-mcp = FastMCP(name="CodeKit Simple MCP", on_duplicate_tools="replace", on_duplicate_resources="replace")
+mcp = FastMCP(name="CodeKite Simple MCP", on_duplicate_tools="replace", on_duplicate_resources="replace")
 
 # Simple in-memory repository storage
 _repos = {}
@@ -393,7 +393,7 @@ async def codekite_get_repo_docstrings(repo_id):
 # Main function to run the server in standalone mode
 async def main():
     """Run the MCP server in standalone mode."""
-    print("[INFO] Starting Simple CodeKit MCP server...")
+    print("[INFO] Starting Simple CodeKite MCP server...")
     await mcp.run_async(transport="streamable-http", port=8000, host="0.0.0.0", path="/mcp")
 
 if __name__ == "__main__":

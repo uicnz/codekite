@@ -1,4 +1,4 @@
-"""CodeKit MCP server implementation."""
+"""CodeKite MCP server implementation."""
 
 # Define what this module exports
 __all__ = ["mcp"]

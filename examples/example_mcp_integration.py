@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """
-Example showing how to use CodeKit's MCP server to analyze a repository.
+Example showing how to use CodeKite's MCP server to analyze a repository.
 
 This example demonstrates how to:
-1. Connect to the CodeKit MCP server
+1. Connect to the CodeKite MCP server
 2. Open a repository
 3. Search for code
 4. Build context for an LLM
@@ -24,7 +24,7 @@ from fastmcp import Client
 
 # Define our async main function
 async def main():
-    print("[INFO] Connecting to CodeKit MCP server...")
+    print("[INFO] Connecting to CodeKite MCP server...")
 
     # Connect to the running MCP server
     # By default, we connect to the stdio transport

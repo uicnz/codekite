@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Test script for the CodeKit MCP server.
+Test script for the CodeKite MCP server.
 
 This script starts an MCP server in a subprocess and tests basic functionality
 using a client to ensure everything works correctly.

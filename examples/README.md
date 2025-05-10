@@ -85,7 +85,7 @@ This directory contains example scripts that demonstrate the capabilities of the
 
 ## Running the MCP Server
 
-The Model Context Protocol (MCP) server is a key component for the new analysis examples. It provides a standardized interface for AI assistants and other tools to access CodeKit's capabilities.
+The Model Context Protocol (MCP) server is a key component for the new analysis examples. It provides a standardized interface for AI assistants and other tools to access CodeKite's capabilities.
 
 ### Server Setup
 
@@ -94,7 +94,7 @@ The Model Context Protocol (MCP) server is a key component for the new analysis 
 uv run python -m src.codekite.mcp.server
 
 # The server will output:
-# [INFO] Starting Simple CodeKit MCP server...
+# [INFO] Starting Simple CodeKite MCP server...
 # INFO:     Started server process [...]
 # INFO:     Waiting for application startup.
 # INFO:     Application startup complete.

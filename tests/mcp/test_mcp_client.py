@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Test script for the CodeKit MCP client.
+Test script for the CodeKite MCP client.
 
 This script tests the MCP client functionality against a running MCP server.
 It verifies that the client can properly connect, discover available tools

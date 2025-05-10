@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Repository analyzer using CodeKit MCP.
+Repository analyzer using CodeKite MCP.
 
 This script uses the MCP client to analyze a GitHub repository.
 """
@@ -12,7 +12,7 @@ import argparse
 from fastmcp import Client
 
 async def analyze_repository(repo_url, search_query=None, max_results=10):
-    """Analyze a repository using CodeKit MCP tools."""
+    """Analyze a repository using CodeKite MCP tools."""
     print(f"[INFO] Analyzing repository: {repo_url}")
     client = Client("http://localhost:8000/mcp")
 
@@ -189,7 +189,7 @@ async def analyze_repository(repo_url, search_query=None, max_results=10):
             print(f"[ERROR] Context building error: {str(e)[:100]}")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Analyze a GitHub repository using CodeKit MCP")
+    parser = argparse.ArgumentParser(description="Analyze a GitHub repository using CodeKite MCP")
     parser.add_argument("repository_url", help="URL of the repository to analyze")
     parser.add_argument("--search", help="Search query for specific functionality", default="main functionality")
     parser.add_argument("--max-results", type=int, help="Maximum number of search results to display", default=10)

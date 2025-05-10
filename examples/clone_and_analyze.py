@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Repository cloner and analyzer using CodeKit MCP.
+Repository cloner and analyzer using CodeKite MCP.
 
 This script clones the repository first, then uses the MCP client to analyze it locally.
 """
@@ -16,7 +16,7 @@ from pathlib import Path
 from fastmcp import Client
 
 async def clone_and_analyze_repository(repo_url):
-    """Clone and analyze a repository using CodeKit MCP tools."""
+    """Clone and analyze a repository using CodeKite MCP tools."""
     print(f"[INFO] Analyzing repository: {repo_url}")
 
     # Create a temporary directory for cloning
