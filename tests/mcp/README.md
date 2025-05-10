@@ -1,6 +1,6 @@
 # CodeKite MCP Tests
 
-This directory contains tests for the CodeKite Model Context Protocol (MCP) server and client.
+This directory contains interactive tests for the CodeKite Model Context Protocol (MCP) server and client. These tests are primarily designed for developer use, manual verification, and demonstrations.
 
 ## Test Files Overview
 
@@ -59,6 +59,18 @@ Each test validates the core MCP functionality:
 6. Summary resource access
 
 The tests differ in their output verbosity, error handling, and setup/teardown processes.
+
+## Human-Oriented Testing
+
+These tests are specifically designed for interactive use by developers rather than automated CI/CD systems:
+
+- They provide human-readable output with descriptive messages
+- Most require manual server startup and configuration
+- They display formatted JSON results for visual inspection
+- They're optimized for different debugging and demonstration scenarios
+- They contain detailed debug information to help diagnose issues
+
+While `test_mcp_server.py` is intended to eventually support CI/CD environments, the current implementation of all tests is oriented toward human interaction.
 
 ## Choosing the Right Test
 
