@@ -42,7 +42,7 @@ The tool:
 ### Integration Workflow
 
 1. **Identify**: Find valuable commits or features in Kit
-2. **Extract**: Use `fetch_commit.py` to download the relevant files
+2. **Extract**: Use `fetch_commit.py` to download the relevant files - note: we are here in the process
 3. **Review**: Examine the changes in isolation
 4. **Adapt**: Convert to CodeKite's patterns:
    - Rename namespace from `kit` to `codekite`
