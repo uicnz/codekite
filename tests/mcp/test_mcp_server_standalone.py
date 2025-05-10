@@ -1,15 +1,18 @@
 #!/usr/bin/env python
 """
-Test script for the standalone CodeKite MCP server.
+Test for CodeKite MCP server in standalone mode.
 
-This script tests the already-running MCP server for basic functionality.
+This test validates that the standalone MCP server mode works correctly,
+testing all core functionality with verbose output for debugging:
+- Repository operations
+- Code searching
+- Structure resource access
+- Summary resource access
+
+This test assumes a standalone MCP server is already running on port 8000.
 
 Usage:
-  # First start the server in another terminal:
-  # $ python standalone_mcp_server.py
-
-  # Then run this test script:
-  # $ python test_standalone_mcp.py
+  $ python test_mcp_server_standalone.py
 """
 
 import asyncio
@@ -38,7 +41,7 @@ async def run_tests():
         # Test 1: Open a repository
         try:
             print("[INFO] Opening repository...")
-            result = await client.call_tool("open_repository", {
+            result = await client.call_tool("codekite_open_repository", {
                 "path_or_url": str(Path.cwd())
             })
             print(f"[DEBUG] Open repository result type: {type(result)}")
@@ -66,7 +69,7 @@ async def run_tests():
         # Test 2: Search for code
         try:
             print("[INFO] Searching for code...")
-            result = await client.call_tool("search_code", {
+            result = await client.call_tool("codekite_search_code", {
                 "repo_id": repo_id,
                 "query": "def",
                 "file_pattern": "*.py"
@@ -94,7 +97,7 @@ async def run_tests():
         # Test 3: Access repository structure
         try:
             print("[INFO] Getting repository structure...")
-            resource_result = await client.read_resource(f"repository://{repo_id}/structure")
+            resource_result = await client.read_resource(f"codekite://repository/{repo_id}/structure")
             print(f"[DEBUG] Structure result type: {type(resource_result)}")
 
             # Handle resource result
@@ -116,7 +119,7 @@ async def run_tests():
         # Test 4: Access repository summary
         try:
             print("[INFO] Getting repository summary...")
-            resource_result = await client.read_resource(f"repository://{repo_id}/summary")
+            resource_result = await client.read_resource(f"codekite://repository/{repo_id}/summary")
             print(f"[DEBUG] Summary result type: {type(resource_result)}")
 
             # Handle resource result

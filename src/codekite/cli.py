@@ -92,6 +92,8 @@ def mcp_serve(
     port: int = typer.Option(8000, "--port", "-p", help="Port to bind server"),
     mcp_path: str = typer.Option("/mcp", "--path", help="Path for MCP endpoint (for HTTP transports)"),
     reload: bool = typer.Option(False, "--reload", help="Enable auto-reload for development"),
+    use_asgi: bool = typer.Option(True, "--asgi/--simple", help="Use ASGI-compatible server (recommended)"),
+    log_level: str = typer.Option("info", "--log-level", help="Log level (debug, info, warning, error)"),
 ):
     """Run the codekite MCP server with configurable transport protocols."""
     try:
@@ -99,50 +101,112 @@ def mcp_serve(
         import importlib.util
         if importlib.util.find_spec("fastmcp") is None:
             raise ImportError("FastMCP is not installed")
-    except ImportError:
-        typer.secho(
-            "Error: FastMCP or uvicorn not installed. Please run `uv add fastmcp uvicorn`",
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(code=1)
 
-    try:
-        # Import after we've verified packages are installed
-        from codekite.mcp import mcp
+        # Check for required packages
+        if importlib.util.find_spec("starlette") is None and use_asgi:
+            raise ImportError("Starlette is not installed but required for ASGI mode")
+
+        if importlib.util.find_spec("uvicorn") is None and transport != MCPTransport.STDIO:
+            raise ImportError("Uvicorn is not installed but required for HTTP transports")
+
     except ImportError as e:
         typer.secho(
-            f"Error importing MCP module from codekite: {e}",
+            f"Error: {e}. Please run `uv add fastmcp uvicorn starlette`",
             fg=typer.colors.RED,
-        )
-        typer.secho(
-            "This might be due to a missing dependency or an error in the MCP implementation.",
-            fg=typer.colors.YELLOW,
         )
         raise typer.Exit(code=1)
 
-    # Configure transport based on user selection
+    # For STDIO transport, always use the simple mode
     if transport == MCPTransport.STDIO:
+        use_asgi = False
         typer.echo("Starting CodeKite MCP server with STDIO transport")
-        mcp.run(transport="stdio")
+
+        try:
+            from codekite.mcp import mcp
+            mcp.run(transport="stdio")
+        except ImportError as e:
+            typer.secho(
+                f"Error importing MCP module from codekite: {e}",
+                fg=typer.colors.RED,
+            )
+            raise typer.Exit(code=1)
+        return
+
+    # For HTTP transports (Streamable HTTP or SSE)
+    transport_str = transport.value  # Convert enum to string
+
+    if use_asgi:
+        # Use the new ASGI implementation
+        try:
+            import uvicorn
+            import asyncio
+            from codekite.mcp.asgi import app, run_server
+
+            # Print server info
+            if transport == MCPTransport.STREAMABLE_HTTP:
+                typer.echo(f"Starting CodeKite MCP server (ASGI) with Streamable HTTP transport on http://{host}:{port}{mcp_path}")
+            elif transport == MCPTransport.SSE:
+                typer.echo(f"Starting CodeKite MCP server (ASGI) with SSE transport on http://{host}:{port}")
+
+            # Handle reload case using uvicorn directly
+            if reload:
+                uvicorn.run(
+                    "codekite.mcp.asgi:app",
+                    host=host,
+                    port=port,
+                    reload=True,
+                    log_level=log_level
+                )
+            else:
+                # Use our run_server function for non-reload mode
+                asyncio.run(run_server(host=host, port=port, log_level=log_level))
+
+        except ImportError as e:
+            typer.secho(
+                f"Error importing ASGI module from codekite: {e}",
+                fg=typer.colors.RED,
+            )
+            typer.secho(
+                "This might be due to a missing dependency or an error in the MCP implementation.",
+                fg=typer.colors.YELLOW,
+            )
+            raise typer.Exit(code=1)
     else:
-        # For HTTP-based transports
-        transport_str = transport.value  # Convert enum to string
-        config = {
-            "host": host,
-            "port": port,
-        }
+        # Use the simple implementation
+        try:
+            from codekite.mcp import mcp
 
-        if transport == MCPTransport.STREAMABLE_HTTP:
-            typer.echo(f"Starting CodeKite MCP server with Streamable HTTP transport on http://{host}:{port}{mcp_path}")
-            config["path"] = mcp_path
-        elif transport == MCPTransport.SSE:
-            typer.echo(f"Starting CodeKite MCP server with SSE transport on http://{host}:{port}")
+            # Print server info
+            if transport == MCPTransport.STREAMABLE_HTTP:
+                typer.echo(f"Starting CodeKite MCP server (Simple) with Streamable HTTP transport on http://{host}:{port}{mcp_path}")
+            elif transport == MCPTransport.SSE:
+                typer.echo(f"Starting CodeKite MCP server (Simple) with SSE transport on http://{host}:{port}")
 
-        # Configure CORS for development
-        config["cors_origins"] = ["*"]
+            # Configure settings
+            config = {
+                "host": host,
+                "port": port,
+            }
 
-        # Run FastMCP with the appropriate transport
-        mcp.run(transport=transport_str, **config)
+            if transport == MCPTransport.STREAMABLE_HTTP:
+                config["path"] = mcp_path
+
+            # Configure CORS for development
+            config["cors_origins"] = ["*"]
+
+            # Run FastMCP with the appropriate transport
+            mcp.run(transport=transport_str, **config)
+
+        except ImportError as e:
+            typer.secho(
+                f"Error importing MCP module from codekite: {e}",
+                fg=typer.colors.RED,
+            )
+            typer.secho(
+                "This might be due to a missing dependency or an error in the MCP implementation.",
+                fg=typer.colors.YELLOW,
+            )
+            raise typer.Exit(code=1)
 
 
 if __name__ == "__main__":

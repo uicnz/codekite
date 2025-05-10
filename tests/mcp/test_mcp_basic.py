@@ -1,8 +1,17 @@
 #!/usr/bin/env python
 """
-Simplified MCP server test script.
+Basic test for CodeKite MCP server.
 
-This script tests the already-running MCP server with minimal output.
+This is a simplified test that checks basic MCP functionality:
+- Server connection
+- Repository operations
+- Code search
+- Resource access
+
+This test assumes an MCP server is already running on port 8000.
+
+Usage:
+  $ python test_mcp_basic.py
 """
 
 import asyncio
@@ -27,7 +36,7 @@ async def run_tests():
 
         # Test 1: Open a repository
         try:
-            result = await client.call_tool("open_repository", {
+            result = await client.call_tool("codekite_open_repository", {
                 "path_or_url": str(Path.cwd())
             })
 
@@ -49,7 +58,7 @@ async def run_tests():
 
         # Test 2: Search for code
         try:
-            result = await client.call_tool("search_code", {
+            result = await client.call_tool("codekite_search_code", {
                 "repo_id": repo_id,
                 "query": "def",
                 "file_pattern": "*.py"
@@ -73,7 +82,7 @@ async def run_tests():
         # Test 3: Access repository structure
         try:
             print("[INFO] Getting repository structure...")
-            resource_uri = f"repository://{repo_id}/structure"
+            resource_uri = f"codekite://repository/{repo_id}/structure"
             resource_result = await client.read_resource(resource_uri)
 
             # Debug info
@@ -120,7 +129,7 @@ async def run_tests():
         # Test 4: Access repository summary
         try:
             print("[INFO] Getting repository summary...")
-            resource_uri = f"repository://{repo_id}/summary"
+            resource_uri = f"codekite://repository/{repo_id}/summary"
             resource_result = await client.read_resource(resource_uri)
 
             # Debug info

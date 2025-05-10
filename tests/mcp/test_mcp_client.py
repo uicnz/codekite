@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 """
-Test script for the CodeKite MCP client.
+Test for CodeKite MCP client API.
 
-This script tests the MCP client functionality against a running MCP server.
-It verifies that the client can properly connect, discover available tools
-and resources, and call them with the appropriate parameters.
+This test verifies that the MCP client can properly connect to a server,
+discover and call tools, and access resources with the appropriate parameters.
+It focuses on testing the client API functionality rather than server features.
+
+This test assumes an MCP server is already running on port 8000.
 
 Usage:
-  # First start the server in another terminal:
-  # $ python -m codekite.mcp.standalone_mcp_server
-
-  # Then run this test script:
-  # $ python -m tests.mcp.test_mcp_client
+  $ python test_mcp_client.py
 """
 
 import asyncio

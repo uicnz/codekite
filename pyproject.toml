@@ -26,6 +26,7 @@ dependencies = [
     "mypy",
     "ruff",
     "black",
+    "aiohttp>=3.11.18",
 ]
 
 [project.urls]
